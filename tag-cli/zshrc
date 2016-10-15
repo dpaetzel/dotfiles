@@ -1,56 +1,13 @@
-# Path to your oh-my-zsh configuration.
-ZSH=$HOME/.oh-my-zsh
+source ~/.zsh/oh-my-zsh-boilerplate.zsh
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-# ZSH_THEME="af-magic-mine"
-ZSH_THEME="time-separates-us"
+# exports: see .zshenv
 
-# Set to this to use case-sensitive completion
-# CASE_SENSITIVE="true"
-
-# Comment this out to disable bi-weekly auto-update checks
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment to change how often before auto-updates occur? (in days)
-# export UPDATE_ZSH_DAYS=13
-
-# Uncomment following line if you want to disable colors in ls
-# DISABLE_LS_COLORS="true"
-
-# Uncomment following line if you want to disable autosetting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment following line if you want to disable command autocorrection
-DISABLE_CORRECTION="true"
-
-# Uncomment following line if you want red dots to be displayed while waiting for completion
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment following line if you want to disable marking untracked files under
-# VCS as dirty. This makes repository status check for large repositories much,
-# much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# plugins=(zsh-autosuggestions history-substring-search git git-annex)
-plugins=(history-substring-search git git-annex)
-
-# history suggestions are yellow, currently
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=3"
-
-unsetopt beep sharehistory
-autoload zmv
-
-source $ZSH/oh-my-zsh.sh
+source $HOME/.zsh/interface.zsh
 source $HOME/.zsh/z/z.sh
 
-# exports
-# --> .zshenv
+source $HOME/.zsh/suffixes.zsh
+source $HOME/.zsh/globals.zsh
+source $HOME/.zsh/directories.zsh
 
 # general command redefinitions
 alias grep='grep --color'
@@ -65,40 +22,157 @@ alias c='clear'
 alias v='emacsclient -a emacs'
 alias so='source ~/.zshrc'
 alias here='nohup urxvt -uc > /dev/null &'
-
 alias pxx='ps ax o %cpu,%mem,comm,pid,start k-%cpu,-%mem'
 alias px='pxx | head -20'
+
+# ssh key management
+function sadd {
+    # if ssh-agent is not running in this terminal: start it
+    if [[ -z $SSH_AGENT_PID ]]; then
+        eval $(ssh-agent | head -2)
+    fi
+
+    # if only one parameter provided: use it as filename for the key
+    if [[ -z $2 ]]; then
+        if (ssh-add -l | cut -d \  -f 3 | grep $1 > /dev/null); then
+            echo "key already loaded"
+        else
+            ssh-add $1
+        fi
+    # else use provided host and user name to generate a filename
+    else
+        if (ssh-add -l | cut -d \  -f 3 | grep $HOME/.ssh/id_rsa.$1.$2 > /dev/null); then
+            echo "key already loaded"
+        else
+            ssh-add ~/.ssh/id_rsa.$1.$2
+        fi
+    fi
+}
+alias gadd='sadd ~/.ssh/id_rsa.github'
+alias hadd='sadd heraklit guest'
+
+# dropbox-related commands
+# list sync status of current dir
+function lsd {
+    dropbox-cli filestatus |\
+        grep -v "^\." |\
+        grep -v ":.*unwatched" |\
+        sed -r "s/up to date/■/; s/syncing/□/; s/(.*): *([■□])/\2 \1/"
+}
+
+# dropbox is loading what?
+function dbw {
+    for x in $(find ~/Dropbox); do
+        dropbox-cli filestatus ${(f)"$(print $x)"} | grep -v "up to date"
+    done
+}
+alias dbs='dropbox-cli status'
+alias dbstop='dropbox-cli stop'
+alias dbstart='dropbox-cli start'
+alias dbss='watch dropbox-cli status'
+
+# xdg-mime stuff
+function which-app {
+    mimetype=`xdg-mime query filetype $1`
+    application=`xdg-mime query default $mimetype | sed -r 's/\.desktop//'`
+    printf "$mimetype: $application\n"
+}
+alias set-app='xdg-mime default'
+
+# git abbreviations
+alias g='git'
+alias a='git annex'
+alias add='git annex add'
+
+# systemctl aliases
+alias sctl='sudo systemctl'
+alias start="sudo systemctl start"
+alias stop="sudo systemctl stop"
+alias restart="sudo systemctl restart"
+
+# file operations
+alias ls='ls --color=auto'
+alias l='ls -CF'
+alias la='ls -A'
+alias lla='ls -alFh'
+alias lld='du -h | grep "\./[^/]\+$" | sed -e "s/\(.*\)\.\/\(.*\)/\1\2/"'
+alias df='dfc'
+alias f='find . -name'
+alias rm='mv -v --target-directory=$HOME/.TRASH'
+alias rmr='command rm -rfv'
+alias cp='cp -v'
+alias mv='mv -v'
+alias mmv='noglob zmv'
+alias x='chmod +x'
+function getimgs {
+    folder=img-`date -I`
+    mkdir $folder
+    cd $folder
+    adb pull storage/sdcard1/DCIM/Camera
+}
+function sortimgs {
+    local folder=$(mktemp -d -p .)
+    feh --action "mv %n $folder" --action1 "mkdir TRASH; mv %n TRASH"
+    ls $folder
+    read name
+    mv $folder $name
+}
+
+# sbt commands
+alias sc='sbt "~compile"'
+alias stc='sbt "~test:compile"'
+function st {
+    while true; do
+        if [[ -z $@ ]]; then
+            sbt test
+        else
+            sbt "test-only $*"
+        fi
+        read
+    done
+}
+function sr { sbt "run $@" }
+function srm { sbt "run-main $@" }
+function sr- { sbt "~run $@" }
+function srm- { sbt "~run-main $@" }
+function sbtmuch {
+    while true; do
+        columns=$(tput cols)
+        let "lines = $(tput lines) - 1"
+        tail_lines=4
+        let "head_lines = $lines - $tail_lines"
+        echo "compiling..."
+        sbt $1 | fold -s --width=$columns > compile.log
+        clear
+        log_lines=`wc -l compile.log | sed "s/ .*//"`
+        if [[ $log_lines -gt $lines ]]; then
+            head -$head_lines compile.log
+            tail -$tail_lines compile.log
+        else
+            cat compile.log
+        fi
+        read
+    done
+}
+alias stcmuch='sbtmuch test:compile'
+alias scmuch='sbtmuch compile'
+
+# power management
+alias unparm='sudo hdparm -B 254 /dev/sda'
+alias woff='sudo iwconfig wlp3s0 txpower off'
+alias won='sudo iwconfig wlp3s0 txpower on'
 
 # misc
 alias sortc='LC_COLLATE=C sort'
 alias linesifs="IFS=$'\n'"
 alias normalifs="unset IFS"
-
 alias imap='killall -9 offlineimap && sleep 1 && offlineimap'
 alias reconky='killall conky; conky -c ~/.conkyrc'
 alias bt='sudo bluetoothctl'
 alias pg='pdfgrep --ignore-case --page-number'
-
 alias hids='cat /sys/class/hidraw/hidraw*/device/uevent | grep NAME'
 alias pair_it='sudo pairing_tool /dev/`ls -l /sys/class/hidraw/hidraw*/device/driver | awk -F/ '/receiver/{print $5}'`'
-
 alias vboxmods='sudo modprobe vboxdrv && sudo modprobe vboxnetadp && sudo modprobe vboxnetflt && sudo modprobe vboxpci'
-
-# source ordered stuff
-source $HOME/.zsh/interface.zsh
-
-source $HOME/.zsh/suffixes.zsh
-source $HOME/.zsh/globals.zsh
-
-source $HOME/.zsh/directories.zsh
-source $HOME/.zsh/dropbox.zsh
-source $HOME/.zsh/ssh.zsh
-source $HOME/.zsh/xdg-mime.zsh
-source $HOME/.zsh/git.zsh
-source $HOME/.zsh/systemctl.zsh
-source $HOME/.zsh/files.zsh
-source $HOME/.zsh/sbt.zsh
-source $HOME/.zsh/power.zsh
 
 # not ordered
 alias wifi="iwconfig | grep -i --color quality | sed -r 's/.*=([^ ]+).*=([^ ]+).*/\1 (\2 dBm)/'"
