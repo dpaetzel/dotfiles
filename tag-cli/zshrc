@@ -52,16 +52,13 @@ alias gadd='sadd ~/.ssh/id_rsa.github'
 alias hadd='sadd heraklit guest'
 
 # dropbox-related commands
-# list sync status of current dir
-function lsd {
+function lsd { # list sync status of current dir
     dropbox-cli filestatus |\
         grep -v "^\." |\
         grep -v ":.*unwatched" |\
         sed -r "s/up to date/■/; s/syncing/□/; s/(.*): *([■□])/\2 \1/"
 }
-
-# dropbox is loading what?
-function dbw {
+function dbw { # dropbox is loading what?
     for x in $(find ~/Dropbox); do
         dropbox-cli filestatus ${(f)"$(print $x)"} | grep -v "up to date"
     done
