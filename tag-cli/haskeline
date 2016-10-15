@@ -1,0 +1,5 @@
+bellStyle: NoBell
+completionType: ListCompletion
+editMode: Vi
+historyDuplicates: IgnoreAll
+maxhistorysize: Just 10000
