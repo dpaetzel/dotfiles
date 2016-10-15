@@ -1,0 +1,456 @@
+# Path to your oh-my-zsh configuration.
+ZSH=$HOME/.oh-my-zsh
+
+# Set name of the theme to load.
+# Look in ~/.oh-my-zsh/themes/
+# Optionally, if you set this to "random", it'll load a random theme each
+# time that oh-my-zsh is loaded.
+# ZSH_THEME="af-magic-mine"
+ZSH_THEME="time-separates-us"
+
+# Set to this to use case-sensitive completion
+# CASE_SENSITIVE="true"
+
+# Comment this out to disable bi-weekly auto-update checks
+# DISABLE_AUTO_UPDATE="true"
+
+# Uncomment to change how often before auto-updates occur? (in days)
+# export UPDATE_ZSH_DAYS=13
+
+# Uncomment following line if you want to disable colors in ls
+# DISABLE_LS_COLORS="true"
+
+# Uncomment following line if you want to disable autosetting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment following line if you want to disable command autocorrection
+DISABLE_CORRECTION="true"
+
+# Uncomment following line if you want red dots to be displayed while waiting for completion
+# COMPLETION_WAITING_DOTS="true"
+
+# Uncomment following line if you want to disable marking untracked files under
+# VCS as dirty. This makes repository status check for large repositories much,
+# much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# plugins=(zsh-autosuggestions history-substring-search git git-annex)
+plugins=(history-substring-search git git-annex)
+
+# history suggestions are yellow, currently
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=3"
+
+source $ZSH/oh-my-zsh.sh
+source $HOME/.zsh/z/z.sh
+
+unsetopt beep sharehistory
+autoload zmv
+
+# vim key bindings
+bindkey -v
+
+# actually print global aliases after hitting space
+function globalias () {
+    if [[ $LBUFFER =~ '^(|.* )[A-Z0-9]+$' ]]; then
+        zle _expand_alias
+        zle expand-word
+    fi
+    zle self-insert
+}
+zle -N globalias
+bindkey -M viins ' ' globalias
+bindkey -M viins '^ ' magic-space  # control-space to bypass completion
+bindkey -M isearch ' ' magic-space # normal space during searches
+
+# substring search keybindings
+bindkey "^[[A" history-substring-search-up
+bindkey "^[[B" history-substring-search-down
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
+
+# exports
+# --> .zshenv
+
+# locales
+# export LC_ALL="en_US.UTF-8"
+# export LANG="en_US.UTF-8"
+# export LANGUAGE="en_US.UTF-8"
+
+# rvm setup
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+
+# suffix aliases
+
+# open documents or other files
+alias -s dia='dia'
+alias -s DIA='dia'
+alias -s gif='gif'
+alias -s GIF='gif'
+alias -s jpg='geeqie'
+alias -s JPG='geeqie'
+alias -s png='geeqie'
+alias -s PNG='geeqie'
+alias -s odt='libreoffice'
+alias -s ODT='libreoffice'
+alias -s ods='libreoffice'
+alias -s ODS='libreoffice'
+alias -s doc='libreoffice'
+alias -s DOC='libreoffice'
+alias -s docx='libreoffice'
+alias -s DOCX='libreoffice'
+alias -s xls='libreoffice'
+alias -s XLS='libreoffice'
+alias -s xlsx='libreoffice'
+alias -s XLSX='libreoffice'
+alias -s pdf='zathura'
+alias -s PDF='zathura'
+alias -s torrent='transmission-cli'
+alias -s TORRENT='transmission-cli'
+alias -s mp4='vlc'
+alias -s MP4='vlc'
+alias -s org='v'
+
+# list content of packed files
+alias -s zip="als"
+alias -s ZIP="als"
+alias -s rar="als"
+alias -s RAR="als"
+alias -s tar="als"
+alias -s TAR="als"
+alias -s tar.gz="als"
+alias -s TAR.gz="als"
+alias -s ace="als"
+alias -s ACE="als"
+
+# global aliases
+
+alias -g B='&!'
+alias -g H='| head'
+alias -g T='| tail'
+alias -g G='| grep --color -i -E'
+alias -g S='| sed -r'
+alias -g L='| less'
+alias -g W='| wc -l'
+alias -g NF='*(.om[1])'
+alias -g NFF='*(/om[1])'
+alias -g ND='~/Temporary/*(.om[1])'
+
+# named directories
+
+hash -d platon='/run/media/$USER/PLATON'
+hash -d udo='/run/media/$USER/UDO'
+hash -d heron='/run/media/$USER/HERON'
+hash -d demokrit='/run/media/$USER/DEMOKRIT'
+hash -d thales='/run/media/$USER/THALES'
+# hash -d kindle='/run/media/$USER/KINDLE'
+hash -d zoom='/run/media/$USER/ZOOM'
+hash -d zeno='/run/media/$USER/ZENO'
+hash -d projects=$HOME/Projects
+
+# functions
+
+# clean java
+function cj {
+  name=`ruby -e "puts \"$1\".split('.')[0]"` javac $1 && java $name ${@:2}
+  rm $name.class
+}
+
+# clean gcc
+function ccc {
+  # name=`ruby -e "puts \"$1\".split('.')[0]"`
+  if gcc -ansi -pedantic -Wall -Wextra -lm $1; then
+      ./a.out ${@:2}
+      echo "\nEXITED WITH STATUS: $fg[red]$?$fg[white]"
+      command rm a.out
+  fi
+}
+
+# ls dropbox status
+function lsd {
+  dropbox-cli filestatus | grep -v "^\." | grep -v ":.*unwatched" | sed -r "s/up to date/■/; s/syncing/□/; s/(.*): *([■□])/\2 \1/"
+}
+
+# dropbox is loading what?
+function dbw {
+  for x in $(find ~/Dropbox); do
+    dropbox-cli filestatus ${(f)"$(print $x)"} | grep -v "up to date"
+  done
+}
+
+# ssh key management
+function sadd {
+    # if ssh-agent is not running in this terminal: start it
+    if [[ -z $SSH_AGENT_PID ]]; then
+        eval $(ssh-agent | head -2)
+    fi
+
+    # if only one parameter provided: use it as filename for the key
+    if [[ -z $2 ]]; then
+        if (ssh-add -l | cut -d \  -f 3 | grep $1 > /dev/null); then
+            echo "key already loaded"
+        else
+            ssh-add $1
+        fi
+    # else use provided host and user name to generate a filename
+    else
+        if (ssh-add -l | cut -d \  -f 3 | grep $HOME/.ssh/id_rsa.$1.$2 > /dev/null); then
+            echo "key already loaded"
+        else
+            ssh-add ~/.ssh/id_rsa.$1.$2
+        fi
+    fi
+}
+
+# general aliases
+
+alias s='sudo'
+alias c='clear'
+alias v='emacsclient -a emacs'
+alias g='git'
+alias a='git annex'
+alias aa='git annex add'
+alias so='source ~/.zshrc'
+alias grep='grep --color'
+alias feh='feh -x -. --draw-filename'
+alias here='nohup urxvt -uc > /dev/null &'
+alias p='ls ~/Projects/*.org | sed -r "s/.*Projects\/(.*).org/\1/"'
+alias pxx='ps ax o %cpu,%mem,comm,pid,start k-%cpu,-%mem'
+alias px='pxx | head -20'
+
+# package management
+
+alias up='packer -Syu'
+alias pa='packer'
+alias pm='sudo pacman'
+alias pmq='pacman -Qs'
+alias pmi='packer -Si'
+alias orphans='pacman -Qtdq'
+alias plog='cat /var/log/pacman.log'
+
+# xdg-mime stuff
+
+function which-app {
+    mimetype=`xdg-mime query filetype $1`
+    application=`xdg-mime query default $mimetype | sed -r 's/\.desktop//'`
+    printf "$mimetype: $application\n"
+}
+alias set-app='xdg-mime default'
+
+# systemctl stuff
+
+alias sctl='sudo systemctl'
+alias start="sudo systemctl start"
+alias stop="sudo systemctl stop"
+alias restart="sudo systemctl restart"
+
+# file operation aliases
+
+alias ls='ls --color=auto'
+alias l='ls -CF'
+alias la='ls -A'
+alias lla='ls -alFh'
+alias df='dfc'
+alias f='find . -name'
+alias lld='du -h | grep "\./[^/]\+$" | sed -e "s/\(.*\)\.\/\(.*\)/\1\2/"'
+alias rm='mv -v --target-directory=$HOME/.TRASH'
+alias rmr='command rm -rfv'
+alias cp='cp -v'
+alias mv='mv -v'
+alias x='chmod +x'
+alias mmv='noglob zmv'
+function getimgs {
+    folder=img-`date -I`
+    mkdir $folder
+    cd $folder
+    adb pull storage/sdcard1/DCIM/Camera
+}
+function sortimgs {
+    local folder=$(mktemp -d -p .)
+    feh --action "mv %n $folder" --action1 "mkdir TRASH; mv %n TRASH"
+    ls $folder
+    read name
+    mv $folder $name
+}
+
+# dropbox
+
+alias dbs='dropbox-cli status'
+alias dbstop='dropbox-cli stop'
+alias dbstart='dropbox-cli start'
+alias dbss='watch dropbox-cli status'
+
+# disk/mount operation aliases
+
+alias unparm='s hdparm -B 254 /dev/sda'
+# alias heron='udiskctl mount -b /dev/disk/by-label/HERON heron'
+# alias thales='udiskctl mount -b /dev/disk/by-label/THALES thales'
+# alias platon='udiskctl mount -b /dev/disk/by-uuid/5A22DB2D22DB0CBF platon'
+# alias demokrit='udiskctl mount -b /dev/disk/by-label/DEMOKRIT demokrit'
+# alias udo='udiskctl mount -b /dev/disk/by-uuid/2D72-B672 udo'
+# alias kindle='udiskctl mount -b /dev/disk/by-uuid/0000-0021 kindle'
+# alias zoom='udiskctl mount -b /dev/disk/by-uuid/E0FD-1813 zoom'
+
+# typeset -A mounts
+# mounts=(
+#     heron     /dev/disk/by-label/HERON
+#     thales    /dev/disk/by-label/THALES
+#     platon    /dev/disk/by-uuid/5A22DB2D22DB0CBF
+#     demokrit  /dev/disk/by-label/DEMOKRIT
+#     udo       /dev/disk/by-uuid/2D72-B672
+#     kindle    /dev/disk/by-uuid/0000-0021
+#     zoom      /dev/disk/by-uuid/E0FD-1813
+# )
+# function mnt {
+#     path=$mounts[$1]
+#     echo $path
+#     if [[ -n $path ]]; then
+#         command udisksctl mount -b $path
+#     else
+#         command udisksctl mount -b $1
+#     fi
+# }
+# function umnt {
+#     path=$mounts[$1]
+#     if [[ -n $path ]]; then
+#         command udisksctl unmount -b $path
+#     else
+#         command udisksctl unmount -b $1
+#     fi
+# }
+
+# java aliases
+
+alias ja='java -jar'
+alias j='java'
+alias jc='javac'
+alias java6="$HOME/Local/java6/usr/lib/jvm/java-6-openjdk/bin/java"
+alias javac6="$HOME/Local/java6/usr/lib/jvm/java-6-openjdk/bin/javac"
+# alias netlogo='cd $HOME/Local/netlogo-5.0.3/; optirun $HOME/Local/java6/usr/lib/jvm/java-6-openjdk/bin/java -jar NetLogo.jar &; cd -'
+alias eclim='/usr/share/eclipse/eclimd'
+
+# other programming aliases
+
+alias irb='irb --simple-prompt'
+alias ghc='ghc -outputdir /tmp'
+alias breve='$HOME/Local/breve_2.7.2/bin/breve'
+alias sc='sbt "~compile"'
+alias stc='sbt "~test:compile"'
+function st {
+    while true; do
+        if [[ -z $@ ]]; then
+            sbt test
+        else
+            sbt "test-only $*"
+        fi
+        read
+    done
+}
+function sr {
+    sbt "run $@"
+}
+function srm {
+    sbt "run-main $@"
+}
+function sr- {
+    sbt "~run $@"
+}
+function srm- {
+    sbt "~run-main $@"
+}
+function sbtmuch {
+    while true; do
+        columns=$(tput cols)
+        let "lines = $(tput lines) - 1"
+        tail_lines=4
+        let "head_lines = $lines - $tail_lines"
+        echo "compiling..."
+        sbt $1 | fold -s --width=$columns > compile.log
+        clear
+        log_lines=`wc -l compile.log | sed "s/ .*//"`
+        if [[ $log_lines -gt $lines ]]; then
+            head -$head_lines compile.log
+            tail -$tail_lines compile.log
+        else
+            cat compile.log
+        fi
+        read
+    done
+}
+alias stcmuch='sbtmuch test:compile'
+alias scmuch='sbtmuch compile'
+
+# networking
+
+alias woff='s iwconfig wlp3s0 txpower off'
+alias won='s iwconfig wlp3s0 txpower on'
+alias vino='hsetroot -solid \#000000 ; killall xcompmgr ; /usr/lib/vino/vino-server'
+alias nmcli="nmcli --ask"
+
+# penetration testing
+
+alias armitage='sudo ~/Local/java6/usr/lib/jvm/java-6-openjdk/bin/java -jar /opt/metasploit-4.3.0/msf3/data/armitage/armitage.jar'
+alias msfconsole='rvmsudo msfconsole -L'
+alias vboxmods='s modprobe vboxdrv; s modprobe vboxnetadp; s modprobe vboxnetflt; s modprobe vboxpci'
+
+# ssh
+
+alias gadd='sadd ~/.ssh/id_rsa.github'
+alias hadd='sadd heraklit guest'
+
+# misc
+
+alias sortc='LC_COLLATE=C sort'
+alias linesifs="IFS=$'\n'"
+alias normalifs="unset IFS"
+
+alias imap='pkill -9 offlineimap; sleep 1; offlineimap'
+alias reconky='killall conky ; conky -c ~/.conkyrc'
+alias tg='killall Telegram; telegram &!'
+alias bt='sudo bluetoothctl'
+alias pg='pdfgrep -in'
+
+alias hids='cat /sys/class/hidraw/hidraw*/device/uevent | grep NAME'
+alias pair_it='s pairing_tool /dev/`ls -l /sys/class/hidraw/hidraw*/device/driver | awk -F/ '/receiver/{print $5}'`'
+
+# not ordered
+
+function much {
+    echo not yet supported
+    exit 1
+    # while true; do
+    #     columns=$(tput cols)
+    #     let "lines = $(tput lines) - 1"
+    #     tail_lines=4
+    #     let "head_lines = $lines - $tail_lines"
+    #     echo "running $@..."
+    #     echo not yet supported
+    #     exit 1
+    #     setopt aliases
+    #     $@ | fold -s --width=$columns > compile.log
+    #     unsetopt aliases
+    #     clear
+    #     log_lines=`wc -l compile.log | sed "s/ .*//"`
+    #     if [[ $log_lines -gt $lines ]]; then
+    #         head -$head_lines compile.log
+    #         tail -$tail_lines compile.log
+    #     else
+    #         cat compile.log
+    #     fi
+    #     read
+    # done
+}
+alias wifi="iwconfig | grep -i --color quality | sed -r 's/.*=([^ ]+).*=([^ ]+).*/\1 (\2 dBm)/'"
+alias hl="hledger"
+function stripBankData {
+    cat $1 | cut -d ';' -f 2,5,6,9 | awk -v FS=';' '{ print $4 ";" $3 ";" $1 ";" $2 }'
+}
+alias adbAsRoot="if adb kill-server; then; sudo adb start-server; else; adb devices; fi"
+alias checkBuch="ledger --strict --f $HOME/Buchhaltung/Gesamt.journal bal"
+
+function sumRSS {
+    sumExpr=$(ps -e --format rss,comm | grep --color -i -E $1 | awk '{ print $1 }' | paste --delimiter + -s)
+    echo $(( ( $sumExpr ) / 1000 ))
+}

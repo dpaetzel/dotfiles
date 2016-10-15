@@ -1,0 +1,40 @@
+# {bash,zsh}env (inspired by zshenv)
+#
+# This file should contain commands to set the command search path, plus other
+# important environment variables; it should not contain commands that produce
+# output or assume the shell is attached to a tty.
+
+# default applications {{{
+export BROWSER="chromium"
+export EDITOR="emacsclient -c -a emacs"
+# }}}
+
+# application specific variables {{{
+# }}}
+
+# Xorg {{{
+export GTK_IM_MODULE=xim
+export QT_IM_MODULE=xim
+export _JAVA_AWT_WM_NONREPARENTING=1
+export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true'
+# nice, but kills some apps: -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel
+# export QT_STYLE_OVERRIDE=GTK+ # kills telegram (segmentation fault)
+# }}}
+
+# other {{{
+export _selected_drivers='ath9k'
+# }}}
+
+# CLASSPATH {{{
+# CLASSPATH+=":/usr/share/java/mysql-jdbc/mysql-connector-java-bin.jar"
+# CLASSPATH+=":/usr/share/java/sqlite-jdbc/sqlite-jdbc.jar"
+# export CLASSPATH
+# }}}
+
+# PATH {{{
+PATH=$PATH:$(find $HOME/Bin/ -type d | grep -v "\.git" | sed '/\/\\./d' | tr '\n' ':' | sed 's/:$//')
+PATH=$PATH:$HOME/.cabal/bin
+export PATH
+# }}}
+
+# vim: foldmethod=marker

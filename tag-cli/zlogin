@@ -1,0 +1,12 @@
+# zlogin
+#
+# Run after zshrc (and only in login shells!), this file is generally used for
+# automatic execution of user's scripts.
+
+# actions
+# start x if on tty1
+# if [ "$(tty)" = "/dev/tty1" ]; then
+
+#     exec startx
+#     # &> ~/.xlog
+# fi
