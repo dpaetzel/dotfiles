@@ -1,0 +1,82 @@
+alignment bottom_left
+background yes
+border_width 1
+cpu_avg_samples 2
+default_color white
+default_outline_color white
+default_shade_color white
+double_buffer yes
+draw_borders no
+draw_graph_borders yes
+draw_outline no
+draw_shades no
+use_xft yes
+xftfont Roboto:size=12
+gap_x 6
+gap_y -252
+maximum_width 1912
+maximum_height 32
+minimum_size 1354 32
+net_avg_samples 2
+no_buffers yes
+out_to_console no
+out_to_stderr no
+extra_newline no
+
+# own_window no
+# own_window_class Conky
+# own_window_type desktop
+# own_window_transparent yes
+# own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+
+own_window yes
+own_window_class Conky
+own_window_type panel
+own_window_transparent yes
+# own_window_color black
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+stippled_borders 0
+update_interval 1
+#uppercase yes
+use_spacer none
+show_graph_scale no
+show_graph_range no
+text_buffer_size 2048
+total_run_times 0
+
+TEXT
+$color${cpugraph cpu1 16,120 ffffff ffffff }\
+${voffset 16}${offset -120}${cpugraph cpu2 16,120 ffffff ffffff }
+${voffset -35}${offset 130}${cpugraph cpu3 16,120 ffffff ffffff }\
+${voffset 16}${offset -120}${cpugraph cpu4 16,120 ffffff ffffff }
+${voffset -39}${offset 260}$color${if_match $memperc >=  75}${color red}$endif${membar 8,120}\
+${voffset 8}${offset -120}$color${swapbar 8,120 ff0000 ff0000}\
+${voffset 8}${offset -120}$color${if_mounted /}${fs_bar 8,120 /}$endif\
+${voffset 8}${offset -120}${if_mounted /home}${fs_bar 8,120 /home}$endif
+${voffset -40}${offset 390}${texeci 3 a=`dropbox status`; if [[ $a == "Idle" ]]; then echo "U"; elif [[ $a == "Connecting..." ]]; then echo "C"; elif [[ $a == "Starting..." ]]; then echo "B"; else echo "S"; fi}
+${voffset 0}${offset 390}${texeci 1 if [[ `~/Bin/updates-check.rb` == "up to date" ]]; then echo "U"; else ~/Bin/updates-check.rb; fi}
+${voffset -38}${offset 420}${addr wlan0}
+${voffset 0}${offset 420}${texeci 60 ~/Bin/globalip.sh}
+${voffset -37}${offset 550}${downspeedgraph wlan0 16,120 ffffff ffffff 1400}
+${voffset -3}${offset 550}${upspeedgraph wlan0 16,120 ffffff ffffff 130}
+${voffset -36}${offset 680}${if_up wlan0}${wireless_essid wlan0} (${wireless_link_qual_perc wlan0}% / ${execi 10 ~/Bin/getencryptions.rb})${else}ethernet${endif}
+#${voffset -39}${offset 1040}${texeci 10 ~/Bin/formatted_ping.rb g.co -h}
+${voffset -0}${offset 680}${texeci 4 ~/Bin/formatted_ping.rb g.co -t}
+#${voffset -19}${offset 830}${freq 1}
+${voffset -37}${offset 930}${battery_bar 16,100}
+${voffset 0}${offset 930}${battery_time} (${battery_short})
+${voffset -39}${offset 1040}${tcp_portmon 22 22 rip 0}
+${voffset 0}${offset 1040}${tcp_portmon 22 22 rip 1}${color white}
+${voffset -43}${offset 1800}$color${font Roboto:size=32}${time %k:%M}
+# ${voffset -38}${offset 800}${top name 1}
+# ${voffset -20}${offset 860}| ${top name 2}
+# ${voffset -24}${offset 920}| ${top name 3}
+# ${voffset -0}${offset 800}${top_mem name 1} | ${top_mem name 2} | ${top_mem name 3} 
+# ${voffset -24}${offset 120}${if_mounted /media/cd0}${offset -120}${fs_bar 8,120 /media/cd0}$endif
+# ${voffset 8}${offset 0}${if_mounted /media/kindle}${offset -120}${fs_bar 8,120 /media/kindle}$endif
+# ${voffset 8}${offset 0}${if_mounted /media/heron}${offset -120}${fs_bar 8,120 /media/heron}$endif
+# ${voffset 8}${offset 0}${if_mounted /media/thales}${offset -120}${fs_bar 8,120 /media/thales}$endif
+# ${voffset -43}${offset 600}${if_mounted /mnt/democrit}${offset -120}${fs_bar 8,120 /mnt/democrit}$endif
+# ${voffset 8}${offset 0}${if_mounted /media/card0}${offset -120}${fs_bar 8,120 /media/card0}$endif
+# ${voffset 8}${offset 0}${if_mounted /media/heron}${offset -120}${fs_bar 8,120 /media/heron}$endif
+# ${voffset 8}${offset 0}${if_mounted /media/thales}${offset -120}${fs_bar 8,120 /media/thales}$endif

@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+sink_name=`pactl list sinks short | grep analog-stereo | cut -f 2`
+muted=`pactl -- list sinks | sed "/$sink_name/,/$sink_name/!d" | grep -E "Mute: .*" | sed "s/Mute: \(.*\)/\1/"`
+
+if (echo $muted | grep "yes" > /dev/null); then
+    echo "🔇"
+else
+    echo "🔊"
+fi

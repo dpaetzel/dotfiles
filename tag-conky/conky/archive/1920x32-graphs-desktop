@@ -1,0 +1,93 @@
+# Conky, a system monitor, based on torsmo
+
+alignment bottom_left
+background yes
+border_width 1
+cpu_avg_samples 2
+default_color white
+default_outline_color white
+default_shade_color white
+double_buffer yes
+draw_borders no
+draw_graph_borders yes
+draw_outline no
+draw_shades no
+use_xft yes
+xftfont Roboto:size=12
+gap_x 4
+gap_y -200
+maximum_width 1916
+# maximum_height 32
+minimum_size 1354 32
+net_avg_samples 2
+no_buffers yes
+out_to_console no
+out_to_stderr no
+extra_newline no
+
+# own_window no
+# own_window_class Conky
+# own_window_type desktop
+# own_window_transparent yes
+# own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+
+own_window yes
+own_window_class Conky
+own_window_type panel
+own_window_transparent yes
+# own_window_color black
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+stippled_borders 0
+update_interval 1
+#uppercase yes
+use_spacer none
+show_graph_scale no
+show_graph_range no
+text_buffer_size 2048
+total_run_times 0
+
+TEXT
+$color${cpugraph cpu1 16,120 ffffff ffffff }\
+${voffset 16}${offset -120}${cpugraph cpu2 16,120 ffffff ffffff }
+${voffset -35}${offset 130}${cpugraph cpu3 16,120 ffffff ffffff }\
+${voffset 16}${offset -120}${cpugraph cpu4 16,120 ffffff ffffff }
+${voffset -39}${offset 260}$color${membar 8,120}\
+${voffset 8}${offset -120}$color${swapbar 8,120}\
+${voffset 8}${offset -120}${if_mounted /}${fs_bar 8,120 /}$endif\
+${voffset 8}${offset -120}${if_mounted /home}${fs_bar 8,120 /home}$endif
+${voffset -40}${offset 390}${texeci 3 if [[ `dropbox status` == "up to date" ]]; then echo "U"; elif [[ `dropbox status` == "syncing" ]]; then echo "S"; else echo "E"; fi}
+# ${voffset 0}${offset 390}${texeci 1 if [[ `~/Bin/updates-check.rb` == "up to date" ]]; then echo "U"; else ~/Bin/updates-check.rb; fi}
+${voffset 0}${offset 390}${texeci 1 if [[ `checkupdates` == "" ]]; then echo "U"; else `checkupdates | wc -l`; fi}
+${voffset -38}${offset 420}${addr wlan0}
+${voffset 0}${offset 420}${execi 60 ~/Bin/network/global_ip.sh}
+${voffset -37}${offset 550}${downspeedgraph wlan0 16,120 ffffff ffffff 1400}
+${voffset -3}${offset 550}${upspeedgraph wlan0 16,120 ffffff ffffff 130}
+${voffset -36}${offset 680}${wireless_essid wlan0} (${wireless_link_qual_perc wlan0}%)
+# ${voffset -0}${offset 680}${execi 10 ~/Bin/getencryptions.rb}
+${voffset -0}${offset 680}ASDF
+${voffset -38}${offset 940}${moc_song}
+${voffset 0}${offset 940}${moc_album} (${moc_artist})
+${voffset -38}${offset 1220}${execi 1 ~/Bin/formatted_ping.rb g.co -A}
+
+# ${voffset -38}${offset 730}${execi 10 ping -c 3 g.co }
+${voffset -43}${offset 1800}$color${font Roboto:size=32}${time %k:%M}
+#
+# 
+# ${voffset -24}${offset 120}${if_mounted /media/cd0}${offset -120}${fs_bar 8,120 /media/cd0}$endif\
+# ${voffset 8}${offset 0}${if_mounted /media/kindle}${offset -120}${fs_bar 8,120 /media/kindle}$endif\
+# ${voffset 8}${offset 0}${if_mounted /media/heron}${offset -120}${fs_bar 8,120 /media/heron}$endif\
+# ${voffset 8}${offset 0}${if_mounted /media/thales}${offset -120}${fs_bar 8,120 /media/thales}$endif
+# ${voffset -43}${offset 600}${if_mounted /mnt/democrit}${offset -120}${fs_bar 8,120 /mnt/democrit}$endif\
+# ${voffset 8}${offset 0}${if_mounted /media/card0}${offset -120}${fs_bar 8,120 /media/card0}$endif\
+# ${voffset 8}${offset 0}${if_mounted /media/heron}${offset -120}${fs_bar 8,120 /media/heron}$endif\
+# ${voffset 8}${offset 0}${if_mounted /media/thales}${offset -120}${fs_bar 8,120 /media/thales}$endif
+# 
+# $nodename $alignr${offset -5}${color grey}hostname
+# ${voffset 5}$color$uptime_short $alignr${offset -30}${color grey}uptime
+# 
+# ${offset 4}$color${font DejaVu Sans:size=12}${time %a, %d. %b %y}
+# # ${voffset -19}$alignr${color grey}cpu\#1
+# # $color${tail ~/.dropbox/events/events.txt 3}
+# # ${image ~/Pictures/logos/archlinux-logo-dark-1200dpi.png -s 800x266}
+
+# vim: filetype=conkyrc

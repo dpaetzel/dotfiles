@@ -1,0 +1,122 @@
+# Conky, a system monitor, based on torsmo
+
+alignment top_left
+background yes
+border_width 1
+cpu_avg_samples 2
+default_color white
+default_outline_color white
+default_shade_color white
+double_buffer yes
+draw_borders no
+draw_graph_borders yes
+draw_outline no
+draw_shades no
+use_xft yes
+xftfont DejaVu Sans:size=8
+gap_x 5
+gap_y 5
+maximum_width 200
+minimum_size 350 5
+net_avg_samples 2
+no_buffers yes
+out_to_console no
+out_to_stderr no
+extra_newline no
+
+# own_window no
+# own_window_class Conky
+# own_window_type desktop
+# own_window_transparent yes
+# own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+
+own_window yes
+own_window_class Conky
+own_window_type override
+own_window_transparent yes
+# own_window_color black
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+stippled_borders 0
+update_interval 1
+uppercase yes
+use_spacer left
+show_graph_scale no
+show_graph_range no
+text_buffer_size 2048
+total_run_times 0
+
+TEXT
+${color darkgrey}${font DejaVu Sans:bold:size=10}date ${voffset 2}${hr 2}$font
+
+$color${font DejaVu Sans Light:size=30}$alignc${time %k:%M}$font
+#${font DejaVu Sans Light:size=15}:${time %S}
+${voffset 5}$color${font DejaVu Sans:size=10}$alignc${time %a, %d. %b %y}
+
+#${font DejaVu Sans:bold:size=10}${color darkgrey}${font DejaVu Sans:bold:size=10}system ${voffset 2}${hr 2}$font
+#
+#$font${color grey}kernel: $alignr$color$kernel on $machine
+#${color grey}distribution: $alignr$color archlinux
+#
+${color darkgrey}${font DejaVu Sans:bold:size=10}battery status ${voffset 2}${hr 2}$font
+${voffset 4}$color${battery_bar 6,200}
+#$sysname $kernel on $machine
+#${color grey}time: $color$alignr${time %T}
+#${color grey}date: $color$alignr${time %d-%m-%y}
+#
+${voffset 4}${color grey}percentage: $alignr$color$battery
+#_percent%
+${color grey}time left: $color$alignr$battery_time
+${color grey}uptime: $color$alignr$uptime
+
+${color darkgrey}${font DejaVu Sans:bold:size=10}performance ${voffset 2}${hr 2}$font
+${voffset 4}${color grey}cpu Usage: $color$alignr$cpu%
+${color grey}cpu frequency: $color$alignr$freq MHz
+${color grey}${cpugraph cpu1 18,50 ffffff ffffff -t}${color grey}${cpugraph cpu2 18,50 ffffff ffffff -t}${color grey}${cpugraph cpu3 18,50 ffffff ffffff -t}${color grey}${cpugraph cpu4 18,50 ffffff ffffff -t}
+${color grey}ram Usage: $color$alignr$mem/$memmax
+${color grey}${memgraph 18,200 ffffff ffffff}
+
+$font${color darkgrey}${font DejaVu Sans:bold:size=10}filesystems ${voffset 2}${hr 2}$font
+${voffset 4}${color grey}root$alignr$color${fs_used /}/${fs_size /}
+${voffset 4}${fs_bar 6,200 /}
+${voffset 4}${color grey}home$alignr$color${fs_used /home}/${fs_size /home}
+${voffset 4}${fs_bar 6,200 /home}
+${voffset 4}${if_mounted /mnt/win7}${color grey}win7$alignr$color${fs_used /mnt/win7}/${fs_size /mnt/win7}
+${voffset 4}${fs_bar 6,200 /mnt/win7}
+${voffset 4}$endif${if_mounted /media/heron}${color grey}heron$alignr$color${fs_used /media/heron}/${fs_size /media/heron}
+${voffset 4}${fs_bar 6,200 /media/heron}
+${voffset 4}$endif${if_mounted /media/thales}${color grey}thales$alignr$color${fs_used /media/thales}/${fs_size /media/thales}
+${voffset 4}${fs_bar 6,200 /media/thales}
+${voffset 4}$endif${if_mounted /media/cd0}${color grey}cd/dvd$alignr$color${fs_used /media/cd0}/${fs_size /media/cd0}
+${voffset 4}${fs_bar 6,200 /media/cd0}
+${voffset 4}$endif${if_mounted /media/usb0}${color grey}usb0$alignr$color${fs_used /media/usb0}/${fs_size /media/usb0}
+${voffset 4}${fs_bar 6,200 /media/usb0}
+${voffset 4}$endif${if_mounted /media/card0}${color grey}card0$alignr$color${fs_used /media/card0}/${fs_size /media/card0}
+${voffset 4}${fs_bar 6,200 /media/card0}
+${voffset 4}$endif
+$font${color darkgrey}${font DejaVu Sans:bold:size=10}updates ${voffset 2}${hr 2}$font
+${voffset 4}${color grey}dropbox $alignr$color${texeci 5 python2 ~/Local/bin/dbcli.py status}
+${color grey}updates $alignr$color${texeci 5 ~/Local/bin/updates-check.rb}
+
+$font${color darkgrey}${font DejaVu Sans:bold:size=10}networking ${voffset 2}${hr 2}$font
+${voffset 4}${color grey}hostname: $color$alignr$nodename
+${color grey}ip local: $color$alignr${addr wlan0}
+${color grey}ip public: $color$alignr${execi 240 ~/Local/bin/globalip.sh}
+${color grey}wlan signal: $color$alignr${wireless_link_qual_perc wlan0}%
+#${voffset 4}$color${wireless_link_bar 6,200 wlan0}
+#${voffset 4}
+${color grey}essid: $color$alignr${wireless_essid wlan0}
+#${color grey}up: $color${upspeed wlan0}$alignr${color grey}down: $color${downspeed wlan0}
+${color grey}${downspeedgraph wlan0 18,100 ffffff ffffff 1400}${upspeedgraph wlan0 18,100 ffffff ffffff 140}
+
+${color darkgrey}${font DejaVu Sans:bold:size=10}processes ${voffset 2}${hr 2}$font
+${voffset 4}$color${top pid 1} ${color grey}${top name 1}$color$alignr${top cpu 1}
+$color${top pid 2} ${color grey}${top name 2}$color$alignr${top cpu 2}
+$color${top pid 3} ${color grey}${top name 3}$color$alignr${top cpu 3}
+$color${top pid 4} ${color grey}${top name 4}$color$alignr${top cpu 4}
+$color${top pid 5} ${color grey}${top name 5}$color$alignr${top cpu 5}
+#$color${top pid 6} ${color grey}${top name 6}$color$alignr${top cpu 6}
+#$color${top pid 7} ${color grey}${top name 7}$color$alignr${top cpu 7}
+#${if_mounted /media/heron}${voffset 100}$endif${if_mounted /mnt/win7}${voffset 100}$endif${if_mounted /media/cd0}${voffset 100}$endif${if_mounted /media/card0}${voffset 100}$endif${if_mounted /media/usb0}${voffset 100}$endif$color${top pid 8} ${color grey}${top name 8}$color$alignr${top cpu 8}
+#$color${top pid 9} ${color grey}${top name 9}$color$alignr${top cpu 9}
+#
+#${color grey}processes: $color$processes $alignr${color grey}threads: $color${threads}

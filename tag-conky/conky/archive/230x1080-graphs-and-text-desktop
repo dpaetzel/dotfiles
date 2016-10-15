@@ -1,0 +1,115 @@
+# Conky, a system monitor, based on torsmo
+
+alignment bottom_left
+background yes
+border_width 1
+cpu_avg_samples 2
+default_color white
+default_outline_color white
+default_shade_color white
+double_buffer yes
+draw_borders no
+draw_graph_borders yes
+draw_outline no
+draw_shades no
+use_xft yes
+xftfont DejaVu Sans:size=12
+gap_x 6
+gap_y 8
+maximum_width 230
+minimum_size 230 5
+net_avg_samples 2
+no_buffers yes
+out_to_console no
+out_to_stderr no
+extra_newline no
+
+# own_window no
+# own_window_class Conky
+# own_window_type desktop
+# own_window_transparent yes
+# own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+
+own_window yes
+own_window_class Conky
+own_window_type override
+own_window_transparent yes
+# own_window_color black
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+stippled_borders 0
+update_interval 1
+#uppercase yes
+use_spacer none
+show_graph_scale no
+show_graph_range no
+text_buffer_size 2048
+total_run_times 0
+
+TEXT
+
+$color${cpugraph cpu1 30,127 ffffff ffffff }${voffset -19}${offset 20}${color grey}cpu\#1
+$color${cpugraph cpu2 30,127 ffffff ffffff }${voffset -19}${offset 20}${color grey}cpu\#2
+$color${cpugraph cpu3 30,127 ffffff ffffff }${voffset -19}${offset 20}${color grey}cpu\#3
+$color${cpugraph cpu4 30,127 ffffff ffffff }${voffset -19}${offset 20}${color grey}cpu\#4
+
+${voffset 5}$color${memmax}
+#$alignr${color grey}ram
+${voffset 3}$color${membar 8,127}${offset 20}${color grey}ram
+${voffset 5}$color${swapmax}
+#$alignr${color grey}swap
+${voffset 3}$color${swapbar 8,127}${offset 20}${color grey}swap
+${voffset 5}$color${fs_size /}
+#$alignr${color grey}root
+${voffset 3}$color${fs_bar 8,127 /}${offset 20}${color grey}root
+${voffset 5}$color${fs_size /home}
+#$alignr${color grey}home
+${voffset 3}$color${fs_bar 8,127 /home}${offset 20}${color grey}home
+${voffset 5}${if_mounted /mnt/win7}$color${fs_size /mnt/win7}
+#$alignr${color grey}win7
+${voffset 3}$color${fs_bar 8,127 /mnt/win7}${offset 21}${color grey}win7
+${voffset 5}$endif${if_mounted /mnt/democrit}${color}democrit (${fs_size /mnt/democrit})
+#$alignr${color grey}democrit
+${voffset 3}$color${fs_bar 8,127 /mnt/democrit}${offset 20}${color grey}democrit
+${voffset 5}$endif${if_mounted /media/thales}${color}thales (${fs_size /media/thales})
+#$alignr${color grey}thales
+${voffset 3}$color${fs_bar 8,127 /media/thales}${offset 21}${color grey}thales
+${voffset 5}$endif${if_mounted /media/heron}${color}heron (${fs_size /media/heron})
+#$alignr${color grey}heron
+${voffset 3}$color${fs_bar 8,127 /media/heron}${offset 20}${color grey}heron
+${voffset 5}$endif${if_mounted /media/cd0}${color}dvd (${fs_size /media/cd0})
+#$alignr${color grey}cd/dvd
+${voffset 3}$color${fs_bar 8,127 /media/cd0}${offset 20}${color grey}cd/dvd
+${voffset 5}$endif${if_mounted /media/usb0}${color}usb0 (${fs_size /media/usb0})
+#$alignr${color grey}usb0
+${voffset 3}$color${fs_bar 8,127 /media/usb0}${offset 20}${color grey}usb0
+${voffset 5}$endif${if_mounted /media/card0}${color}card0 (${fs_size /media/card0})
+#$alignr${color grey}card0
+${voffset 3}$color${fs_bar 8,127 /media/card0}${offset 20}${color grey}card0
+${voffset 5}$endif
+$color${texeci 5 python2 ~/Local/bin/dbcli.py status} $alignr${offset -16}${color grey}dropbox
+$color${texeci 5 ~/Local/bin/updates-check.rb} $alignr${offset -20}${color grey}updates
+
+$color${addr wlan0} $alignr${offset -26}${color grey}ip local 
+$color$nodename $alignr${offset -5}${color grey}hostname
+$color${execi 240 ~/Local/bin/globalip.sh} $alignr${offset -20}${color grey}ip public
+
+$color${downspeedgraph wlan0 30,127 ffffff ffffff 1400}${offset 20}${voffset -19}${color grey}download
+$color${upspeedgraph wlan0 30,127 ffffff ffffff 130}${offset 20}${voffset -19}${color grey}upload
+
+${voffset 5}$color$uptime_short $alignr${offset -30}${color grey}uptime
+
+${voffset 0}$color${top name 1} $alignr${offset -23}${color grey}cpu top
+${voffset 0}$color${top name 2}
+${voffset 0}$color${top name 3}
+
+${voffset 0}$color${top_mem name 1} $alignr${offset -21}${color grey}ram top
+${voffset 0}$color${top_mem name 2}
+${voffset 0}$color${top_mem name 3}
+#$alignr${voffset 19}${color grey}todo
+#${voffset -19}$color${head ~/Dropbox/todo.txt 3 5}
+
+${offset 4}$color${font DejaVu Sans:size=12}${time %a, %d. %b %y}
+${offset -3}$color${font DejaVu Sans Light:size=34}${time %k:%M}
+# ${voffset -19}$alignr${color grey}cpu\#1
+# $color${tail ~/.dropbox/events/events.txt 3}
+# ${image ~/Pictures/logos/archlinux-logo-dark-1200dpi.png -s 800x266}

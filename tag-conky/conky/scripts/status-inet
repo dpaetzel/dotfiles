@@ -1,0 +1,27 @@
+#!/usr/bin/env sh
+
+# Possible states:
+# none: the host is not connected to any network.
+# portal: the host is behind a captive portal and cannot reach the full Internet.
+# limited: the host is connected to a network, but it has no access to the Internet.
+# full: the host is connected to a network and has full access to the Internet.
+# unknown: the connectivity status cannot be found out.
+# The optional check argument tells NetworkManager to re-check the connectivity,
+# else the most recent known connectivity state is displayed without re-checking.
+# connectivity=$(nmcli networking connectivity check)
+connectivity=$(nmcli networking connectivity)
+
+none_string=" "
+portal_string=""
+limited_string=""
+full_string="↑↓"
+unknown_string=$none_string
+
+case $connectivity in
+    none) echo "↑x↓" ;;
+    portal) echo "↑!↓" ;;
+    limited) echo "↑!↓" ;;
+    full) echo "↑ ↓" ;;
+    unknown) "↑?↓" ;;
+    *) echo "   " ;;
+esac

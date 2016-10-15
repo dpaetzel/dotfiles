@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+
+nmcli con show --active |\
+    awk 'NR != 1' |\
+    cut --fields 1 --delimiter=' ' |\
+    paste --delimiter='&' -s |\
+    sed -r 's/&/ & /g'

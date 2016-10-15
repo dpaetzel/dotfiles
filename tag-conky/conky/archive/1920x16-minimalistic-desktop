@@ -1,0 +1,103 @@
+alignment                      bottom_left
+background                     yes
+border_inner_margin            2
+border_outer_margin            0
+border_width                   1
+color1                         ef2929
+#color0..9
+cpu_avg_samples                2
+default_bar_size               0 4
+default_color                  ffffff
+default_gauge_size             10 10
+default_graph_size             0 4
+default_outline_color          ffffff
+default_shade_color            ffffff
+disable_auto_reload            no
+diskio_avg_samples             2
+#display                        :0.0
+double_buffer                  yes
+draw_borders                   no
+draw_graph_borders             no
+draw_outline                   no
+draw_shades                    no
+extra_newline                  no
+#font                          Sans
+format_human_readable          yes
+gap_x                          1024
+gap_y                          200
+hddtemp_host                   127.0.0.1
+hddtemp_port                   7634
+if_up_strictness               up
+#imap                          TODO
+#imlib_cache_flush_interval    2
+#imlib_cache_size              4MiB
+#lua_draw_hook_post            function_name   arguments
+#lua_draw_hook_pre             function_name   arguments
+#lua_load                      script1         script2
+#lua_shutdown_hook             function_name   arguments
+#lua_startup_hook              function_name   arguments
+#mail_spool
+max_port_monitor_connections   256
+max_specials                   512
+max_text_width                 0
+max_user_text                  16384
+maximum_width                  1920
+minimum_size                   1920
+#mpd_host
+#mpd_password
+#mpd_port
+music_player_interval          2
+net_avg_samples                2
+no_buffers                     yes
+#nvidia_display
+out_to_console                 no
+out_to_ncurses                 no
+out_to_stderr                  no
+out_to_x                       yes
+override_utf8_locale           yes
+#overwrite_file
+own_window                     yes
+own_window_class               Conky
+own_window_type                panel
+own_window_transparent         no
+own_window_colour              black
+own_window_hints               undecorated,below,sticky,skip_taskbar,skip_pager
+#own_window_title
+#own_window_argb_visual
+#own_window_argb_value
+pad_percents                   0
+#pop3                          TODO!!!
+short_units                    yes
+show_graph_range               yes
+show_graph_scale               yes
+stippled_borders               no
+temperature_unit               celsius
+#template0..9
+template0                      ${if_up wlan0}\1${else}${if_up enp3s0}\2${else}\3${endif}${endif}
+template1                      ${execpi 3 ~/Bin/conky/dropbox-icon 1534,3}
+template2                      ${if_match ${new_mails \1 1} != 0}$color1${new_mails \1 1}$color$else${new_mails \1 1}$endif
+text_buffer_size               2048
+times_in_seconds               no
+top_cpu_separate               no
+top_name_width                 15
+total_run_times                0
+update_interval                1
+#update_interval_on_battery    4
+uppercase                      yes
+use_spacer                     left
+use_xft                        yes
+#xftalpha
+#xftfont                        Roboto:size=12
+#xftfont                        Arial:size=14:antialias=true
+xftfont                        Inconsolata:size=14:antialias=true
+
+TEXT
+  ${template0 ${wireless_essid\ wlan0} wired networking\ off}  |\
+  ${template0 ${addr\ wlan0} ${addr\ enp3s0} \ }  |\
+  ${texeci 30 global-ip}  |\
+  ${texeci 5 ~/.conky/scripts/status-inet g.co}  |\
+  $alignr\
+  ${execi 2 ~/.conky/scripts/info-spotify | cut -c -60 | sed -E "s/^(\w+.*)$/\|  \1/"}  |\
+  ${exec change-volume}${voffset -3}${font Consolas:size=10} ${exec ~/.conky/scripts/status-mute}$font${voffset -1}  |\
+  ${time %F}  |\
+  ${time %k}:${time %M}  
