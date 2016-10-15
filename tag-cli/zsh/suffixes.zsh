@@ -1,0 +1,42 @@
+# open documents or other files
+alias -s dia='dia'
+alias -s DIA='dia'
+alias -s gif='gif'
+alias -s GIF='gif'
+alias -s jpg='feh'
+alias -s JPG='feh'
+alias -s jpeg='feh'
+alias -s JPEG='feh'
+alias -s png='feh'
+alias -s PNG='feh'
+alias -s odt='libreoffice'
+alias -s ODT='libreoffice'
+alias -s ods='libreoffice'
+alias -s ODS='libreoffice'
+alias -s doc='libreoffice'
+alias -s DOC='libreoffice'
+alias -s docx='libreoffice'
+alias -s DOCX='libreoffice'
+alias -s xls='libreoffice'
+alias -s XLS='libreoffice'
+alias -s xlsx='libreoffice'
+alias -s XLSX='libreoffice'
+alias -s pdf='zathura'
+alias -s PDF='zathura'
+alias -s torrent='transmission-cli'
+alias -s TORRENT='transmission-cli'
+alias -s mp4='vlc'
+alias -s MP4='vlc'
+alias -s org="$EDITOR"
+
+# list content of packed files
+alias -s zip="als"
+alias -s ZIP="als"
+alias -s rar="als"
+alias -s RAR="als"
+alias -s tar="als"
+alias -s TAR="als"
+alias -s tar.gz="als"
+alias -s TAR.gz="als"
+alias -s ace="als"
+alias -s ACE="als"

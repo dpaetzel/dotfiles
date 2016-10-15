@@ -1,0 +1,11 @@
+# global aliases
+alias -g B='&!'
+alias -g H='| head'
+alias -g T='| tail'
+alias -g G='| grep --color -i -E'
+alias -g S='| sed -r'
+alias -g L='| less'
+alias -g W='| wc -l'
+alias -g NF='*(.om[1])'
+alias -g NFF='*(/om[1])'
+alias -g ND='~/Temporary/*(.om[1])'
