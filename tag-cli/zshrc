@@ -183,3 +183,18 @@ function sumRSS {
     sumExpr=$(ps -e --format rss,comm | grep --color -i -E $1 | awk '{ print $1 }' | paste --delimiter + -s)
     echo $(( ( $sumExpr ) / 1000 ))
 }
+function generate-afew-filters {
+    index=0
+    for f in $(ls Mail/main); do
+        fLower=$(echo "$f" | awk '{print tolower($0)}')
+        echo "[Filter.$index]"
+        echo "message = Tag messages in main/$f as $fLower"
+        echo "query = folder:main/$f"
+        echo "tags = +$fLower;+main"
+        index=$(($index + 1))
+    done
+    echo "[Filter.$index]"
+    echo "message = Remove new tag from all messages"
+    echo "query = tag:new"
+    echo "tags = -new"
+}
