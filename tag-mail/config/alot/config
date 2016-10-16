@@ -1,0 +1,14 @@
+editor_in_thread = True
+initial_command = search tag:inbox AND NOT tag:killed
+
+[accounts]
+    [[work]]
+        realname = David Pätzel
+        address = david.a.paetzel@gmail.com
+        alias_regexp = david.a.paetzel\+.+@gmail.com
+        # gpg_key = D7D6C5AA
+        sendmail_command = msmtp --account=main -t
+        draft_box = maildir:///home/david/Mail/main/drafts
+        # signature = ~/.signatur
+
+# [bindings]
