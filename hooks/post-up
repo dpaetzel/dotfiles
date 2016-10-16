@@ -29,3 +29,4 @@ cat > $HOME/Mail/.notmuch/hooks/post-new <<EOF
 #!/usr/bin/env sh
 afew --new --tag --verbose
 EOF
+chmod +x $HOME/Mail/.notmuch/hooks/post-new
