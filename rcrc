@@ -1,0 +1,3 @@
+COPY_ALWAYS="rcrc"
+DOTFILES_DIRS="$HOME/.dotfiles $HOME/.dotfiles-private"
+TAGS="cli conky emacs gui mail ssh vim weechat"
