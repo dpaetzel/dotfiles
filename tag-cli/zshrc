@@ -198,3 +198,10 @@ function generate-afew-filters {
     echo "query = tag:new"
     echo "tags = -new"
 }
+
+alias mount="udisksctl mount -b"
+alias umount="udisksctl unmount -b"
+function m {
+    dir=$(udisksctl mount -b $@ | sed -r 's/Mounted .* at (.*)./\1/')
+    cd $dir
+}
