@@ -20,10 +20,10 @@ pythonfile = ~/.offlineimap/helpers.py
 localrepository = main-local
 remoterepository = main-remote
 
-autorefresh = 10
-quick = 5
+# autorefresh = 10 # we do NOT want offlineimap to keep running!
+# quick = 5
 
-postsynchook = notmuch new
+# postsynchook = notmuch new # I do this in the wrapper script instead
 
 
 [Repository main-remote]
@@ -36,6 +36,7 @@ oauth2_refresh_token = 1/03LF-hza43h7hZPQSRlSBn6snZUwAUrY5l55rkYBh24
 
 maxconnections = 1
 
+# DO delete messages on the server?
 readonly = true
 # synclabels = true # unneeded since only syncing All Mail and labelling locally
 # keep deleted emails in gmail's All Mail

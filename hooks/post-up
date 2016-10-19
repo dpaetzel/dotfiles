@@ -24,9 +24,9 @@ secure ~/.msmtprc
 
 
 # create post-new hook for notmuch (haven't found a way to do this -.-)
-[[ -d $HOME/Mail/.notmuch/hooks ]] || mkdir -p $HOME/Mail/.notmuch/hooks
-cat > $HOME/Mail/.notmuch/hooks/post-new <<EOF
-#!/usr/bin/env sh
-afew --new --tag --verbose
-EOF
-chmod +x $HOME/Mail/.notmuch/hooks/post-new
+# [[ -d $HOME/Mail/.notmuch/hooks ]] || mkdir -p $HOME/Mail/.notmuch/hooks
+# cat > $HOME/Mail/.notmuch/hooks/post-new <<EOF
+# #!/usr/bin/env sh
+# afew --new --tag --verbose
+# EOF
+# chmod +x $HOME/Mail/.notmuch/hooks/post-new

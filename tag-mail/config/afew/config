@@ -19,3 +19,4 @@ sent_tag=sent
 # This removes the new tag, and adds the inbox tag, to any message that isn’t
 # killed or spam.
 [InboxFilter]
+# TODO remove inbox label from all killed messages

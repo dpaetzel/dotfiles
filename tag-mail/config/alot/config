@@ -1,14 +1,53 @@
-editor_in_thread = True
-initial_command = search tag:inbox AND NOT tag:killed
+# editor_in_thread = True
+# initial_command = search tag:inbox AND NOT tag:killed # is the default
 
 [accounts]
-    [[work]]
-        realname = David Pätzel
-        address = david.a.paetzel@gmail.com
-        alias_regexp = david.a.paetzel\+.+@gmail.com
-        # gpg_key = D7D6C5AA
-        sendmail_command = msmtp --account=main -t
-        draft_box = maildir:///home/david/Mail/main/drafts
-        # signature = ~/.signatur
+  [[main]]
+    realname = David Pätzel
+    address = david.a.paetzel@gmail.com
+    alias_regexp = david.a.paetzel\+.+@gmail.com
+    # gpg_key = D7D6C5AA
+    sendmail_command = msmtp --account=main -t
+    draft_box = maildir:///home/david/Mail/main/drafts
+    # signature = ~/.signatur
 
-# [bindings]
+    [[[abook]]]
+      type = shellcommand
+      command = /home/david/Bin/goobook-wrapper
+      regexp = "(?P<name>[^:]+) +:: +(?P<email>[^@]+@[^ ]+)"
+
+      # command = goobook query
+      # regexp = '^(?P<email>[^@]+@[^\t]+)\t+(?P<name>[^\t]+)'
+
+[bindings]
+  g i = search tag:inbox AND NOT tag:killed
+  g s = search tag:sent
+  g j = search tag:spam
+  g u = search tag:unread
+
+  b d = bclose
+  d = # rebound to b d
+
+  I = # rebound to g i
+
+  / = prompt 'search '
+
+  [[envelope]]
+    q = # pls let me be not so stupid
+  [[search]]
+    & = # rebound to D
+    I = toggletags unread
+    d = toggletags killed
+    s = toggletags spam
+    v = retagprompt; untag inbox
+    g r = refresh # spacemacs-like
+  [[thread]]
+    l = bclose; retagprompt
+    v = bclose; retagprompt; untag inbox
+    o = pipeto urlview 2> /dev/null
+    q = # pls let me be not so stupid
+    d = bclose; toggletags killed
+  [[taglist]]
+    q = # pls let me be not so stupid
+  [[bufferlist]]
+    q = # pls let me be not so stupid
