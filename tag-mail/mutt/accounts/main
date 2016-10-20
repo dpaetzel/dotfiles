@@ -1,3 +1,5 @@
+# -*- mode: muttrc -*-
+
   set from      = "david.a.paetzel@gmail.com"
   set sendmail  = "/run/current-system/sw/bin/msmtp -a main"
 unset mbox

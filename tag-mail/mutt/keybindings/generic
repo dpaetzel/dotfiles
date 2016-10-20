@@ -1,3 +1,5 @@
+# -*- mode: muttrc -*-
+
 # ####################
 # generic
 # The generic menu is not a real menu, but specifies common functions (such as

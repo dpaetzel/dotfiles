@@ -1,3 +1,5 @@
+# -*- mode: muttrc -*-
+
 # pgp menu keybindings
 
 bind pgp     yv      verify-key                            # verify a PGP public key

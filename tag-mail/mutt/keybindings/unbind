@@ -1,3 +1,5 @@
+# -*- mode: muttrc -*-
+
 # NOTE: not unbinding editor keybindings (else entering commands is not quite fun)
 
 bind generic,alias,attach,browser,index,compose,pager,pgp,postpone a noop
