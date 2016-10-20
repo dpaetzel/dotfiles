@@ -1,0 +1,76 @@
+# keybindings for both index and pager
+
+# message
+bind index,pager b         bounce-message                        # remail a message to another user
+bind index,pager W         clear-flag                            # clear a status flag from a message
+macro index,pager v        <save-message>?<toggle-mailboxes><search> "save message/attachment to a mailbox/file (== 'move')"
+bind index,pager V         copy-message                          # copy a message to a file/mailbox
+# bind index,pager d         delete-message                        # delete the current entry
+macro index,pager d        <save-message>+main/trash<enter>     "move message to the trash"
+bind index,pager e         edit                                  # edit the raw message
+bind index,pager f         forward-message                       # forward a message with comments
+bind index,pager s         flag-message                          # toggle a message's 'important' flag
+bind index,pager ra        group-reply                           # reply to all recipients
+bind index,pager rl        list-reply                            # reply to specified mailing list
+bind index,pager m         mail                                  # compose a new mail message
+bind index,pager p         parent-message                        # jump to parent message in thread
+bind index,pager |         pipe-message                          # pipe message/attachment to a shell command
+bind index,pager         print-message                         # print the current entry
+# bind index,pager R         recall-message                        # recall a postponed message
+bind index,pager rr        reply                                 # reply to a message
+bind index,pager rs        resend-message                        # use the current message as a template for a new one
+# bind index,pager s         save-message                          # save message/attachment to a mailbox/file (== 'move')
+bind index,pager w         set-flag                              # set a status flag on a message
+bind index,pager u         undelete-message                      # undelete the current entry
+bind index,pager t         view-attachments                      # show MIME attachments
+
+macro index,pager        <pipe-entry>'urlview'<enter>          "call urlview to extract URLs out of a message"
+# macro index,pager R        <collapse-all><tag-pattern>~N<enter><tag-prefix><clear-flag>N<untag-pattern>~T<enter><collapse-all> "mark messages in current folder as read"
+macro index,pager R        <tag-pattern>~N<enter><tag-prefix><clear-flag>N<untag-pattern>~T<enter> "mark messages in current folder as read"
+
+
+# thread
+bind index,pager \#        break-thread                          # break the thread in two
+bind index,pager &         link-threads                          # link tagged message to the current one
+bind index,pager D         delete-thread                         # delete all messages in thread
+bind index,pager         delete-subthread                      # delete all messages in subthread
+bind index,pager I         read-thread                           # mark the current thread as read
+# bind index,pager 	     read-subthread                        # mark the current subthread as read (ctrl-i)
+bind index,pager U         undelete-thread                       # undelete all messages in thread
+bind index,pager         undelete-subthread                    # undelete all messages in subthread
+
+
+# view
+bind index,pager h         display-toggle-weed                   # display message and toggle header weeding
+bind index,pager o         sort-mailbox                          # sort messages
+bind index,pager O         sort-reverse                          # sort messages in reverse order
+
+
+# navigation
+macro index,pager c        <change-folder>?<toggle-mailboxes><search> "show incoming mailboxes list"
+bind index,pager C         change-folder                         # open a different folder
+# bind index,pager C         change-folder-readonly                # open a different folder in read only mode
+macro index,pager gi       <change-folder>=main/inbox<enter>
+# macro index,pager gy       <change-folder>=yandex/inbox<enter>
+macro index,pager gt       <change-folder>=main/sent<enter>
+macro index,pager gd       <change-folder>=main/drafts<enter>
+
+
+# aliases and attachments
+bind index,pager a         create-alias                          # create an alias from a message sender
+bind index,pager @         display-address                       # display full address of sender
+bind index,pager         edit-type                             # edit attachment content type
+
+
+# pgp
+bind index,pager yc        check-traditional-pgp                 # check for classic PGP
+# bind index,pager decode-copy                                     # make decoded (text/plain) copy
+bind index,pager ys        decode-save                           # make decoded copy (text/plain) and delete
+# bind index,pager decrypt-copy                                    # make decrypted copy
+# bind index,pager decrypt-save                                    # make decrypted copy and delete
+bind index,pager ye        extract-keys                          # extract supported public keys
+bind index,pager yf        forget-passphrase                     # wipe passphrase(s) from memory
+bind index,pager ym        mail-key                              # mail a PGP public key
+
+
+# vim: filetype=muttrc

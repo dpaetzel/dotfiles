@@ -1,0 +1,11 @@
+# source ~/.mutt/colorschemes/archlinux.muttrc
+# source ~/.mutt/colorschemes/mine2.muttrc
+# source ~/.mutt/colorschemes/vombatidae.mutt
+# source ~/.mutt/colorschemes/vombatidae-orig.mutt
+# source ~/.mutt/colorschemes/solarized/mutt-colors-solarized-dark-16.muttrc
+# source ~/.mutt/colorschemes/solarized/mutt-colors-solarized-dark-256.muttrc
+# source ~/.mutt/colorschemes/solarized/mutt-colors-solarized-light-16.muttrc
+
+source ~/.mutt/colorschemes/best.muttrc
+
+# vim: ft=muttrc

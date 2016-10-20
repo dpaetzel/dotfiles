@@ -7,13 +7,13 @@ accounts = main
 pythonfile = ~/.offlineimap/helpers.py
 
 
-# [mbnames]
-# enabled = yes
-# filename = ~/.mutt/mailboxes
-# header = "mailboxes "
-# peritem = "+%(accountname)s/%(foldername)s"
-# sep = " "
-# footer = "\n"
+[mbnames]
+enabled = yes
+filename = ~/.mutt/mailboxes
+header = "mailboxes "
+peritem = "+%(accountname)s/%(foldername)s"
+sep = " "
+footer = "\n"
 
 
 [Account main]
@@ -37,10 +37,10 @@ oauth2_refresh_token = 1/03LF-hza43h7hZPQSRlSBn6snZUwAUrY5l55rkYBh24
 maxconnections = 1
 
 # DO delete messages on the server?
-readonly = true
+readonly = no
 # synclabels = true # unneeded since only syncing All Mail and labelling locally
 # keep deleted emails in gmail's All Mail
-realdelete = no
+realdelete = yes
 
 nametrans = gmail_remote_nt
 
@@ -52,16 +52,16 @@ nametrans = gmail_remote_nt
 # # use ssl
 ssl = true
 sslcacertfile = /etc/ssl/certs/ca-certificates.crt
-folderfilter = lambda foldername: foldername in [ '[Gmail]/All Mail'
-                                                , '[Gmail]/Drafts'
-                                                # , '[Gmail]/Sent Mail' # also in All Mail!?
-                                                , '[Gmail]/Spam'
-                                                , '[Gmail]/Trash' ]
-# folderfilter = exclude([ '[Gmail]/Important'
-#                        , '[Gmail]/All Mail'
-#                        , '[Gmail]/Starred'
-#                        , 'Priority'
-#                        ])
+# folderfilter = lambda foldername: foldername in [ '[Gmail]/All Mail'
+#                                                 , '[Gmail]/Drafts'
+#                                                 , '[Gmail]/Sent Mail'
+#                                                 , '[Gmail]/Spam'
+#                                                 , '[Gmail]/Trash' ]
+folderfilter = exclude([ '[Gmail]/Important'
+                       , '[Gmail]/All Mail'
+                       , '[Gmail]/Starred'
+                       , 'Priority'
+                       ])
 
 
 [Repository main-local]

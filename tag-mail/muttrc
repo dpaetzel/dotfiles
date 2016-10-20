@@ -1,0 +1,106 @@
+# -*- mode: muttrc -*-
+
+  # set alias_file        = ~/.mutt/aliases # replaced by query_command
+  # set alias_format      = "%4n %2f %t %-20a %r" # replaced by query_command
+  # set auto_tag          = yes # no need to use tag prefix to apply command to messages
+  set askcc
+unset beep_new
+  set compose_format    = "━┥Compose┝━┥Approx. msg size: %l Atts: %a┝━%>━"
+unset confirmappend
+  set date_format       = "%H:%M %Y-%m-%d"
+  set delete
+  set edit_headers
+  # set editor            = "vim +:silent+?^$"
+  # set editor            = "gvim -f +/^$ +noh"
+  set editor            = "emacsclient -a emacs +8:0"
+  set fast_reply
+  set folder            = ~/Mail
+  set forward_format    = "Fwd: %s"
+  set forward_quote
+  # set header_cache      = ~/.mutt/cache
+unset help
+  # set implicit_autoview = yes
+  set include
+  set index_format      = "%3C  %D  %Z%M  %-25.25F  %s"
+  # set ispell            = "aspell -l de_DE -e -c"
+unset ispell
+  set mailcap_path      = ~/.mailcap
+unset mark_old
+unset markers
+  set mbox_type         = Maildir
+  set menu_scroll
+  set mime_forward      = ask-yes
+  set pager_context     = 5
+  set pager_format      = "━┥%C/%m┝━┥%Z┝━┥%n: %s┝━%>━━"
+  set pager_index_lines = 10
+  set pager_stop
+  # set pgp_autosign      = yes
+  # set pgp_entry_format  = "%4n %t%f %4l/0x%k %-4a %2c %u"
+  set pgp_timeout       = 1800
+  set pipe_decode
+  set print_command     = "enscript -p - | psselect -r | lp"
+  set quote_regexp      = "^( {0,4}[>|:#%]| {0,4}[a-z0-9]+[>|]+)+"
+  set query_command     = "goobook query"
+  set realname          = "David Pätzel"
+  set reply_regexp      = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
+  set reply_to
+  set reverse_alias
+  # set reverse_name
+  set sort              = reverse-threads
+  set sort_aux          = last-date-received
+unset sort_re
+  set spoolfile         = "+main/inbox"
+  set status_format     = "━┥%f┝━┥Msgs:%?M?%M/?%m%?n? New:%n?%?o? Old:%o?%?d? Del:%d?%?F? Flag:%F?%?t? Tag:%t?%?p? Post:%p?%?b? Inc:%b?%?l? %l?┝━━━┥%s/%S┝━%>━┥%P┝━━━"
+  set text_flowed       = yes
+  set thorough_search
+  set thread_received
+  set tilde
+  set timeout           = 3
+  set to_chars          = " >]}<L"
+  set tmpdir            = ~/.mutt/tmp
+unset wait_key
+
+# notmuch # MAYBE if needed
+# set nm_default_uri="notmuch:///home/david/Mail" # path to the maildir
+# set virtual_spoolfile=yes # enable virtual folders
+# virtual-mailboxes \
+#   "inbox"     "notmuch://?query=tag:inbox and NOT tag:archive"\
+#   "unread"    "notmuch://?query=tag:unread"\
+#   "starred"   "notmuch://?query=tag:*"\
+#   "sent"      "notmuch://?query=tag:sent"        # sets up queries for virtual folders
+
+# notmuch bindings
+# macro index \\\\ "<vfolder-from-query>"              # looks up a hand made query
+# macro index A "<modify-labels>+archive -unread -inbox\\n"        # tag as Archived
+# macro index I "<modify-labels>-inbox -unread\\n"                 # removed from inbox
+# macro index S "<modify-labels-then-hide>-inbox -unread +junk\\n" # tag as Junk mail
+# macro index + "<modify-labels>+*\\n<sync-mailbox>"               # tag as starred
+# macro index - "<modify-labels>-*\\n<sync-mailbox>"               # tag as unstarred
+
+alternates "^(david\.a\.paetzel|david\.and\.hoffmann)(\+[^@]+)?\@(gmail|googlemail)\.com$"
+
+auto_view text/html
+alternative_order text/plain text/enriched text/html
+
+folder-hook main/*  source ~/.mutt/accounts/main # TODO unneeded unless multiple accounts
+
+ignore *
+unignore from: to: cc: date: subject:
+unhdr_order *
+hdr_order From: To: Cc: Date: Subject:
+
+# source $alias_file
+source ~/.mutt/colors
+source ~/.mutt/mailboxes
+source ~/.mutt/accounts/main # TODO
+# source ~/.mutt/crypto # TODO
+
+# source ~/.mutt/keybindings/unbind
+source ~/.mutt/keybindings/generic
+source ~/.mutt/keybindings/pager
+source ~/.mutt/keybindings/index
+source ~/.mutt/keybindings/index-pager
+source ~/.mutt/keybindings/compose
+source ~/.mutt/keybindings/attach
+source ~/.mutt/keybindings/browser
+source ~/.mutt/keybindings/pgp

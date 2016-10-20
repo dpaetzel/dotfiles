@@ -1,0 +1,13 @@
+# pgp menu keybindings
+
+bind pgp     yv      verify-key                            # verify a PGP public key
+
+# view
+# bind pgp             current-top                           # move entry to top of screen
+# bind pgp             current-middle                        # move entry to middle of screen
+# bind pgp             current-bottom                        # move entry to bottom of screen
+
+# misc
+# bind pgp             tag-prefix-cond                       # apply next function ONLY to tagged messages
+# bind pgp             end-cond                              # end of conditional execution (noop)
+# bind pgp             what-key                              # display the keycode for a key press

@@ -1,0 +1,210 @@
+# Mutt color file
+# Maintainer: Jon Häggblad <jon@haeggblad.com>
+# URL: http://www.haeggblad.com
+# Last Change: 2013 May 17
+# Version: 0.1
+#
+# Mutt colorscheme loosely inspired by vim colorscheme wombat.vim.
+#
+# Changelog:
+# 0.1 - Initial version
+
+
+
+# all colors are tripled:
+# 1. solarized-dark color
+# 2. vombatidae color
+# [3. custom color]
+
+
+
+# custom body highlights -------------------------------------------------------
+
+# highlight my name and other personally relevant strings
+
+#color body          color136        color234        "(ethan|schoonover)"
+
+
+
+# custom index highlights ------------------------------------------------------
+
+# messages which mention my name in the body
+
+# color   index   color136   color234   "~b   \"phil(_g|\!|   gregory|   gold)|pgregory\"   !~N   !~T   !~F    !~p    !~P"
+# color   index   J_cream    color230   "~b   \"phil(_g|\!|   gregory|   gold)|pgregory\"   ~N    !~T   !~F    !~p    !~P"
+# color   index   color136   color37    "~b   \"phil(_g|\!|   gregory|   gold)|pgregory\"   ~T    !~F   !~p    !~P"
+# color   index   color136   J_magent   "~b   \"phil(_g|\!|   gregory|   gold)|pgregory\"   ~F    !~p   !~P"
+
+# messages which are in reference to my mails
+
+# color   index   J_magent   color234   "~x   \"(mithrandir|aragorn)\\.aperiodic\\.net|thorin\\.hillmgt\\.com\"   !~N   !~T   !~F    !~p    !~P"
+# color   index   J_magent   color230   "~x   \"(mithrandir|aragorn)\\.aperiodic\\.net|thorin\\.hillmgt\\.com\"   ~N    !~T   !~F    !~p    !~P"
+# color   index   J_magent   color37    "~x   \"(mithrandir|aragorn)\\.aperiodic\\.net|thorin\\.hillmgt\\.com\"   ~T    !~F   !~p    !~P"
+# color   index   J_magent   color160   "~x   \"(mithrandir|aragorn)\\.aperiodic\\.net|thorin\\.hillmgt\\.com\"   ~F    !~p   !~P"
+
+
+
+# basic colors -----------------------------------------------------------------
+
+# vombatidae text colors
+
+# color   normal    color230   color234
+# color   message   color230   color234
+
+# slightly less yellow text colors
+
+# color   normal    color253   color234
+color   normal    color241   color234
+color   message   color253   color234
+# color   message   color37    color234
+# color   message   color241   color234   # (mine)
+
+# the rest
+
+# color   attachment   color254   color234
+color   attachment   color117   color234
+# color   error        color160   color234
+color   error        color30    color234
+# color   indicator    color234   color136
+color   indicator    color253   color238   # (mine)
+# color   markers      color160   color254
+color   markers      color138   default
+# color   search       color61    color234
+color   search       color100   default
+# color   status       color241   color235
+color   status       color101   color16
+# color   tilde        color235   color234
+# color   tilde        color130   color235
+color   tilde        color130   color234   # (mine)
+# color   tree         color136   color234
+color   tree         color208   color234
+
+
+
+# basic monocolor screen -------------------------------------------------------
+
+mono  bold          bold
+mono  underline     underline
+mono  indicator     reverse
+mono  error         bold
+
+
+
+# index ------------------------------------------------------------------------
+
+# color index   color160   color234   "~A"          # all messages
+color index   color241   color234   "~A"          # (mine) all messages
+# color index   color166   color234   "~E"          # expired messages
+color index   color33    color234   "~N"          # new messages
+# color index   color39    color234   "~N"          # new messages
+color index   color33    color234   "~O"          # old messages
+# color index   color39    color234   "~O"          # old messages
+# color index   color61    color234   "~Q"          # messages that have been replied to
+# color index   color240   color234   "~R"          # read messages
+color index   color241   color234   "~R"          # (mine) read messages
+# color index   color33    color234   "~U"          # unread messages
+color index   color33    color234   "~U"          # (mine) unread messages
+# color index   color33    color234   "~U~$"        # unread, unreferenced messages
+# color index   color241   color234   "~v"          # messages part of a collapsed thread
+# color index   color241   color234   "~P"          # messages from me
+# color index   color37    color234   "~p!~F"       # messages to me
+# color index   color37    color234   "~N~p!~F"     # new messages to me
+# color index   color37    color234   "~U~p!~F"     # unread messages to me
+# color index   color240   color234   "~R~p!~F"     # messages to me
+# color index   color160   color234   "~F"          # flagged messages
+color index   color202   color234   "~F"          # flagged messages
+# color index   color160   color234   "~F~p"        # flagged messages to me
+# color index   color160   color234   "~N~F"        # new flagged messages
+# color index   color160   color234   "~N~F~p"      # new flagged messages to me
+# color index   color160   color234   "~U~F~p"      # new flagged messages to me
+# color index   color235   color160   "~D"          # deleted messages
+color index   color240   color234   "~D"          # deleted messages
+# color index   color245   color234   "~v~(!~N)"    # collapsed thread with no unread
+# color index   color136   color234   "~v~(~N)"     # collapsed thread with some unread
+# color index   color64    color234   "~N~v~(~N)"   # collapsed thread with unread parent
+# color index   color160   color234   "~T"          # tagged messages
+color index   color229   color234   "~T"          # tagged messages
+
+# statusbg used to indicated flagged when foreground color shows other status
+# for collapsed thread
+# color index   color160   color235   "~v~(~F)!~N"    # collapsed thread with flagged, no unread
+# color index   color136   color235   "~v~(~F~N)"     # collapsed thread with some unread & flagged
+# color index   color64    color235   "~N~v~(~F~N)"   # collapsed thread with unread parent & flagged
+# color index   color64    color235   "~N~v~(~F)"     # collapsed thread with unread parent, no unread inside, but some flagged
+# color index   color37    color235   "~v~(~p)"       # collapsed thread with unread parent, no unread inside, some to me directly
+# color index   color136   color160   "~v~(~D)"       # thread with deleted (doesn't differentiate between all or partial)
+# color index   color136   color234   "~(~N)"         # messages in threads with some unread
+# color index   color64    color234   "~S"            # superseded messages
+# color index   color166   color160   "~="            # duplicated messages
+
+
+
+# color   index   green   black   '~h   "^content-type: *multipart/(signed|encrypted)"'
+
+# mono    index   bold    '~h   "^content-type: *(multipart/(mixed|signed|encrypted)|application/)"'
+# mono    body   reverse        '^(subject):.*'
+# mono    body   reverse        '[[:alpha:]][[:alnum:]-]+:'
+
+
+
+# body -------------------------------------------------------------------------
+
+# color   quoted    color107   color234
+# color   quoted1   color66    color234
+# color   quoted2   color32    color234
+# color   quoted3   color30    color234
+# color   quoted4   color99    color234
+# color   quoted5   color36    color234
+# color   quoted6   color114   color234
+# color   quoted7   color109   color234
+# color   quoted8   color41    color234
+# color   quoted9   color138   color234
+
+# color   body   cyan    default   "((ftp|http|https)://|news:)[^ >)\"\t]+"
+# color   body   cyan    default   "[-a-z_0-9.+]+@[-a-z_0-9.]+"
+# color   body   red     default   "(^| )\\*[-a-z0-9*]+\\*[,.?]?[ \n]"
+# color   body   green   default   "(^| )_[-a-z0-9_]+_[,.?]?[\n]"
+# color   body   red     default   "(^| )\\*[-a-z0-9*]+\\*[,.?]?[ \n]"
+# color   body   green   default   "(^| )_[-a-z0-9_]+_[,.?]?[ \n]"
+
+# color   body   brightwhite   magenta '^(subject):.*'
+# color   body   black cyan    '[[:alpha:]][[:alnum:]-]+:'
+
+
+# header -----------------------------------------------------------------------
+
+# color   hdrdefault   color30    color233
+# color   header       color132   color233 '^date:'
+# color   header       color153   color233 '^(to|cc|bcc):'
+# color   header       color120   color233 '^from:'
+# color   header       color178   color233 '^subject:'
+# color   header       color31    color233 '^user-agent:'
+# color   header       color29    color233 '^reply-to:'
+
+# color   header   magenta        default    '^(status|lines|date|received|sender|references):'
+# color   header   magenta        default    '^(pr|mime|x-|user|return|content-)[^:]*:'
+# color   header   brightyellow   default    '^content-type:'
+# color   header   magenta        default    '^content-type: *text/plain'
+# color   header   brightgreen    default    '^list-[^:]*:'
+# color   header   brightcyan     default    '^(disposition)'
+# color   header   green          default    '^(mail-)?followup'
+# color   header   white          default    '^reply'
+# color   header   brightwhite    default    '^(resent)'
+# color   header   brightwhite    default    '^from:'
+
+# mono    header   bold                      '^(subject):.*$'
+
+# color   signature    color102   color234
+
+
+
+# misc -------------------------------------------------------------------------
+
+# color   sidebar_new   color39   color234
+
+# from solarized: "yes, an insance URL regex"
+# color body color202 color234 "([a-z][a-z0-9+-]*://(((([a-z0-9_.!~*'();:&=+$,-]|%[0-9a-f][0-9a-f])*@)?((([a-z0-9]([a-z0-9-]*[a-z0-9])?)\\.)*([a-z]([a-z0-9-]*[a-z0-9])?)\\.?|[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+)(:[0-9]+)?)|([a-z0-9_.!~*'()$,;:@&=+-]|%[0-9a-f][0-9a-f])+)(/([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*(;([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*)*(/([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*(;([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*)*)*)?(\\?([a-z0-9_.!~*'();/?:@&=+$,-]|%[0-9a-f][0-9a-f])*)?(#([a-z0-9_.!~*'();/?:@&=+$,-]|%[0-9a-f][0-9a-f])*)?|(www|ftp)\\.(([a-z0-9]([a-z0-9-]*[a-z0-9])?)\\.)*([a-z]([a-z0-9-]*[a-z0-9])?)\\.?(:[0-9]+)?(/([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*(;([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*)*(/([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*(;([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*)*)*)?(\\?([-a-z0-9_.!~*'();/?:@&=+$,]|%[0-9a-f][0-9a-f])*)?(#([-a-z0-9_.!~*'();/?:@&=+$,]|%[0-9a-f][0-9a-f])*)?)[^].,:;!)? \t\r\n<>\"]"
+# from solarized: "and a heavy handed email regex"
+# color body color202 color234 "((@(([0-9a-z-]+\\.)*[0-9a-z-]+\\.?|#[0-9]+|\\[[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\]),)*@(([0-9a-z-]+\\.)*[0-9a-z-]+\\.?|#[0-9]+|\\[[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\]):)?[0-9a-z_.+%$-]+@(([0-9a-z-]+\\.)*[0-9a-z-]+\\.?|#[0-9]+|\\[[0-2]?[0-9]?[0-9]\\.[0-2]?[0-9]?[0-9]\\.[0-2]?[0-9]?[0-9]\\.[0-2]?[0-9]?[0-9]\\])"
+
+# vim: filetype=muttrc

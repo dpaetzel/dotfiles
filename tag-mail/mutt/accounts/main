@@ -1,0 +1,8 @@
+  set from      = "david.a.paetzel@gmail.com"
+  set sendmail  = "/run/current-system/sw/bin/msmtp -a main"
+unset mbox
+unset record
+  set postponed     = "+main/drafts"
+  set signature     = "~/.signature"
+
+macro index D "<save-message>main/Trash<enter>" "move message to the trash"

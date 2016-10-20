@@ -1,0 +1,69 @@
+# pager keybindings
+
+# message
+# bind pager x         tag-message                           # tag the current entry
+# bind pager i         mark-as-new                           # toggle a message's 'new' flag ?toggle-new?
+
+
+# thread
+
+
+# view
+bind pager Q         skip-quoted                           # skip beyond quoted text
+bind pager q         toggle-quoted                         # toggle display of quoted text
+
+
+# pattern
+
+
+# navigation
+bind pager j         next-line                             # scroll down one line
+bind pager k         previous-line                         # scroll up one line
+bind pager J         next-undeleted                        # move to the next undeleted message
+bind pager K         previous-undeleted                    # move to the previous undeleted message
+bind pager H         previous-page                         # move to the previous page
+bind pager L         next-page                             # move to the next page
+bind pager gg        top                                   # jump to the top of the message
+bind pager G         bottom                                # jump to the bottom of the message
+bind pager B         next-unread-mailbox                   # open next mailbox with new mail
+# bind pager           next-undeleted                        # move to the next undeleted message
+# bind pager           previous-undeleted                    # move to the previous undeleted message
+# bind pager           next-new                              # jump to the next new message
+# bind pager            next-new-then-unread                 # jump to the next new or unread message
+# bind pager           next-subthread                        # jump to the next subthread
+# bind pager           next-thread                           # jump to the next thread
+# bind pager           next-unread                           # jump to the next unread message
+# bind pager           previous-new                          # jump to the previous new message
+# bind pager           previous-new-then-unread              # jump to the previous new or unread message
+# bind pager <Esc>p    previous-subthread                    # jump to previous subthread
+# bind pager           previous-thread                       # jump to previous thread
+# bind pager           previous-unread                       # jump to the previous unread message
+# bind pager           next-thread                           # jump to the next thread
+# bind pager           next-subthread                        # jump to the next subthread
+# bind pager           next-new                              # jump to the next new message
+# bind pager           next-new-then-unread                  # jump to the next new or unread message
+# bind pager           next-unread                           # jump to the next unread message
+# bind pager           previous-new                          # jump to the previous new message
+# bind pager           previous-new-then-unread              # jump to the previous new or unread message
+# bind pager           previous-unread                       # jump to the previous unread message
+# bind pager           next-entry                            # move to the next entry
+# bind pager           previous-entry                        # move to the previous entry
+
+
+# mailbox
+# bind pager imap-fetch-mail                                 # force retrieval of mail from IMAP server
+# bind pager imap-logout-all                                 # logout from all IMAP servers
+
+
+# aliases and attachments
+
+
+# pgp
+
+
+# misc
+# bind pager         show-version                            # show the Mutt version number and date
+# bind pager         what-key                                # display the keycode for a key press
+
+
+# macro pager <F2> <shell-escape>less/u... "show Mutt documentation"
