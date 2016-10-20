@@ -1,0 +1,22 @@
+[SpamFilter]
+# If the new message has been added to a thread that has already been tagged
+# killed then add the killed tag to this message. This allows for ignoring all
+# replies to a particular thread.
+[KillThreadsFilter]
+# This filter looks for the List-Id header, and if it finds it, adds a tag lists
+# and a tag named lists/<list-id>.
+[ListMailsFilter]
+# Adds a tag sent to all mails sent from one of your configured mail addresses.
+[SentMailsFilter]
+sent_tag=sent
+# It extends SentMailsFilter with the following feature: Emails filtered by this
+# filter have the new tag removed, so will not have the inbox tag added by the
+# InboxFilter.
+[ArchiveSentMailsFilter]
+# This looks at which folder each email is in and uses that name as a tag for
+# the email.
+# [FolderNameFilter] # not needed since we do only pull All Mail etc.
+# This removes the new tag, and adds the inbox tag, to any message that isn’t
+# killed or spam.
+[InboxFilter]
+# TODO remove inbox label from all killed messages

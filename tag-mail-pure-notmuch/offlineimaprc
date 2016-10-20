@@ -1,0 +1,71 @@
+[general]
+ui = ttyui
+
+accounts = main
+# maxsyncaccounts = 2 # ?
+
+pythonfile = ~/.offlineimap/helpers.py
+
+
+# [mbnames]
+# enabled = yes
+# filename = ~/.mutt/mailboxes
+# header = "mailboxes "
+# peritem = "+%(accountname)s/%(foldername)s"
+# sep = " "
+# footer = "\n"
+
+
+[Account main]
+localrepository = main-local
+remoterepository = main-remote
+
+# autorefresh = 10 # we do NOT want offlineimap to keep running!
+# quick = 5
+
+# postsynchook = notmuch new # I do this in the wrapper script instead
+
+
+[Repository main-remote]
+type = Gmail
+
+remoteuser = david.a.paetzel@gmail.com
+oauth2_client_id = 1027994338948-02a7kk0ru694d9d1ubq0ncbe18dipd3v.apps.googleusercontent.com
+oauth2_client_secret = X-c8TXh6NssESp9ivfGvW-iA
+oauth2_refresh_token = 1/03LF-hza43h7hZPQSRlSBn6snZUwAUrY5l55rkYBh24
+
+maxconnections = 1
+
+# DO delete messages on the server?
+readonly = true
+# synclabels = true # unneeded since only syncing All Mail and labelling locally
+# keep deleted emails in gmail's All Mail
+realdelete = no
+
+nametrans = gmail_remote_nt
+
+# keep connection alive and watch inbox folder # not possible as we don't download INBOX
+# keepalive = 60
+# idlefolders = ['INBOX']
+# holdconnectionopen = yes
+
+# # use ssl
+ssl = true
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+folderfilter = lambda foldername: foldername in [ '[Gmail]/All Mail'
+                                                , '[Gmail]/Drafts'
+                                                # , '[Gmail]/Sent Mail' # also in All Mail!?
+                                                , '[Gmail]/Spam'
+                                                , '[Gmail]/Trash' ]
+# folderfilter = exclude([ '[Gmail]/Important'
+#                        , '[Gmail]/All Mail'
+#                        , '[Gmail]/Starred'
+#                        , 'Priority'
+#                        ])
+
+
+[Repository main-local]
+type = Maildir
+localfolders = ~/Mail/main
+sep = /
+nametrans = gmail_local_nt
