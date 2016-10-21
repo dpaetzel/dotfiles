@@ -45,7 +45,7 @@ unset markers
   set reply_regexp      = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
   set reply_to
   set reverse_alias
-  # set reverse_name
+  set reverse_name
   set sort              = reverse-threads
   set sort_aux          = last-date-received
 unset sort_re
@@ -77,7 +77,7 @@ unset wait_key
 # macro index + "<modify-labels>+*\\n<sync-mailbox>"               # tag as starred
 # macro index - "<modify-labels>-*\\n<sync-mailbox>"               # tag as unstarred
 
-alternates "^(david\.a\.paetzel|david\.and\.hoffmann)(\+[^@]+)?\@(gmail|googlemail)\.com$"
+source ~/.mutt/alternates
 
 auto_view text/html
 alternative_order text/plain text/enriched text/html

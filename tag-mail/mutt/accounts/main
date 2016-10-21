@@ -7,4 +7,4 @@ unset record
   set postponed     = "+main/drafts"
   set signature     = "~/.signature"
 
-macro index D "<save-message>main/Trash<enter>" "move message to the trash"
+macro index D "<save-message>main/trash<enter>" "move message to the trash"
