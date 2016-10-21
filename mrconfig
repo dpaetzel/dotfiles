@@ -1,0 +1,37 @@
+# To use this file, first install git-annex and make sure that ~/.mr/lib
+# contains the needed functions.
+
+[DEFAULT]
+sync = git-annex_sync
+pre_sync = echo "Starting syncing $MR_REPO"
+jobs = 5
+lib = source ~/.mr/lib
+
+[ALIAS]
+s = sync
+
+[.dotfiles]
+checkout = git clone 'https://github.com/dpaetzel/dotfiles.git' 'Code/nixos-config'
+# need to update rc files twice b/c first update pulls in rcrc
+post_checkout = rcup ; rcup
+post_sync = rcup
+
+[.dotfiles-private]
+checkout = git-annex_checkout $(~/Bin/the-other-one):.dotfiles-private .dotfiles-private
+# TODO this repo depends on .dotfiles…
+# post_checkout = rcup
+post_sync = rcup
+
+[Code/nixos-config]
+checkout = git clone 'https://github.com/dpaetzel/nixos-config.git' 'Code/nixos-config'
+skip = test "$1" == update -o "$1" == sync
+
+[Code/utility]
+checkout = git clone 'https://github.com/dpaetzel/utility.git' 'Code/utility'
+skip = test "$1" == update -o "$1" == sync
+
+[Documents]
+checkout = git-annex_checkout $(~/Bin/the-other-one):Documents Documents
+
+[Pictures]
+checkout = git-annex_checkout /run/media/$USER/DEMOKRIT/Pictures Pictures

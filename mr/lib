@@ -1,0 +1,33 @@
+#!/usr/bin/env sh
+# Helper functions for usage within .mrconfig.  “Import” them using:
+# lib = source ~/.mr/lib
+
+function git-annex_initialized {
+    echo 'Checking whether git-annex initialized…'
+    git annex status 2&> /dev/null
+}
+function git-annex_sync {
+    git-annex_initialized
+    if [[ $? -eq 0 ]]; then
+        git annex add .
+        git annex sync --content
+    fi
+    return 0
+}
+function git-annex_checkout {
+    echo "Cloning $1 to $2…" &&
+        git clone $1 $2 &&
+        cd $2 &&
+        echo 'Initialising git-annex…' &&
+        git annex init &&
+        echo 'Running `git annex get`…' &&
+        git annex get . &&
+        cd -
+}
+function reachable {
+    printf "Trying pinging $1… "
+    ping -W 2 -c 1 $1 2&> /dev/null
+    exit_value=$?
+    if [[ $exit_value != 0 ]]; then printf 'unreachable!\n\n'; else printf 'reachable!'; fi
+    return $exit_value
+}
