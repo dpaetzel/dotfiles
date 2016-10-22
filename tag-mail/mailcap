@@ -1,0 +1,22 @@
+# application/*                                                         ; xdg-open %s                                  ; copiousoutput
+# application/octet-stream                                              ; echo %s "can be anything..."                 ; copiousoutput
+application/msword                                                      ; libreoffice --view %s                        ; copiousoutput
+application/pdf                                                         ; zathura %s                                   ; copiousoutput
+application/pgp-signature                                               ; cat %s                                       ; copiousoutput
+application/vnd.ms-*                                                    ; libreoffice --view %s                        ; copiousoutput
+application/vnd.ms-excel                                                ; libreoffice --view %s                        ; copiousoutput
+application/vnd.oasis.opendocument.spreadsheet                          ; libreoffice --view %s                        ; copiousoutput
+application/vnd.oasis.opendocument.spreadsheet                          ; libreoffice --view %s                        ; copiousoutput
+application/vnd.oasis.opendocument.text                                 ; libreoffice --view %s                        ; copiousoutput
+application/vnd.openxmlformats-officedocument.spreadsheetml.sheet       ; libreoffice --view %s                        ; copiousoutput
+application/vnd.openxmlformats-officedocument.wordprocessingml.document ; libreoffice --view %s                        ; copiousoutput
+application/zip                                                         ; unzip -l %s                                  ; copiousoutput
+audio/*                                                                 ; vlc %s                                       ; copiousoutput
+image/*                                                                 ; geeqie %s                                    ; copiousoutput
+text/html                                                               ; chromium %s                                  ; nametemplate=%s.html ; test=test -n "$DISPLAY" ; needsterminal
+text/html                                                               ; elinks -dump 1 -no-numbering %s              ; copiousoutput        ; nametemplate=%s.html
+# text/html                                                               ; firefox -new-tab %s                          ; nametemplate=%s.html ; test=test -n "$DISPLAY" ; needsterminal
+# text/html                                                               ; vimb %s                                      ; test=test -n "$DISPLAY" ; needsterminal
+video/*                                                                 ; vlc %s                                       ; copiousoutput
+
+application/*                                                           ; ~/Bin/add-mailcap.sh %t ; needsterminal
