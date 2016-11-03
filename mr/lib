@@ -2,19 +2,19 @@
 # Helper functions for usage within .mrconfig.  “Import” them using:
 # lib = source ~/.mr/lib
 
-function git-annex_initialized {
+function git_annex_initialized {
     echo 'Checking whether git-annex initialized…'
     git annex status 2&> /dev/null
 }
-function git-annex_sync {
-    git-annex_initialized
+function git_annex_sync {
+    git_annex_initialized
     if [[ $? -eq 0 ]]; then
         git annex add .
         git annex sync --content
     fi
     return 0
 }
-function git-annex_checkout {
+function git_annex_checkout {
     echo "Cloning $1 to $2…" &&
         git clone $1 $2 &&
         cd $2 &&

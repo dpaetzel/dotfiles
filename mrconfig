@@ -2,7 +2,7 @@
 # contains the needed functions.
 
 [DEFAULT]
-sync = git-annex_sync
+sync = git_annex_sync
 pre_sync = echo "Starting syncing $MR_REPO"
 jobs = 5
 lib = source ~/.mr/lib
@@ -17,7 +17,7 @@ post_checkout = rcup ; rcup
 post_sync = rcup
 
 [.dotfiles-private]
-checkout = git-annex_checkout $(~/Bin/the-other-one):.dotfiles-private .dotfiles-private
+checkout = git_annex_checkout $(~/Bin/the-other-one):.dotfiles-private .dotfiles-private
 # TODO this repo depends on .dotfiles…
 # post_checkout = rcup
 post_sync = rcup
@@ -31,7 +31,7 @@ checkout = git clone 'https://github.com/dpaetzel/utility.git' 'Code/utility'
 skip = test "$1" == update -o "$1" == sync
 
 [Documents]
-checkout = git-annex_checkout $(~/Bin/the-other-one):Documents Documents
+checkout = git_annex_checkout $(~/Bin/the-other-one):Documents Documents
 
 [Pictures]
-checkout = git-annex_checkout /run/media/$USER/DEMOKRIT/Pictures Pictures
+checkout = git_annex_checkout /run/media/$USER/DEMOKRIT/Pictures Pictures
