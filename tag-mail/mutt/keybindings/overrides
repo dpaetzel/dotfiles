@@ -1,0 +1,4 @@
+# -*- mode: muttrc -*-
+
+bind pager,alias,attach,browser,compose,pgp,postpone q exit # exit this menu
+bind index q quit # exit this menu
