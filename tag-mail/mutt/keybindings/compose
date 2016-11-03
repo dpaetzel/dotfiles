@@ -49,7 +49,8 @@ bind compose ni      new-mime                                # compose new attac
 
 # attachments
 bind compose       print-entry                             # print the current entry
-macro compose      <pipe-entry>'urlview'<enter>            "call urlview to extract URLs out of a message"
+# macro compose      <pipe-entry>'urlview'<enter>            "call urlview to extract URLs out of a message"
+macro compose      <pipe-entry>'urlscan'<enter>            "call urlscan to extract URLs out of a message"
 # bind compose filter-entry                                  # filter attachment through a shell command
 # bind compose get-attachment                                # get a temporary copy of an attachment
 # bind compose update-encoding                               # update an attachment's encoding info

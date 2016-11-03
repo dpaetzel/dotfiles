@@ -17,7 +17,8 @@ bind attach d        delete-entry                          # delete the current 
 bind attach        print-entry                           # print the current entry
 bind attach c        save-entry                            # save message/attachment to a mailbox/file
 bind attach u        undelete-entry                        # undelete the current entry
-macro attach       <pipe-entry>'urlview'<enter>          "call urlview to extract URLs out of a message"
+# macro attach       <pipe-entry>'urlview'<enter>          "call urlview to extract URLs out of a message"
+macro attach       <pipe-entry>'urlscan'<enter>          "call urlscan to extract URLs out of a message"
 
 
 # edit things

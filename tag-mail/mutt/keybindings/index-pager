@@ -26,7 +26,8 @@ bind index,pager w         set-flag                              # set a status 
 bind index,pager u         undelete-message                      # undelete the current entry
 bind index,pager t         view-attachments                      # show MIME attachments
 
-macro index,pager        <pipe-entry>'urlview'<enter>          "call urlview to extract URLs out of a message"
+# macro index,pager        <pipe-entry>'urlview'<enter>          "call urlscan to extract URLs out of a message"
+macro index,pager        <pipe-entry>'urlscan'<enter>          "call urlscan to extract URLs out of a message"
 # macro index,pager R        <collapse-all><tag-pattern>~N<enter><tag-prefix><clear-flag>N<untag-pattern>~T<enter><collapse-all> "mark messages in current folder as read"
 macro index,pager R        <tag-pattern>~N<enter><tag-prefix><clear-flag>N<untag-pattern>~T<enter> "mark messages in current folder as read"
 
