@@ -1,4 +1,7 @@
 # -*- mode: muttrc -*-
 
+bind pager,alias,attach,browser,compose,pgp,postpone i noop
 bind pager,alias,attach,browser,compose,pgp,postpone q exit # exit this menu
 bind index q quit # exit this menu
+
+bind editor <Space> noop # needed to be able to enter filenames with spaces (https://pscl4rke.wordpress.com/2014/05/28/saving-attachments-with-spaces-in-mutt/)
