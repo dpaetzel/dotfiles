@@ -5,6 +5,10 @@
   (interactive)
   (save-excursion
     (beginning-of-buffer)
+    ;; " add spaces to the end of every non-empty line
+    ;; silent! %s/\v([^]> :])\ze\n\>[> ]*[^> ]/\1 /ge
+    (save-excursion
+      (replace-regexp "\\(.\\)$" "\\1 "))
     ;; " add spaces on the end of every line
     ;; silent! %s/\v([^]> :])\ze\n\>[> ]*[^> ]/\1 /ge
     (save-excursion
