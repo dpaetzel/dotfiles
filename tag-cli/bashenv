@@ -38,3 +38,4 @@ export PATH
 # }}}
 
 # vim: foldmethod=marker
+# -*- mode: shell; -*-

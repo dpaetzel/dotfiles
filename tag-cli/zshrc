@@ -178,6 +178,7 @@ function stripBankData {
 }
 alias adbAsRoot="if adb kill-server; then; sudo adb start-server; else; adb devices; fi"
 alias checkBuch="ledger --strict --f $HOME/Buchhaltung/Gesamt.journal bal"
+alias led="ledger --strict --f $HOME/Buchhaltung/Gesamt.journal"
 function sumRSS {
     sumExpr=$(ps -e --format rss,comm | grep --color -i -E $1 | awk '{ print $1 }' | paste --delimiter + -s)
     echo $(( ( $sumExpr ) / 1000 ))
