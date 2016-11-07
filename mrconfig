@@ -1,3 +1,4 @@
+# -*- mode: conf; -*-
 # To use this file, first install git-annex and make sure that ~/.mr/lib
 # contains the needed functions.
 
@@ -11,7 +12,7 @@ lib = source ~/.mr/lib
 s = sync
 
 [.dotfiles]
-checkout = git clone 'https://github.com/dpaetzel/dotfiles.git' 'Code/nixos-config'
+checkout = git clone 'git@github.com:dpaetzel/dotfiles.git' '.dotfiles'
 # need to update rc files twice b/c first update pulls in rcrc
 post_checkout = rcup ; rcup
 post_sync = rcup
@@ -23,7 +24,7 @@ checkout = git_annex_checkout $(~/Bin/the-other-one):.dotfiles-private .dotfiles
 post_sync = rcup
 
 [Code/nixos-config]
-checkout = git clone 'https://github.com/dpaetzel/nixos-config.git' 'Code/nixos-config'
+checkout = git clone 'https://github.com/dpaetzel/nixos-config.git' 'nixos-config'
 skip = test "$1" == update -o "$1" == sync
 
 [Code/utility]
@@ -35,3 +36,7 @@ checkout = git_annex_checkout $(~/Bin/the-other-one):Documents Documents
 
 [Pictures]
 checkout = git_annex_checkout /run/media/$USER/DEMOKRIT/Pictures Pictures
+
+[.xmonad]
+checkout = git clone 'https://github.com/dpaetzel/xmonad-config.git' '.xmonad'
+skip = test "$1" == update -o "$1" == sync
