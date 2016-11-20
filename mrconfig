@@ -11,32 +11,5 @@ lib = source ~/.mr/lib
 [ALIAS]
 s = sync
 
-[.dotfiles]
-checkout = git clone 'git@github.com:dpaetzel/dotfiles.git' '.dotfiles'
-# need to update rc files twice b/c first update pulls in rcrc
-post_checkout = rcup ; rcup
-post_sync = rcup
-
-[.dotfiles-private]
-checkout = git_annex_checkout $(~/Bin/the-other-one):.dotfiles-private .dotfiles-private
-# TODO this repo depends on .dotfiles…
-# post_checkout = rcup
-post_sync = rcup
-
-[Code/nixos-config]
-checkout = git clone 'https://github.com/dpaetzel/nixos-config.git' 'nixos-config'
-skip = test "$1" == update -o "$1" == sync
-
-[Code/utility]
-checkout = git clone 'https://github.com/dpaetzel/utility.git' 'Code/utility'
-skip = test "$1" == update -o "$1" == sync
-
-[Documents]
-checkout = git_annex_checkout $(~/Bin/the-other-one):Documents Documents
-
-[Pictures]
-checkout = git_annex_checkout /run/media/$USER/DEMOKRIT/Pictures Pictures
-
-[.xmonad]
-checkout = git clone 'https://github.com/dpaetzel/xmonad-config.git' '.xmonad'
-skip = test "$1" == update -o "$1" == sync
+include = cat $HOME/.mr/github.mrconfig
+include = cat $HOME/.mr/private.mrconfig
