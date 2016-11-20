@@ -4,11 +4,13 @@
 [Documents]
 checkout = git_annex_checkout $(~/Bin/the-other-one):Documents Documents
 
+
 [.dotfiles-private]
 checkout = git_annex_checkout $(~/Bin/the-other-one):.dotfiles-private .dotfiles-private
 # TODO this repo depends on .dotfiles…
 # post_checkout = rcup
 post_sync = rcup
+
 
 [Pictures]
 checkout = git_annex_checkout /run/media/$USER/DEMOKRIT/Pictures Pictures

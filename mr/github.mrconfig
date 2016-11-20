@@ -4,11 +4,14 @@
 [DEFAULT]
 skip = test "$1" == update -o "$1" == sync
 
+
 [Code/nixos-config]
 checkout = git clone 'https://github.com/dpaetzel/nixos-config.git' 'nixos-config'
 
+
 [Code/utility]
 checkout = git clone 'https://github.com/dpaetzel/utility.git' 'Code/utility'
+
 
 [.dotfiles]
 checkout = git clone 'git@github.com:dpaetzel/dotfiles.git' '.dotfiles'
@@ -16,8 +19,10 @@ checkout = git clone 'git@github.com:dpaetzel/dotfiles.git' '.dotfiles'
 post_checkout = rcup ; rcup
 post_sync = rcup
 
+
 [.xmonad]
 checkout = git clone 'https://github.com/dpaetzel/xmonad-config.git' '.xmonad'
+
 
 # reset all defaults
 [DEFAULT]

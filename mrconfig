@@ -2,14 +2,20 @@
 # To use this file, first install git-annex and make sure that ~/.mr/lib
 # contains the needed functions.
 
+
 [DEFAULT]
-sync = git_annex_sync
-pre_sync = echo "Starting syncing $MR_REPO"
 jobs = 5
 lib = source ~/.mr/lib
 
+status = git status --short
+
+pre_sync = echo "Starting syncing $MR_REPO"
+sync = git_annex_sync
+
+
 [ALIAS]
 s = sync
+
 
 include = cat $HOME/.mr/github.mrconfig
 include = cat $HOME/.mr/private.mrconfig
