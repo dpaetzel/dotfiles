@@ -31,6 +31,7 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     yaml
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -155,6 +156,11 @@ values."
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    ;; dotspacemacs-default-font '("Source Code Pro"
    ;;                             :size 15
+   ;;                             :weight normal
+   ;;                             :width normal
+   ;;                             :powerline-scale 1.1)
+   ;; dotspacemacs-default-font '("Fira Code"
+   ;;                             :size 13
    ;;                             :weight normal
    ;;                             :width normal
    ;;                             :powerline-scale 1.1)
@@ -344,6 +350,7 @@ you should place your code here."
 
   ;; org
   (with-eval-after-load 'org
+    (add-hook 'org-mode-hook 'turn-on-auto-fill)
     (setq org-startup-indented nil)
     ;; (setq org-default-notes-file "~/In.org")
     ;; (org-bullets-mode nil)
@@ -460,7 +467,7 @@ you should place your code here."
  '(org-agenda-files
    (quote
     ("~/Documents/GTD/GTD.org" "~/Documents/GTD/_projects/")))
- '(org-agenda-restore-windows-after-quit t t)
+ '(org-agenda-restore-windows-after-quit t)
  '(org-agenda-skip-deadline-prewarning-if-scheduled 2)
  '(org-agenda-skip-scheduled-if-done t)
  '(org-bullets-bullet-list (quote ("*")))
@@ -513,7 +520,7 @@ you should place your code here."
  '(org-use-property-inheritance nil)
  '(package-selected-packages
    (quote
-    (insert-shebang hide-comnt powerline spinner hydra parent-mode helm helm-core flx smartparens iedit anzu evil goto-chg undo-tree highlight f diminish projectile pkg-info epl s bind-map bind-key packed async avy popup package-build pdf-tools tablist csv-mode wgrep smex ivy-hydra counsel-projectile counsel swiper ivy xterm-color smeargle shell-pop orgit org-projectile org-present org org-pomodoro alert log4e gntp org-download noflet nix-mode muttrc-mode multi-term mmm-mode markdown-toc markdown-mode magit-gitflow ledger-mode intero htmlize hlint-refactor hindent helm-nixos-options helm-hoogle helm-gitignore helm-company helm-c-yasnippet haskell-snippets gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md flycheck-pos-tip pos-tip flycheck-ledger flycheck-haskell flycheck fish-mode evil-magit magit magit-popup git-commit with-editor eshell-z eshell-prompt-extras esh-help ensime sbt-mode scala-mode disaster diff-hl company-statistics company-shell company-nixos-options nixos-options company-ghci company-ghc ghc haskell-mode company-emacs-eclim eclim company-cabal company-c-headers company-auctex company cmm-mode cmake-mode clang-format auto-yasnippet yasnippet auctex ac-ispell auto-complete solarized-theme ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spacemacs-theme spaceline restart-emacs request rainbow-delimiters quelpa popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide ido-vertical-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line)))
+    (yaml-mode insert-shebang hide-comnt powerline spinner hydra parent-mode helm helm-core flx smartparens iedit anzu evil goto-chg undo-tree highlight f diminish projectile pkg-info epl s bind-map bind-key packed async avy popup package-build pdf-tools tablist csv-mode wgrep smex ivy-hydra counsel-projectile counsel swiper ivy xterm-color smeargle shell-pop orgit org-projectile org-present org org-pomodoro alert log4e gntp org-download noflet nix-mode muttrc-mode multi-term mmm-mode markdown-toc markdown-mode magit-gitflow ledger-mode intero htmlize hlint-refactor hindent helm-nixos-options helm-hoogle helm-gitignore helm-company helm-c-yasnippet haskell-snippets gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md flycheck-pos-tip pos-tip flycheck-ledger flycheck-haskell flycheck fish-mode evil-magit magit magit-popup git-commit with-editor eshell-z eshell-prompt-extras esh-help ensime sbt-mode scala-mode disaster diff-hl company-statistics company-shell company-nixos-options nixos-options company-ghci company-ghc ghc haskell-mode company-emacs-eclim eclim company-cabal company-c-headers company-auctex company cmm-mode cmake-mode clang-format auto-yasnippet yasnippet auctex ac-ispell auto-complete solarized-theme ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spacemacs-theme spaceline restart-emacs request rainbow-delimiters quelpa popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide ido-vertical-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line)))
  '(powerline-default-separator nil)
  '(ring-bell-function (quote ignore))
  '(scala-indent:align-forms t)

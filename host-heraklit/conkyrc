@@ -97,6 +97,8 @@ conky.text = [[
   ${texeci 60 ~/Code/utility/network/global-ip}  |\
   ${texeci 10 ~/.conky/scripts/status-inet}  |\
   $alignr|\
+  $memfree / $memeasyfree  |\
+  chromium: ${texeci 5 ~/Bin/how-much chromium}  |\
   ${font Symbola:size=14}${exec ~/.conky/scripts/status-mute}$font${voffset -1} ${exec ~/Code/utility/change-volume}  |\
   ${battery_percent}%  |\
   ${time %F}  |\
