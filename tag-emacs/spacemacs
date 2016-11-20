@@ -462,7 +462,11 @@ you should place your code here."
      ("h" "Daheim, ohne Computer"
       ((tags-todo "+DAHEIM-COMPUTER-HERAKLIT-ANAXAGORAS-FILIUS-WINDOWS+TODO=\"NEXT\"" nil))
       nil nil)
-     ("c" "Computer" tags-todo "+COMPUTER+TODO=\"NEXT\"-REGINE" nil)
+     ("c" . "Computer")
+     ("cr" "Computer, mit Regine" tags-todo "+COMPUTER+TODO=\"NEXT\"+REGINE" nil)
+     ("cc" . "Computer, ohne Regine")
+     ("ccc" "Computer, ohne Regine, wo auch immer" tags "+COMPUTER-ANAXAGORAS-WINDOWS-CLEOPATRA-DAHEIM+TODO=\"NEXT\"-REGINE" nil)
+     ("cch" "Computer, ohne Regine, daheim" tags "+COMPUTER+TODO=\"NEXT\"-REGINE" nil)
      ("r" "Regine" tags-todo "+REGINE+TODO=\"NEXT\"" nil))))
  '(org-agenda-files
    (quote
