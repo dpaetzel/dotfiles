@@ -9,7 +9,7 @@
 # The optional check argument tells NetworkManager to re-check the connectivity,
 # else the most recent known connectivity state is displayed without re-checking.
 # connectivity=$(nmcli networking connectivity check)
-connectivity=$(nmcli networking connectivity)
+connectivity=$(nmcli networking connectivity check)
 
 none_string=" "
 portal_string=""

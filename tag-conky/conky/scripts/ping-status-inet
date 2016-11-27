@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+
+host1="g.co"
+host2="facebook.com"
+
+ping_options="-c 1 -W 1"
+
+( ping $ping_options $host1 || ping $ping_options $host2 ) > /dev/null
+
+if [[ $? == 0 ]]; then
+    echo '✓'
+else
+    echo '✗'
+fi
