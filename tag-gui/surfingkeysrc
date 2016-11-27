@@ -38,9 +38,9 @@ map('u', 'e');
 map('H', 'S');
 map('L', 'D');
 
-// tab right/left
-map('gt', 'E');
-map('gT', 'R');
+// tab left/right
+map('gT', 'E');
+map('gt', 'R');
 
 // open link in new tab
 map('F', 'af');
