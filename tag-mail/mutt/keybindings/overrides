@@ -5,3 +5,7 @@ bind pager,alias,attach,browser,compose,pgp,postpone q exit # exit this menu
 bind index q quit # exit this menu
 
 bind editor <Space> noop # needed to be able to enter filenames with spaces (https://pscl4rke.wordpress.com/2014/05/28/saving-attachments-with-spaces-in-mutt/)
+
+# Return: the enter key, Enter: Ctrl+Return?
+# bind pager <Return> noop
+macro pager <Return> <view-attachments><search>html<enter><view-mailcap> "view html attachment using mail-cap"

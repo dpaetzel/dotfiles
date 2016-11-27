@@ -7,7 +7,7 @@
 # for this menu will affect the default bindings for all menus (except as noted).
 
 bind generic,alias,attach,browser,index,compose,pgp,postpone       L        bottom-page         # move to the bottom of the page
-bind generic,alias,attach,browser,index,compose,pgp,postpone       <Enter>  select-entry        # select the current entry
+bind generic,alias,attach,browser,index,compose,pgp,postpone       <Return> select-entry        # select the current entry
 bind generic,alias,attach,browser,index,compose,pgp,postpone       \;       tag-prefix          # apply next function to tagged messages o.O throws too few arguments error
 bind generic,alias,attach,browser,index,compose,pgp,postpone       x        tag-entry           # tag the current entry
 bind generic,alias,attach,browser,index,compose,pgp,postpone       G        last-entry          # move to the last entry
