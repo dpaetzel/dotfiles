@@ -376,6 +376,7 @@ you should place your code here."
   (spacemacs/set-leader-keys
     "fq" 'server-edit
     "A" 'org-agenda
+    "aog" 'org-clock-goto
     ;; "fep" ('byte-recompile-directory package-user-dir nil 'force)
     )
   (define-key evil-insert-state-map (kbd "<C-tab>") 'hippie-expand)
@@ -436,7 +437,7 @@ you should place your code here."
      (60 . evil-surround-read-tag)
      (102 . evil-surround-function))))
  '(flycheck-ledger-executable "hledger")
- '(ledger-post-amount-alignment-column 62 t)
+ '(ledger-post-amount-alignment-column 62)
  '(ledger-use-iso-dates t)
  '(org-M-RET-may-split-line (quote ((default))))
  '(org-agenda-custom-commands
