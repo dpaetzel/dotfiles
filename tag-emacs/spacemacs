@@ -506,13 +506,17 @@ you should place your code here."
      ("WINDOWS" . 119)
      (:endgrouptag)
      ("FILM" . 109)
-     ("REGINE" . 114)
+     (:startgrouptag "Personen")
+     ("@REGINE" . 82)
+     ("@ELTERN" . 69)
+     (:endgrouptag "")
      ("AMAZON" . 122)
      ("NACHTS" . 110)
      ("HOERBUCH" . 246)
      ("KOCHEN" . 107)
      ("GUTSCHEIN" . 103)
      ("BESORGUNGEN" . 98))))
+ '(org-tag-persistent-alist org-tag-alist)
  '(org-todo-keyword-faces
    (quote
     (("TODO" :foreground "dim gray" :weight bold)
