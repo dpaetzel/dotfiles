@@ -30,9 +30,9 @@ remoterepository = main-remote
 type = Gmail
 
 remoteuser = david.a.paetzel@gmail.com
-oauth2_client_id = 1027994338948-02a7kk0ru694d9d1ubq0ncbe18dipd3v.apps.googleusercontent.com
-oauth2_client_secret = X-c8TXh6NssESp9ivfGvW-iA
-oauth2_refresh_token = 1/03LF-hza43h7hZPQSRlSBn6snZUwAUrY5l55rkYBh24
+oauth2_client_id_eval = client_id("main")
+oauth2_client_secret_eval = client_secret("main")
+oauth2_refresh_token_eval = refresh_token("main")
 
 maxconnections = 1
 
@@ -67,5 +67,47 @@ folderfilter = exclude([ '[Gmail]/Important'
 [Repository main-local]
 type = Maildir
 localfolders = ~/Mail/main
+sep = /
+nametrans = gmail_local_nt
+
+
+# sync sent mails from old account (I used it once…)
+[Account old]
+localrepository = old-local
+remoterepository = old-remote
+
+
+[Repository old-remote]
+type = Gmail
+
+remoteuser = david.and.hoffmann@gmail.com
+oauth2_client_id = 600521279279-gk76juntegtj2gvonq0turb7qdvlvfmk.apps.googleusercontent.com
+oauth2_client_secret = fgWDQl-L4tf6PFo1bnWAivgB
+oauth2_refresh_token = 1/4c-6G8Bz_IM0vkFSdsiYBUH3WHxtQ6RkinfpamBj3PQ
+
+maxconnections = 1
+
+# DO delete messages on the server?
+readonly = yes
+# synclabels = true # unneeded since only syncing All Mail and labelling locally
+# keep deleted emails in gmail's All Mail
+# realdelete = yes
+
+nametrans = gmail_remote_nt
+
+# keep connection alive and watch inbox folder # not possible as we don't download INBOX
+# keepalive = 60
+# idlefolders = ['INBOX']
+# holdconnectionopen = yes
+
+# use ssl
+ssl = true
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+folderfilter = lambda foldername: foldername in [ '[Gmail]/Sent Mail' ]
+
+
+[Repository old-local]
+type = Maildir
+localfolders = ~/Mail/old
 sep = /
 nametrans = gmail_local_nt

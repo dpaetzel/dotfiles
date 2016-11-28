@@ -1,4 +1,5 @@
 import re
+import subprocess
 
 gmail_mapping = { 'INBOX'       : 'inbox'
           , '[Gmail]/All Mail'  : 'archive'
@@ -45,3 +46,24 @@ def exclude(excludes):
 
 # def yandex_local_nt(folder):
 #     return r_yandex_mapping.get(folder, folder)
+
+def client_id(account):
+  cmd = ["cat", "/home/david/.offlineimap/%s/client_id" % account]
+  try:
+      return subprocess.check_output(cmd).strip()
+  except subprocess.CalledProcessError:
+      return ""
+
+def client_secret(account):
+  cmd = ["cat", "/home/david/.offlineimap/%s/client_secret" % account]
+  try:
+      return subprocess.check_output(cmd).strip()
+  except subprocess.CalledProcessError:
+      return ""
+
+def refresh_token(account):
+  cmd = ["cat", "/home/david/.offlineimap/%s/refresh_token" % account]
+  try:
+      return subprocess.check_output(cmd).strip()
+  except subprocess.CalledProcessError:
+      return ""
