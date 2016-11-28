@@ -483,11 +483,10 @@ you should place your code here."
  '(org-list-allow-alphabetical t)
  '(org-log-into-drawer t)
  '(org-mobile-inbox-for-pull "~/.gtd/In.org")
- '(org-stuck-projects
+ '(org-modules
    (quote
-    ("+LEVEL=1+TODO=\"PROJECT\""
-     ("NEXT" "WAIT")
-     nil "")))
+    (org-bbdb org-bibtex org-docview org-gnus org-habit org-info org-irc org-mhe org-rmail org-w3m)))
+ '(org-stuck-projects (quote ("+TODO=\"PROJECT\"" ("NEXT" "WAIT") nil "")))
  '(org-tag-alist
    (quote
     ((:startgroup "Orte")
