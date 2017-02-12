@@ -1,0 +1,9 @@
+# -*- mode: conf; -*-
+# To use this file, first install git-annex and make sure that ~/.mr/lib
+# contains the needed functions.
+
+[DEFAULT]
+jobs = 5
+lib = source ~/.mr/lib
+
+git_status = git status --short
