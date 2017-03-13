@@ -2,29 +2,29 @@
 include = cat $HOME/.header.mrconfig
 
 
-[DEFAULT]
-skip = test "$1" == update -o "$1" == sync
-
-
 [NixOS]
 checkout = git clone 'https://github.com/dpaetzel/nixos-config.git' 'NixOS'
+sync = true
 
 
 [Bin]
 checkout = git clone 'https://github.com/dpaetzel/utility.git' 'Bin'
+sync = true
 
 
 [.dotfiles]
 checkout = git clone 'git@github.com:dpaetzel/dotfiles.git' '.dotfiles'
 # need to update rc files twice b/c first update pulls in rcrc
 post_checkout = rcup ; rcup
-post_sync = rcup
+# post_sync = rcup
+sync = true
 
 
 [.xmonad]
 checkout = git clone 'https://github.com/dpaetzel/xmonad-config.git' '.xmonad'
+sync = true
 
 
-# reset all defaults
-[DEFAULT]
-skip = return 1
+[Code/Zahlengerade]
+checkout = git clone 'https://github.com/dpaetzel/Zahlengerade.git' 'Code/Zahlengerade'
+sync = true

@@ -2,6 +2,5 @@
 include = cat $HOME/.header.mrconfig
 
 include = cat $HOME/.private.mrconfig
-
-# include = cat $HOME/.my-github.mrconfig
-# include = cat $HOME/.others-github.mrconfig
+include = cat $HOME/.my-github.mrconfig
+include = cat $HOME/.others-github.mrconfig
