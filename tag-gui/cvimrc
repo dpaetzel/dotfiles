@@ -1,0 +1,57 @@
+set localconfig
+let configpath = "/home/david/.cvimrc"
+
+
+" search engines
+
+let defaultengine = "duckduckgo"
+
+let searchengine youtube = "https://www.youtube.com/results?search_query="
+let searchalias y = "youtube"
+let searchengine twitter = "https://twitter.com/search?q="
+let searchalias t = "twitter"
+let searchengine googlemaps = "https://www.google.de/maps/search/"
+let searchalias m = "googlemaps"
+
+let searchengine dictcc = "https://dict.cc/?s="
+let searchalias di = "dictcc"
+let searchengine duden = "http://www.duden.de/suchen/dudenonline/"
+let searchalias du = "duden"
+let searchengine googletranslate = "http://translate.google.com/?source=osdd#auto|auto|"
+let searchalias dt = "googletranslate"
+
+let searchengine github = "https://github.com/search?q="
+let searchalias gh = "github"
+let searchengine wikipedia = "https://en.wikipedia.org/w/index.php?search="
+let searchalias w = "wikipedia"
+let searchengine amazon = "https://www.amazon.de/s?field-keywords="
+let searchalias a = "amazon"
+let searchengine imdb = "https://www.imdb.com/find?s=all&q="
+let searchalias i = "imdb"
+let searchengine images = "https://images.google.com/search?site=imghp&q="
+let searchalias p = "images"
+
+let searchengine allenoten = "https://www.alle-noten.de/index.php?cl=search&searchparam="
+let searchalias n = "allenoten"
+
+let searchengine pipl = "https://pipl.com/search/?q="
+let searchalias fp = "pipl"
+
+let searchengine userstyles = "https://userstyles.org/styles/browse/%s"
+let searchalias s = "userstyles"
+
+
+" bookmarks
+
+let qmark b = ["blog.fefe.de"]
+
+
+" look
+
+set smoothscroll
+let barposition = "bottom"
+
+
+" interface
+
+let hintcharacters = "uiaenrtd"
