@@ -45,7 +45,8 @@ unset markers
   set reply_regexp      = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
   set reply_to
   set reverse_alias
-  set reverse_name
+unset reverse_name
+unset reverse_realname
   set sort              = reverse-threads
   set sort_aux          = last-date-received
 unset sort_re
@@ -83,6 +84,7 @@ auto_view text/html
 alternative_order text/plain text/enriched text/html
 
 folder-hook main/*  source ~/.mutt/accounts/main # TODO unneeded unless multiple accounts
+folder-hook * "exec collapse-all"
 
 ignore *
 unignore from: to: cc: date: subject:

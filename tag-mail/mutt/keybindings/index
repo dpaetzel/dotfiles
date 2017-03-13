@@ -51,7 +51,7 @@ bind index K         previous-thread                       # jump to previous th
 # pgp
 
 # mailbox
-macro index <F5>     "<shell-escape>killall -SIGUSR1 offlineimap<enter>" "download new mails"
+macro index <F5>     "<shell-escape>sync-mail 2&1> /dev/null &<enter>"      "download new mails"
 bind index q         quit                                  # save changes to mailbox and quit
 bind index $         sync-mailbox                          # save changes to mailbox
 bind index %         toggle-write                          # toggle whether the mailbox will be rewritten
