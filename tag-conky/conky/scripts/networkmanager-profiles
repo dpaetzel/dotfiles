@@ -1,7 +1,39 @@
 #!/usr/bin/env sh
 
-nmcli con show --active |\
+string=$(nmcli con show --active |\
     awk 'NR != 1' |\
     cut --fields 1 --delimiter=' ' |\
     paste --delimiter='&' -s |\
-    sed -r 's/&/ & /g'
+    sed -r 's/&/ & /g')
+
+if [[ -z $string ]]; then
+    printf down
+else
+    printf $string
+fi
+
+function device_addresses {
+    device=$1
+
+    nmcli dev show $device |\
+        grep -E 'IP4\.ADDRESS' |\
+        sed -r 's/IP4\.ADDRESS\[.+\]: *([^ \/]+)\/.*$/\1/'
+}
+
+active_devices=$(nmcli con show --active |\
+                     awk 'NR != 1' |\
+                     awk '{ print $4 }' |\
+                     paste --delimiter=' ' -s)
+
+string=$(( for d in $active_devices; do
+               echo $(device_addresses $d) "($d)"
+           done ) |\
+             sort -u |\
+             paste --delimiter='/' -s |\
+             sed -r 's/\// \/ /g')
+
+if [[ -n $string ]]; then
+    printf "  |  $string"
+fi
+
+echo
