@@ -202,4 +202,24 @@ alias mount=udiskie-mount
 alias umount=udiskie-umount
 alias m="udiskie-mount -ar"
 alias um="udiskie-umount -a"
+
+# not beautiful but works(?)
+function vpn {
+    name=$1
+    command=${2:-up}
+
+    if [[ $command = up ]]; then
+        ( nm-applet &> /dev/null ) &
+        pid=$!
+
+        sleep 3
+        nmcli con up ${name}-vpn
+        ( sleep 10 && kill $pid  &> /dev/null) &
+    else
+        nmcli con $command ${name}-vpn
+    fi
 }
+alias mr="mr -s"
+
+alias no-git="find -type d -not -path '.' -a -not -path '*/.git' -prune -a -not -exec git-initialised '{}' ';' -print -prune"
+alias gpg=gpg2
