@@ -32,8 +32,8 @@ export _selected_drivers='ath9k'
 # }}}
 
 # PATH {{{
-PATH=$PATH:$(find $HOME/Bin/ -type d | grep -v "\.git" | sed '/\/\\./d' | tr '\n' ':' | sed 's/:$//')
-PATH=$PATH:$HOME/.cabal/bin
+PATH=$HOME/Bin:$PATH
+# PATH=$PATH:$HOME/.cabal/bin
 export PATH
 # }}}
 

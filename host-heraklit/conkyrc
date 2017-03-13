@@ -26,8 +26,6 @@ conky.config = {
 	format_human_readable = true,
 gap_x = 0,
 gap_y = 3,
---gap_x = 0,
---gap_y = 0,
 	hddtemp_host = '127.0.0.1',
 	hddtemp_port = '7634',
 	if_up_strictness = 'up',
@@ -44,8 +42,8 @@ gap_y = 3,
 --max_specials = '512',
 	max_text_width = 0,
 	max_user_text = 16384,
+	minimum_width = 1366,
 	maximum_width = 1366,
-	minimum_width = 1680,
 --mpd_host
 --mpd_password
 --mpd_port
@@ -88,18 +86,16 @@ gap_y = 3,
 --xftalpha
 --xftfont                        Roboto:size=12
 --xftfont                        Arial:size=14:antialias=true
-	font = 'Inconsolata:size=14:antialias=true'
+	font = 'Inconsolata:size=11:antialias=true'
 };
 
 conky.text = [[
   ${texeci 10 ~/.conky/scripts/networkmanager-profiles}  |\
-  ${if_up wlp3s0}${addr wlp3s0}${else}${if_up enp2s0}${addr enp2s0}${else} ${endif}${endif}  |\
-  ${texeci 60 ~/Code/utility/network/global-ip}  |\
-  ↑↓ ${font Symbola:size=14}${texeci 10 ~/.conky/scripts/ping-status-inet}${font}  |\
-  $alignr|\
+  ${texeci 60 ~/Bin/global-ip} ${font Symbola:size=11}${texeci 10 ~/.conky/scripts/ping-status-inet}${font}${voffset -1}  |\
+$alignr|\
   $memfree / $memeasyfree  |\
-  chromium: ${texeci 5 ~/Bin/how-much chromium}  |\
-  ${font Symbola:size=14}${exec ~/.conky/scripts/status-mute}$font${voffset -1} ${exec ~/Code/utility/change-volume}  |\
+  chromium: ${texeci 5 ~/Bin/rss-sum chromium}  |\
+  ${font Symbola:size=11}${exec ~/.conky/scripts/status-mute}$font${voffset -1} ${exec ~/Bin/volume}  |\
   ${battery_percent}%  |\
   ${time %F}  |\
   ${time %k:%M}  

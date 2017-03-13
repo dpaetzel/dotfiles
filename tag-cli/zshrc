@@ -163,7 +163,6 @@ alias sortc='LC_COLLATE=C sort'
 alias linesifs="IFS=$'\n'"
 alias normalifs="unset IFS"
 alias imap='killall -9 offlineimap && sleep 1 && offlineimap'
-alias reconky='killall conky; conky -c ~/.conkyrc'
 alias bt='sudo bluetoothctl'
 alias pg='pdfgrep --ignore-case --page-number'
 alias hids='cat /sys/class/hidraw/hidraw*/device/uevent | grep NAME'
@@ -177,8 +176,8 @@ function stripBankData {
     cat $1 | cut -d ';' -f 2,5,6,9 | awk -v FS=';' '{ print $4 ";" $3 ";" $1 ";" $2 }'
 }
 alias adbAsRoot="if adb kill-server; then; sudo adb start-server; else; adb devices; fi"
-alias checkBuch="ledger --strict --f $HOME/Buchhaltung/Gesamt.journal bal"
-alias led="ledger --strict --f $HOME/Buchhaltung/Gesamt.journal"
+alias checkBuch="ledger --strict --file $HOME/Buchhaltung/Gesamt.journal bal"
+alias led="ledger --strict --file $HOME/Buchhaltung/Gesamt.journal"
 function sumRSS {
     sumExpr=$(ps -e --format rss,comm | grep --color -i -E $1 | awk '{ print $1 }' | paste --delimiter + -s)
     echo $(( ( $sumExpr ) / 1000 ))
