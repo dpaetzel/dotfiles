@@ -38,15 +38,16 @@ values."
      ;; ----------------------------------------------------------------
      auto-completion
      ;; better-defaults
-     c-c++
-     csv
+     ;; c-c++
+     ;; csv
      emacs-lisp
      finance ;; ledger-mode
      git
-     (haskell :variables haskell-completion-backend 'ghci)
-     html
-     ivy
-     java
+     ;; (haskell :variables haskell-completion-backend 'ghci)
+     haskell
+     ;; html
+     ;; ivy ;; this disables helm (and is more lightweight)
+     ;; java
      javascript
      (latex :variables
             latex-build-command "LaTeX"
@@ -55,7 +56,6 @@ values."
      markdown
      nixos
      org
-     ;; pdf-tools ;; not working?!
      scala
      (shell :variables
             shell-default-height 30
@@ -64,8 +64,7 @@ values."
      shell-scripts
      ;; spell-checking
      syntax-checking
-     unimpaired
-     version-control
+     ;; version-control
      vimscript
      yaml
      )
@@ -73,7 +72,12 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(muttrc-mode)
+   dotspacemacs-additional-packages
+   '(
+     magit-annex
+     muttrc-mode
+     nix-sandbox
+     )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -476,7 +480,7 @@ you should place your code here."
  '(org-agenda-files
    (quote
     ("~/Documents/GTD/GTD.org" "~/Documents/GTD/_projects/")))
- '(org-agenda-restore-windows-after-quit t t)
+ '(org-agenda-restore-windows-after-quit t)
  '(org-agenda-skip-deadline-prewarning-if-scheduled 2)
  '(org-agenda-skip-scheduled-if-done t)
  '(org-agenda-tags-column -90)
@@ -534,7 +538,7 @@ you should place your code here."
  '(org-use-property-inheritance nil)
  '(package-selected-packages
    (quote
-    (web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode haml-mode emmet-mode company-web web-completion-data web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc company-tern dash-functional tern coffee-mode vimrc-mode dactyl-mode yaml-mode insert-shebang hide-comnt powerline spinner hydra parent-mode helm helm-core flx smartparens iedit anzu evil goto-chg undo-tree highlight f diminish projectile pkg-info epl s bind-map bind-key packed async avy popup package-build pdf-tools tablist csv-mode wgrep smex ivy-hydra counsel-projectile counsel swiper ivy xterm-color smeargle shell-pop orgit org-projectile org-present org org-pomodoro alert log4e gntp org-download noflet nix-mode muttrc-mode multi-term mmm-mode markdown-toc markdown-mode magit-gitflow ledger-mode intero htmlize hlint-refactor hindent helm-nixos-options helm-hoogle helm-gitignore helm-company helm-c-yasnippet haskell-snippets gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md flycheck-pos-tip pos-tip flycheck-ledger flycheck-haskell flycheck fish-mode evil-magit magit magit-popup git-commit with-editor eshell-z eshell-prompt-extras esh-help ensime sbt-mode scala-mode disaster diff-hl company-statistics company-shell company-nixos-options nixos-options company-ghci company-ghc ghc haskell-mode company-emacs-eclim eclim company-cabal company-c-headers company-auctex company cmm-mode cmake-mode clang-format auto-yasnippet yasnippet auctex ac-ispell auto-complete solarized-theme ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spacemacs-theme spaceline restart-emacs request rainbow-delimiters quelpa popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide ido-vertical-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line)))
+    (nix-sandbox magit-annex web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode haml-mode emmet-mode company-web web-completion-data web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc company-tern dash-functional tern coffee-mode vimrc-mode dactyl-mode yaml-mode insert-shebang hide-comnt powerline spinner hydra parent-mode helm helm-core flx smartparens iedit anzu evil goto-chg undo-tree highlight f diminish projectile pkg-info epl s bind-map bind-key packed async avy popup package-build pdf-tools tablist csv-mode wgrep smex ivy-hydra counsel-projectile counsel swiper ivy xterm-color smeargle shell-pop orgit org-projectile org-present org org-pomodoro alert log4e gntp org-download noflet nix-mode muttrc-mode multi-term mmm-mode markdown-toc markdown-mode magit-gitflow ledger-mode intero htmlize hlint-refactor hindent helm-nixos-options helm-hoogle helm-gitignore helm-company helm-c-yasnippet haskell-snippets gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md flycheck-pos-tip pos-tip flycheck-ledger flycheck-haskell flycheck fish-mode evil-magit magit magit-popup git-commit with-editor eshell-z eshell-prompt-extras esh-help ensime sbt-mode scala-mode disaster diff-hl company-statistics company-shell company-nixos-options nixos-options company-ghci company-ghc ghc haskell-mode company-emacs-eclim eclim company-cabal company-c-headers company-auctex company cmm-mode cmake-mode clang-format auto-yasnippet yasnippet auctex ac-ispell auto-complete solarized-theme ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spacemacs-theme spaceline restart-emacs request rainbow-delimiters quelpa popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide ido-vertical-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line)))
  '(powerline-default-separator nil)
  '(ring-bell-function (quote ignore))
  '(scala-indent:align-forms t)
