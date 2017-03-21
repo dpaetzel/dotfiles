@@ -25,7 +25,7 @@ conky.config = {
 --font                          Sans
 	format_human_readable = true,
 gap_x = 1369,
-gap_y = 312,
+gap_y = 314,
 	hddtemp_host = '127.0.0.1',
 	hddtemp_port = '7634',
 	if_up_strictness = 'up',
