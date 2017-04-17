@@ -13,6 +13,10 @@ checkout = git clone 'https://github.com/rupa/z.git' '.zsh/z'
 checkout = git clone 'https://github.com/robbyrussell/oh-my-zsh.git' '.oh-my-zsh'
 
 
+[.oh-my-zsh/custom/plugins/git-annex]
+checkout = git clone 'https://github.com/Schnouki/git-annex-zsh-completion.git' 'git-annex'
+
+
 # ? https://github.com/5digits/dactyl
 # ? https://github.com/EFForg/https-everywhere
 
