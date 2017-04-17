@@ -2,6 +2,12 @@ set localconfig
 let configpath = "/home/david/.cvimrc"
 
 
+" key mappings
+
+" “clear” current tab
+map gc :open about:newtab<CR>
+
+
 " search engines
 
 let defaultengine = "duckduckgo"
@@ -39,6 +45,9 @@ let searchalias fp = "pipl"
 
 let searchengine userstyles = "https://userstyles.org/styles/browse/%s"
 let searchalias s = "userstyles"
+
+let searchengine hayoo = "http://hayoo.fh-wedel.de/?query=%s"
+let searchalias ha = "hayoo"
 
 
 " bookmarks
