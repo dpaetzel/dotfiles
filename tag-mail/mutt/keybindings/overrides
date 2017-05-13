@@ -21,12 +21,14 @@
 # - (mixmaster: used to select remailer options for outgoing messages (if Mutt
 #   is compiled with Mixmaster support))
 
-# mutt is quit using q in the index, everywhere else (only) q exits the current menu
+
+# Mutt is quit using q in the index, everywhere else (only) q exits the current menu
 bind alias,attach,browser,compose,generic,pager,pgp,postpone i noop
 bind alias,attach,browser,compose,generic,pager,pgp,postpone q exit
 bind index q quit
 
-# needed to be able to enter filenames with spaces
+
+# Needed to be able to enter filenames with spaces
 # (https://pscl4rke.wordpress.com/2014/05/28/saving-attachments-with-spaces-in-mutt/)
 bind editor <Space> noop
 

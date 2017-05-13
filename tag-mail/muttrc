@@ -15,9 +15,10 @@ unset confirmappend
   set editor            = "emacsclient -a emacs +8:0"
   set fast_reply
   set folder            = ~/Mail
+  set forward_decode
   set forward_format    = "Fwd: %s"
   set forward_quote
-  # set header_cache      = ~/.mutt/cache
+  set header_cache      = ~/.cache/mutt
 unset help
   # set implicit_autoview = yes
   set include
@@ -29,6 +30,7 @@ unset mark_old
 unset markers
   set mbox_type         = Maildir
   set menu_scroll
+  set message_cachedir  = ~/.cache/mutt/messages
   set mime_forward      = ask-yes
   set pager_context     = 5
   set pager_format      = "━┥%C/%m┝━┥%Z┝━┥%n: %s┝━%>━━"
@@ -49,8 +51,8 @@ unset reverse_name
 unset reverse_realname
   set sort              = reverse-threads
   set sort_aux          = last-date-received
-unset sort_re
-  set spoolfile         = "+main/inbox"
+  set sort_re
+  set spoolfile         = "+gmail/inbox"
   set status_format     = "━┥%f┝━┥Msgs:%?M?%M/?%m%?n? New:%n?%?o? Old:%o?%?d? Del:%d?%?F? Flag:%F?%?t? Tag:%t?%?p? Post:%p?%?b? Inc:%b?%?l? %l?┝━━━┥%s/%S┝━%>━┥%P┝━━━"
   set text_flowed       = yes
   set thorough_search
@@ -58,33 +60,21 @@ unset sort_re
   set tilde
   set timeout           = 3
   set to_chars          = " >]}<L"
-  set tmpdir            = ~/.mutt/tmp
+  set tmpdir            = ~/.cache/mutt
+  set uncollapse_jump
 unset wait_key
 
-# notmuch # MAYBE if needed
-# set nm_default_uri="notmuch:///home/david/Mail" # path to the maildir
-# set virtual_spoolfile=yes # enable virtual folders
-# virtual-mailboxes \
-#   "inbox"     "notmuch://?query=tag:inbox and NOT tag:archive"\
-#   "unread"    "notmuch://?query=tag:unread"\
-#   "starred"   "notmuch://?query=tag:*"\
-#   "sent"      "notmuch://?query=tag:sent"        # sets up queries for virtual folders
 
-# notmuch bindings
-# macro index \\\\ "<vfolder-from-query>"              # looks up a hand made query
-# macro index A "<modify-labels>+archive -unread -inbox\\n"        # tag as Archived
-# macro index I "<modify-labels>-inbox -unread\\n"                 # removed from inbox
-# macro index S "<modify-labels-then-hide>-inbox -unread +junk\\n" # tag as Junk mail
-# macro index + "<modify-labels>+*\\n<sync-mailbox>"               # tag as starred
-# macro index - "<modify-labels>-*\\n<sync-mailbox>"               # tag as unstarred
+mime_lookup application/octet-stream
 
 source ~/.mutt/alternates
 
 auto_view text/html
-alternative_order text/plain text/enriched text/html
+alternative_order text/enriched text/plain text/html
 
-folder-hook main/*  source ~/.mutt/accounts/main # TODO unneeded unless multiple accounts
-folder-hook * "exec collapse-all"
+folder-hook gmail/*  source ~/.mutt/accounts/gmail
+folder-hook dpaetzel/*  source ~/.mutt/accounts/dpaetzel
+# folder-hook * "exec collapse-all"
 
 ignore *
 unignore from: to: cc: date: subject:
@@ -94,7 +84,7 @@ hdr_order From: To: Cc: Date: Subject:
 # source $alias_file
 source ~/.mutt/colors
 source ~/.mutt/mailboxes
-source ~/.mutt/accounts/main # TODO
+source ~/.mutt/accounts/gmail
 # source ~/.mutt/crypto # TODO
 
 # source ~/.mutt/keybindings/unbind
