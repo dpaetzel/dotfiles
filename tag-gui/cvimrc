@@ -7,6 +7,8 @@ let configpath = "/home/david/.cvimrc"
 " “clear” current tab
 map gc :open about:newtab<CR>
 
+map t :tabnew about:newtab<CR>
+
 
 " search engines
 
@@ -30,6 +32,8 @@ let searchengine github = "https://github.com/search?q="
 let searchalias gh = "github"
 let searchengine wikipedia = "https://en.wikipedia.org/w/index.php?search="
 let searchalias w = "wikipedia"
+let searchengine wikipediadeutsch = "https://de.wikipedia.org/w/index.php?search="
+let searchalias wd = "wikipediadeutsch"
 let searchengine amazon = "https://www.amazon.de/s?field-keywords="
 let searchalias a = "amazon"
 let searchengine imdb = "https://www.imdb.com/find?s=all&q="
