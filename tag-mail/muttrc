@@ -1,5 +1,6 @@
 # -*- mode: muttrc -*-
 
+
   # set alias_file        = ~/.mutt/aliases # replaced by query_command
   # set alias_format      = "%4n %2f %t %-20a %r" # replaced by query_command
   # set auto_tag          = yes # no need to use tag prefix to apply command to messages
@@ -10,8 +11,6 @@ unset confirmappend
   set date_format       = "%H:%M %Y-%m-%d"
   set delete
   set edit_headers
-  # set editor            = "vim +:silent+?^$"
-  # set editor            = "gvim -f +/^$ +noh"
   set editor            = "emacsclient -a emacs +8:0"
   set fast_reply
   set folder            = ~/Mail
@@ -65,36 +64,39 @@ unset reverse_realname
 unset wait_key
 
 
+source ~/.mutt/alternates.muttrc
+
+
 mime_lookup application/octet-stream
-
-source ~/.mutt/alternates
-
 auto_view text/html
 alternative_order text/enriched text/plain text/html
 
-folder-hook gmail/*  source ~/.mutt/accounts/gmail
-folder-hook dpaetzel/*  source ~/.mutt/accounts/dpaetzel
+
+folder-hook gmail/*  source ~/.mutt/accounts/gmail.muttrc
+folder-hook dpaetzel/*  source ~/.mutt/accounts/dpaetzel.muttrc
 # folder-hook * "exec collapse-all"
+
 
 ignore *
 unignore from: to: cc: date: subject:
 unhdr_order *
 hdr_order From: To: Cc: Date: Subject:
 
+
 # source $alias_file
-source ~/.mutt/colors
-source ~/.mutt/mailboxes
-source ~/.mutt/accounts/gmail
+source ~/.mutt/colors.muttrc
+source ~/.mutt/mailboxes.muttrc
+# source ~/.mutt/accounts/gmail.muttrc
 # source ~/.mutt/crypto # TODO
 
 # source ~/.mutt/keybindings/unbind
-source ~/.mutt/keybindings/generic
-source ~/.mutt/keybindings/pager
-source ~/.mutt/keybindings/index
-source ~/.mutt/keybindings/index-pager
-source ~/.mutt/keybindings/compose
-source ~/.mutt/keybindings/attach
-source ~/.mutt/keybindings/browser
-source ~/.mutt/keybindings/pgp
+# source ~/.mutt/keybindings/generic.muttrc
+# source ~/.mutt/keybindings/pager.muttrc
+# source ~/.mutt/keybindings/index.muttrc
+# source ~/.mutt/keybindings/index-pager.muttrc
+# source ~/.mutt/keybindings/compose.muttrc
+# source ~/.mutt/keybindings/attach.muttrc
+# source ~/.mutt/keybindings/browser.muttrc
+# source ~/.mutt/keybindings/pgp.muttrc
 
-source ~/.mutt/keybindings/overrides
+source ~/.mutt/keybindings/overrides.muttrc

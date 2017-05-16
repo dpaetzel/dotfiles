@@ -1,0 +1,21 @@
+# -*- mode: muttrc -*-
+
+
+color status white default
+
+
+  set from      = "david.a.paetzel@gmail.com"
+unset mbox
+unset record
+
+
+set my_account         = "gmail"
+set my_account_inbox   = "inbox"
+# set my_account_archive = "INBOX.Archive"
+set my_account_drafts  = "drafts"
+set my_account_trash  = "trash"
+# set my_account_spam    = "INBOX.Spam"
+
+
+# macro index C "<change-folder>+dpaetzel/INBOX<enter>" "change accounts"
+source ~/.mutt/accounts/global.muttrc

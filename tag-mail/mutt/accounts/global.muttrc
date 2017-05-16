@@ -1,0 +1,9 @@
+# -*- mode: muttrc -*-
+
+
+  set postponed     = "+$my_account/drafts"
+  set sendmail  = "/run/current-system/sw/bin/msmtp -a $my_account"
+
+
+macro index gi "<change-folder>+$my_account/$my_account_inbox<enter>" "change to inbox"
+macro index gi "<change-folder>+$my_account/$my_account_inbox<enter>" "change to inbox"

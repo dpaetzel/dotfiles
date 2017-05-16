@@ -7,8 +7,8 @@ bind index,pager b         bounce-message                        # remail a mess
 bind index,pager W         clear-flag                            # clear a status flag from a message
 macro index,pager v        <save-message>?<toggle-mailboxes><search> "save message/attachment to a mailbox/file (== 'move')"
 bind index,pager V         copy-message                          # copy a message to a file/mailbox
-# bind index,pager d         delete-message                        # delete the current entry
-macro index,pager d        <save-message>+main/trash<enter>     "move message to the trash"
+bind index,pager dd         delete-message                        # delete the current entry
+# macro index,pager d        <save-message>$my_account/trash<enter>     "move message to the trash" # account dependant, therefore in global.muttrc
 bind index,pager e         edit                                  # edit the raw message
 bind index,pager f         forward-message                       # forward a message with comments
 bind index,pager s         flag-message                          # toggle a message's 'important' flag
@@ -36,7 +36,7 @@ macro index,pager R        <tag-pattern>~N<enter><tag-prefix><clear-flag>N<untag
 bind index,pager \#        break-thread                          # break the thread in two
 bind index,pager &         link-threads                          # link tagged message to the current one
 bind index,pager D         delete-thread                         # delete all messages in thread
-bind index,pager         delete-subthread                      # delete all messages in subthread
+# bind index,pager         delete-subthread                      # delete all messages in subthread
 bind index,pager I         read-thread                           # mark the current thread as read
 # bind index,pager 	     read-subthread                        # mark the current subthread as read (ctrl-i)
 bind index,pager U         undelete-thread                       # undelete all messages in thread
