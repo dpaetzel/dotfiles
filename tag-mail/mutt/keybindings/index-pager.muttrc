@@ -7,7 +7,7 @@ bind index,pager b         bounce-message                        # remail a mess
 bind index,pager W         clear-flag                            # clear a status flag from a message
 macro index,pager v        <save-message>?<toggle-mailboxes><search> "save message/attachment to a mailbox/file (== 'move')"
 bind index,pager V         copy-message                          # copy a message to a file/mailbox
-bind index,pager dd         delete-message                        # delete the current entry
+bind index,pager d         delete-message                        # delete the current entry
 # macro index,pager d        <save-message>$my_account/trash<enter>     "move message to the trash" # account dependant, therefore in global.muttrc
 bind index,pager e         edit                                  # edit the raw message
 bind index,pager f         forward-message                       # forward a message with comments
@@ -53,10 +53,6 @@ bind index,pager O         sort-reverse                          # sort messages
 macro index,pager c        <change-folder>?<toggle-mailboxes><search> "show incoming mailboxes list"
 bind index,pager C         change-folder                         # open a different folder
 # bind index,pager C         change-folder-readonly                # open a different folder in read only mode
-macro index,pager gi       <change-folder>=main/inbox<enter>
-# macro index,pager gy       <change-folder>=yandex/inbox<enter>
-macro index,pager gt       <change-folder>=main/sent<enter>
-macro index,pager gd       <change-folder>=main/drafts<enter>
 
 
 # aliases and attachments

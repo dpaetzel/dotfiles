@@ -4,7 +4,6 @@
 
 # message
 bind index <Return>  display-message                       # display a message
-macro index S        <save-message>+main/spam<enter>      "mark message as spam"
 bind index x         tag-entry                             # tag the current message
 bind index i         toggle-new                            # toggle a message's 'new' flag
 
@@ -16,9 +15,9 @@ bind index         tag-subthread                         # tag the current subt
 
 # view
 bind index .         buffy-list                            # list mailboxes with new mail
-bind index <Tab>     collapse-thread                       # collapse/uncollapse current thread
-bind index <Backtab> collapse-thread                       # collapse/uncollapse current thread
-bind index \\m       collapse-all                          # collapse/uncollapse all threads
+# bind index <Tab>     collapse-thread                       # collapse/uncollapse current thread
+# bind index <Backtab> collapse-thread                       # collapse/uncollapse current thread
+bind index <Tab>     collapse-all                          # collapse/uncollapse all threads
 # bind index           show-limit                            # show currently active limit pattern
 # bind index           show-version                          # show the Mutt version number and date
 

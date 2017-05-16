@@ -27,6 +27,7 @@ unset ispell
   set mailcap_path      = ~/.mailcap
 unset mark_old
 unset markers
+unset mbox
   set mbox_type         = Maildir
   set menu_scroll
   set message_cachedir  = ~/.cache/mutt/messages
@@ -90,13 +91,13 @@ source ~/.mutt/mailboxes.muttrc
 # source ~/.mutt/crypto # TODO
 
 # source ~/.mutt/keybindings/unbind
-# source ~/.mutt/keybindings/generic.muttrc
-# source ~/.mutt/keybindings/pager.muttrc
-# source ~/.mutt/keybindings/index.muttrc
-# source ~/.mutt/keybindings/index-pager.muttrc
-# source ~/.mutt/keybindings/compose.muttrc
-# source ~/.mutt/keybindings/attach.muttrc
-# source ~/.mutt/keybindings/browser.muttrc
-# source ~/.mutt/keybindings/pgp.muttrc
+source ~/.mutt/keybindings/generic.muttrc
+source ~/.mutt/keybindings/pager.muttrc
+source ~/.mutt/keybindings/index.muttrc
+source ~/.mutt/keybindings/index-pager.muttrc
+source ~/.mutt/keybindings/compose.muttrc
+source ~/.mutt/keybindings/attach.muttrc
+source ~/.mutt/keybindings/browser.muttrc
+source ~/.mutt/keybindings/pgp.muttrc
 
 source ~/.mutt/keybindings/overrides.muttrc

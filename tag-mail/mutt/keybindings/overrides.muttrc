@@ -24,8 +24,9 @@
 
 # Mutt is quit using q in the index, everywhere else (only) q exits the current menu
 # bind alias,attach,browser,compose,generic,pager,pgp,postpone i noop
-# bind alias,attach,browser,compose,generic,pager,pgp,postpone q exit
-# bind index q quit
+bind alias,attach,browser,compose,generic,pgp,postpone i noop # in pager, i is mark as new
+bind alias,attach,browser,compose,generic,pager,pgp,postpone q exit
+bind index q quit
 
 
 # Needed to be able to enter filenames with spaces

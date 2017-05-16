@@ -8,7 +8,7 @@
 
 bind generic,alias,attach,browser,index,compose,pgp,postpone       L        bottom-page         # move to the bottom of the page
 bind generic,alias,attach,browser,index,compose,pgp,postpone       <Return> select-entry        # select the current entry
-bind generic,alias,attach,browser,index,compose,pgp,postpone       \;       tag-prefix          # apply next function to tagged messages o.O throws too few arguments error
+bind generic,alias,attach,browser,index,compose,pgp,postpone       \;       tag-prefix          # apply next function to tagged messages
 bind generic,alias,attach,browser,index,compose,pgp,postpone       x        tag-entry           # tag the current entry
 bind generic,alias,attach,browser,index,compose,pgp,postpone       G        last-entry          # move to the last entry
 bind generic,alias,attach,browser,index,compose,pgp,postpone       gg       first-entry         # move to the first entry
@@ -27,10 +27,10 @@ bind pager,generic,alias,attach,browser,index,compose,pgp,postpone <f1>     help
 bind pager,generic,alias,attach,browser,index,compose,pgp,postpone !        shell-escape        # invoke a command in a subshell
 bind pager,generic,alias,attach,browser,index,compose,pgp,postpone /        search              # search for a regular expression
 bind pager,generic,alias,attach,browser,index,compose,pgp,postpone ?        search-reverse      # search backwards for a regular expression
-bind pager,generic,alias,attach,browser,index,compose,pgp,postpone z        next-page           # move to the next page
-bind pager,generic,alias,attach,browser,index,compose,pgp,postpone Z        previous-page       # move to the previous page
-bind pager,generic,alias,attach,browser,index,compose,pgp,postpone [        half-up             # scroll up 1/2 page
-bind pager,generic,alias,attach,browser,index,compose,pgp,postpone ]        half-down           # scroll down 1/2 page
+# bind pager,generic,alias,attach,browser,index,compose,pgp,postpone z        next-page           # move to the next page
+# bind pager,generic,alias,attach,browser,index,compose,pgp,postpone Z        previous-page       # move to the previous page
+bind pager,generic,alias,attach,browser,index,compose,pgp,postpone        half-up             # scroll up 1/2 page
+bind pager,generic,alias,attach,browser,index,compose,pgp,postpone        half-down           # scroll down 1/2 page
 bind pager,generic,alias,attach,browser,index,compose,pgp,postpone 1        jump                 # jump to an index number
 bind pager,generic,alias,attach,browser,index,compose,pgp,postpone 2        jump                 # jump to an index number
 bind pager,generic,alias,attach,browser,index,compose,pgp,postpone 3        jump                 # jump to an index number
@@ -40,7 +40,7 @@ bind pager,generic,alias,attach,browser,index,compose,pgp,postpone 6        jump
 bind pager,generic,alias,attach,browser,index,compose,pgp,postpone 7        jump                 # jump to an index number
 bind pager,generic,alias,attach,browser,index,compose,pgp,postpone 8        jump                 # jump to an index number
 bind pager,generic,alias,attach,browser,index,compose,pgp,postpone 9        jump                 # jump to an index number
-# bind pager,generic,alias,attach,browser,index,compose,pgp,postpone        refresh             # clear and redraw the screen
+# bind pager,generic,alias,attach,browser,index,compose,pgp,postpone        refresh              # clear and redraw the screen
 # bind pager,generic,alias,attach,browser,index,compose,pgp,postpone          current-top         # move entry to top of screen
 # bind pager,generic,alias,attach,browser,index,compose,pgp,postpone          current-middle      # move entry to middle of screen
 # bind pager,generic,alias,attach,browser,index,compose,pgp,postpone          current-bottom      # move entry to bottom of screen

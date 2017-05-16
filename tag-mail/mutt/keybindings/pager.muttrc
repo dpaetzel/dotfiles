@@ -4,15 +4,15 @@
 
 # message
 # bind pager x         tag-message                           # tag the current entry
-# bind pager i         mark-as-new                           # toggle a message's 'new' flag ?toggle-new?
+bind pager i         mark-as-new                           # toggle a message's 'new' flag ?toggle-new?
 
 
 # thread
 
 
 # view
-bind pager Q         skip-quoted                           # skip beyond quoted text
-bind pager q         toggle-quoted                         # toggle display of quoted text
+# bind pager Q         skip-quoted                           # skip beyond quoted text
+bind pager Q         toggle-quoted                         # toggle display of quoted text
 
 
 # pattern
@@ -28,10 +28,8 @@ bind pager L         next-page                             # move to the next pa
 bind pager gg        top                                   # jump to the top of the message
 bind pager G         bottom                                # jump to the bottom of the message
 bind pager B         next-unread-mailbox                   # open next mailbox with new mail
-# bind pager           next-undeleted                        # move to the next undeleted message
-# bind pager           previous-undeleted                    # move to the previous undeleted message
 # bind pager           next-new                              # jump to the next new message
-# bind pager            next-new-then-unread                 # jump to the next new or unread message
+# bind pager           next-new-then-unread                  # jump to the next new or unread message
 # bind pager           next-subthread                        # jump to the next subthread
 # bind pager           next-thread                           # jump to the next thread
 # bind pager           next-unread                           # jump to the next unread message
