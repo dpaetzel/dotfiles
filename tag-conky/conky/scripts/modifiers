@@ -1,0 +1,21 @@
+#!/usr/bin/env sh
+
+s=$(xset q | grep --color -i -E 'caps|num')
+caps=$(echo $s | sed -r 's/.*Caps Lock: *([^ ]*).*/\1/')
+num=$(echo $s | sed -r 's/.*Num Lock: *([^ ]*).*/\1/')
+
+if [[ $caps == "on" ]]; then
+    printf "⇪"
+else
+    printf "  "
+fi
+
+printf " "
+
+if [[ $num == "on" ]]; then
+    printf "🔒"
+else
+    printf "  "
+fi
+
+printf "\n"
