@@ -1,6 +1,7 @@
 # -*- mode: snippet -*-
-# name : code block split
+# name : inverted code block
 # key: edoc
 # --
 \end{code}
+$0
 \begin{code}
