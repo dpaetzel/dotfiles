@@ -8,6 +8,10 @@
   set sendmail  = "/run/current-system/sw/bin/msmtp -a $my_account"
 
 
-macro index gi "<change-folder>+$my_account/$my_account_inbox<enter>" "change to inbox"
-macro index gs "<change-folder>+$my_account/$my_account_sent<enter>" "change to sent mail"
-macro index gt "<change-folder>+$my_account/$my_account_trash<enter>" "change to trash"
+macro index,pager gi "<change-folder>+$my_account/$my_account_inbox<enter>" "change to inbox"
+macro index,pager gs "<change-folder>+$my_account/$my_account_sent<enter>" "change to sent mail"
+macro index,pager gt "<change-folder>+$my_account/$my_account_trash<enter>" "change to trash"
+
+
+macro pager,index gfg "<change-folder>+gmail/inbox<enter>"
+macro pager,index gfd "<change-folder>+dpaetzel/INBOX<enter>"

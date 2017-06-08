@@ -87,7 +87,7 @@ hdr_order From: To: Cc: Date: Subject:
 # source $alias_file
 source ~/.mutt/colors.muttrc
 source ~/.mutt/mailboxes.muttrc
-# source ~/.mutt/accounts/gmail.muttrc
+source ~/.mutt/accounts/gmail.muttrc
 # source ~/.mutt/crypto # TODO
 
 # source ~/.mutt/keybindings/unbind
