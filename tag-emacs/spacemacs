@@ -365,7 +365,7 @@ you should place your code here."
 
   ;; behaviour
   (setq vc-follow-symlinks t)
-  (add-hook 'focus-out-hook (lambda () (save-some-buffers t)))
+  ;; (add-hook 'focus-out-hook (lambda () (save-some-buffers t)))
 
   ;; scala
   ;; (setq flycheck-scalastyle-jar "~/.emacs.d/private/scalastyle_2.11-0.6.0.jar")
