@@ -432,10 +432,14 @@ you should place your code here."
   (define-key evil-visual-state-map (kbd "H") (kbd "^"))
   (define-key evil-visual-state-map (kbd "L") (kbd "$"))
   ;; jump over wrapped lines during navigation
-  (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
-  (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
-  (define-key evil-visual-state-map (kbd "j") 'evil-next-visual-line)
-  (define-key evil-visual-state-map (kbd "k") 'evil-previous-visual-line)
+  ;; (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
+  ;; (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
+  ;; (define-key evil-visual-state-map (kbd "j") 'evil-next-visual-line)
+  ;; (define-key evil-visual-state-map (kbd "k") 'evil-previous-visual-line)
+  ;; (define-key evil-normal-state-map (kbd "j") nil)
+  ;; (define-key evil-normal-state-map (kbd "k") nil)
+  ;; (define-key evil-visual-state-map (kbd "j") nil)
+  ;; (define-key evil-visual-state-map (kbd "k") nil)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -511,7 +515,7 @@ you should place your code here."
  '(hl-fg-colors
    (quote
     ("#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3")))
- '(ledger-post-amount-alignment-column 62 t)
+ '(ledger-post-amount-alignment-column 62)
  '(ledger-use-iso-dates t)
  '(magit-diff-use-overlays nil)
  '(nrepl-message-colors
@@ -548,7 +552,7 @@ you should place your code here."
      ("cch" "Computer, ohne Regine, daheim" tags "+TODO=\"NEXT\"+Computer-Regine|+TODO=\"NEXT\"+COMPUTER-REGINE" nil)
      ("r" "Regine" tags-todo "+TODO=\"NEXT\"+Regine|+TODO=\"NEXT\"+REGINE" nil))))
  '(org-agenda-files nil)
- '(org-agenda-restore-windows-after-quit t t)
+ '(org-agenda-restore-windows-after-quit t)
  '(org-agenda-skip-deadline-prewarning-if-scheduled 2)
  '(org-agenda-skip-scheduled-if-done t)
  '(org-agenda-tags-column -90)
