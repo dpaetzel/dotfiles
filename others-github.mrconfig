@@ -5,6 +5,10 @@
 skip = test "$1" == update -o "$1" == sync
 
 
+[.emacs.d]
+checkout = git clone 'https://github.com/syl20bnr/spacemacs' '.emacs.d'
+
+
 [.zsh/z]
 checkout = git clone 'https://github.com/rupa/z.git' 'z'
 
