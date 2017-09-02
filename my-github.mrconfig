@@ -26,5 +26,5 @@ sync = true
 
 
 [Code/Zahlengerade]
-checkout = git clone 'https://github.com/dpaetzel/Zahlengerade.git' 'Code/Zahlengerade'
+checkout = git clone 'https://github.com/dpaetzel/Zahlengerade.git' 'Zahlengerade'
 sync = true
