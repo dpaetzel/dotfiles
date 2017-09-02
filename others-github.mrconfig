@@ -6,7 +6,7 @@ skip = test "$1" == update -o "$1" == sync
 
 
 [.zsh/z]
-checkout = git clone 'https://github.com/rupa/z.git' '.zsh/z'
+checkout = git clone 'https://github.com/rupa/z.git' 'z'
 
 
 [.oh-my-zsh]
