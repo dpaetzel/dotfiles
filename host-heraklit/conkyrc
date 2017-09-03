@@ -93,8 +93,8 @@ conky.text = [[
   ${texeci 10 ~/.conky/scripts/networkmanager-profiles}  |\
   ${texeci 60 ~/Bin/global-ip} ${font Symbola:size=11}${texeci 10 ~/.conky/scripts/ping-status-inet}${font}${voffset -1}  |\
 $alignr|\
-  ${texecpi 60 ~/Bin/pomodoro conky}  |\
-  ${font Symbola:size=11}${texecpi 2 ~/.conky/scripts/modifiers}$font  |\
+  ${execpi 60 ~/Bin/pomodoro conky}  |\
+  ${font Symbola:size=11}${texecpi 5 ~/.conky/scripts/modifiers}$font  |\
   $memfree / $memeasyfree  |\
   chromium: ${texeci 5 ~/Bin/rss-sum chromium}  |\
   ${font Symbola:size=11}${exec ~/.conky/scripts/status-mute}$font${voffset -1} ${exec ~/Bin/volume}  |\

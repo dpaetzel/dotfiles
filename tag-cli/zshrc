@@ -101,10 +101,11 @@ alias mv='mv -v'
 alias mmv='noglob zmv'
 alias x='chmod +x'
 function getimgs {
+    adbAsRoot
     folder=img-`date -I`
     mkdir $folder
     cd $folder
-    adb pull storage/sdcard1/DCIM/Camera
+    adb pull sdcard/DCIM/Camera
 }
 function sortimgs {
     local folder=$(mktemp -d -p .)
@@ -224,6 +225,8 @@ alias mr="mr -s"
 alias no-git="find -type d -not -path '.' -a -not -path '*/.git' -prune -a -not -exec git-initialised '{}' ';' -print -prune"
 alias gpg=gpg2
 function y {
-    url=$(copyq clipboard)
+    url=$(xclip -o)
     youtube-dl $url
 }
+
+alias p="pomodoro"
