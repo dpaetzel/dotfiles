@@ -24,8 +24,8 @@ conky.config = {
 	extra_newline = false,
 --font                          Sans
 	format_human_readable = true,
-gap_x = 1027,
-gap_y = 200,
+gap_x = 3,
+gap_y = 1,
 --gap_x = 0,
 --gap_y = 0,
 	hddtemp_host = '127.0.0.1',
