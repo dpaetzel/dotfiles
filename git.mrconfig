@@ -1,0 +1,40 @@
+# -*- mode: conf; -*-
+#
+# This mrconfig file is meant to pull (or rather, clone) in everything I need
+# under $HOME to get started.
+
+
+# other people's GitHub repositories
+
+
+[.zsh/z]
+checkout = git clone 'https://github.com/rupa/z.git' '.zsh/z'
+
+
+[.oh-my-zsh]
+checkout = git clone 'https://github.com/robbyrussell/oh-my-zsh.git' '.oh-my-zsh'
+
+
+[.oh-my-zsh/custom/plugins/git-annex]
+checkout = git clone 'https://github.com/Schnouki/git-annex-zsh-completion.git' 'git-annex'
+
+
+# my own GitHub repositories
+
+
+[NixOS]
+checkout = git clone 'https://github.com/dpaetzel/nixos-config.git' 'NixOS'
+
+
+[Bin]
+checkout = git clone 'https://github.com/dpaetzel/utility.git' 'Bin'
+
+
+[.dotfiles]
+checkout = git clone 'git@github.com:dpaetzel/dotfiles.git' '.dotfiles'
+# need to update rc files twice b/c first update pulls in rcrc
+post_checkout = rcup ; rcup
+
+
+[.xmonad]
+checkout = git clone 'https://github.com/dpaetzel/xmonad-config.git' '.xmonad'
