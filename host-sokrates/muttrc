@@ -73,7 +73,7 @@ auto_view text/html
 alternative_order text/enriched text/plain text/html
 
 
-# folder-hook uni/*  source ~/.mutt/accounts/uni.muttrc
+folder-hook uni/*  source ~/.mutt/accounts/uni.muttrc
 # folder-hook * "exec collapse-all"
 
 
