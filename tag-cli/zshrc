@@ -223,7 +223,6 @@ function vpn {
 alias mr="mr -s"
 
 alias no-git="find -type d -not -path '.' -a -not -path '*/.git' -prune -a -not -exec git-initialised '{}' ';' -print -prune"
-alias gpg=gpg2
 function y {
     url=$(xclip -o)
     youtube-dl $url
