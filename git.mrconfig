@@ -17,16 +17,22 @@ skip = [[ "$1" == sync ]]
 checkout = git clone 'https://github.com/robbyrussell/oh-my-zsh.git' '.oh-my-zsh'
 # order is important b/c of the .oh-my-zsh directory already existing otherwise (default: 10)
 order = 1
+# only ever update this (never try to push automatedly)
+skip = [[ ! "$1" == update ]]
 
 
 [.oh-my-zsh/custom/plugins/git-annex]
 checkout = git clone 'https://github.com/Schnouki/git-annex-zsh-completion.git' 'git-annex'
 # must be checked out after .oh-my-zsh
 order = 10
+# only ever update this (never try to push automatedly)
+skip = [[ ! "$1" == update ]]
 
 
 [.zsh/z]
 checkout = git clone 'https://github.com/rupa/z.git' '.zsh/z'
+# only ever update this (never try to push automatedly)
+skip = [[ ! "$1" == update ]]
 
 
 # my own GitHub repositories
