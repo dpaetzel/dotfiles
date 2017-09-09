@@ -7,16 +7,20 @@
 # other people's GitHub repositories
 
 
-[.zsh/z]
-checkout = git clone 'https://github.com/rupa/z.git' '.zsh/z'
-
-
 [.oh-my-zsh]
 checkout = git clone 'https://github.com/robbyrussell/oh-my-zsh.git' '.oh-my-zsh'
+# order is important b/c of the .oh-my-zsh directory already existing otherwise (default: 10)
+order = 1
 
 
 [.oh-my-zsh/custom/plugins/git-annex]
 checkout = git clone 'https://github.com/Schnouki/git-annex-zsh-completion.git' 'git-annex'
+# must be checked out after .oh-my-zsh
+order = 10
+
+
+[.zsh/z]
+checkout = git clone 'https://github.com/rupa/z.git' '.zsh/z'
 
 
 # my own GitHub repositories
@@ -34,6 +38,8 @@ checkout = git clone 'https://github.com/dpaetzel/utility.git' 'Bin'
 checkout = git clone 'git@github.com:dpaetzel/dotfiles.git' '.dotfiles'
 # need to update rc files twice b/c first update pulls in rcrc
 post_checkout = rcup ; rcup
+# must be checked out after .oh-my-zsh
+order = 10
 
 
 [.xmonad]
