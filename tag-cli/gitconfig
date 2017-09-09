@@ -6,6 +6,7 @@ email = david.a.paetzel+github@gmail.com
 editor = emacsclient -c -a emacs
 excludesfile = ~/.gitignore_global
 attributesfile = ~/.gitattributes
+askPass = pass web/github.com
 
 [alias]
 a   = add
