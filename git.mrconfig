@@ -4,6 +4,12 @@
 # under $HOME to get started.
 
 
+[DEFAULT]
+jobs = 5
+# sync is only for git-annex repositories, thus it should be skipped here
+skip = [[ "$1" == sync ]]
+
+
 # other people's GitHub repositories
 
 
