@@ -56,3 +56,15 @@ order = 10
 
 [.xmonad]
 checkout = git clone 'https://github.com/dpaetzel/xmonad-config.git' '.xmonad'
+
+
+# my own local git repositories
+
+
+[.dotfiles-private]
+checkout = git checkout /run/media/$USER/SEAGATE-MWQ/.dotfiles-private.git .dotfiles-private
+fix = git fixremotes
+post_checkout = rcup -d .dotfiles-private
+post_update = rcup -d .dotfiles-private
+# should be checked out after .dotfiles (so that .rcrc already exists)
+order = 11
