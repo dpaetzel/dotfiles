@@ -10,7 +10,7 @@ function git_annex_sync {
     git_annex_initialized
     if [[ $? -eq 0 ]]; then
         git annex add .
-        git annex sync --content
+        git annex sync --content "$@"
     fi
     return 0
 }
