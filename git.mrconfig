@@ -68,3 +68,30 @@ post_checkout = rcup -d .dotfiles-private
 post_update = rcup -d .dotfiles-private
 # should be checked out after .dotfiles (so that .rcrc already exists)
 order = 11
+
+
+# other git repositories I'd like to keep checked out
+
+
+[Code/biblatex-check]
+checkout = git clone 'https://github.com/pezmc/biblatex-check' 'biblatex-check'
+
+
+[Code/gmail-oauth2-tools]
+checkout = git clone 'https://github.com/dpaetzel/gmail-oauth2-tools' 'gmail-oauth2-tools'
+
+
+[Code/myrepos]
+checkout = git clone 'https://git.joeyh.name/git/myrepos.git/' 'myrepos'
+
+
+[Code/nixpkgs]
+checkout = git clone 'https://github.com/dpaetzel/nixpkgs.git' 'nixpkgs'
+
+
+[Code/pointless-xcompose]
+checkout = git clone 'https://github.com/rrthomas/pointless-xcompose.git' 'pointless-xcompose'
+
+
+[Code/Zahlengerade]
+checkout = git clone 'https://github.com/dpaetzel/Zahlengerade.git' 'Zahlengerade'
