@@ -1,4 +1,6 @@
 set font Inconsolata\ 14
+set selection-clipboard "clipboard"
+set window-title-basename "true"
 
 # solarized dark
 set completion-bg "#002b36" # base03
