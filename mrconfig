@@ -1,6 +1,7 @@
 # -*- mode: conf; -*-
-include = cat $HOME/.header.mrconfig
 
-include = cat $HOME/.git-annex.mrconfig
+
 include = cat $HOME/.git.mrconfig
 
+
+include = cat $HOME/.git-annex.mrconfig
