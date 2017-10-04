@@ -34,4 +34,10 @@ set tabbar-focus-fg "#839496" # base0
 # solarized dark
 set recolor true
 set recolor-lightcolor "#002b36" # base03 (dark background)
-set recolor-darkcolor "#839496" # base0 (body text on dark background)
+set recolor-darkcolor "#839496"  # base0 (body text on dark background)
+
+map vx set "recolor-lightcolor \#fdf6e3"  # base3 (light background)
+map xv set "recolor-darkcolor \#657b83"   # base00 (body text on light background)
+
+map vv set "recolor-lightcolor \#002b36"  # base03 (dark background)
+map xx set "recolor-darkcolor \#839496"   # base00 (body text on light background)
