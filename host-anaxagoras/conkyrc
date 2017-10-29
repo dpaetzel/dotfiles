@@ -25,7 +25,7 @@ conky.config = {
 --font                          Sans
 	format_human_readable = true,
 gap_x = 3,
-gap_y = 1,
+gap_y = 5,
 --gap_x = 0,
 --gap_y = 0,
 	hddtemp_host = '127.0.0.1',
@@ -93,8 +93,10 @@ gap_y = 1,
 
 conky.text = [[
   ${texeci 5 ~/.conky/scripts/networkmanager-profiles}  |\
-  ${texeci 5 ~/.conky/scripts/status-inet g.co}  |\
+  ${texeci 60 ~/Bin/global-ip} ${font Symbola:size=11}${texeci 10 ~/.conky/scripts/ping-status-inet}${font}${voffset -2}  |\
   ${alignr}  |\
+  ${font Symbola:size=11}${texecpi 5 ~/.conky/scripts/modifiers}${font}${voffset -2}  |\
+  ${font Symbola:size=11}${exec ~/.conky/scripts/status-mute}$font${voffset -2} ${exec ~/Bin/volume}  |\
   ${time %F}  |\
   ${time %k:%M}  
 ]];
