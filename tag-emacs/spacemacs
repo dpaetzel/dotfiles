@@ -54,7 +54,7 @@ values."
      ;; java
      javascript
      (latex :variables
-            latex-build-command "LaTeX"
+            ;; latex-build-command "LatexMk"
             latex-enable-auto-fill nil
             latex-enable-folding t)
      markdown
@@ -410,6 +410,9 @@ you should place your code here."
   ;; (add-hook 'message-mode-hook 'turn-on-auto-fill)
   (load-file "~/.emacs.d/private/fix-flowed.el")
   (add-hook 'message-mode-hook 'fix-flowed)
+
+  ;; TeX
+  (setq-default TeX-engine 'xetex)
 
   ;; general mappings
   (spacemacs/set-leader-keys
