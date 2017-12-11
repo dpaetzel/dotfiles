@@ -85,7 +85,9 @@ values."
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '()
+   dotspacemacs-excluded-packages
+   '( haskell-flycheck
+     )
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
    ;; `used-only' installs only explicitly used packages and uninstall any
@@ -370,21 +372,21 @@ you should place your code here."
   ;; scala
   ;; (setq flycheck-scalastyle-jar "~/.emacs.d/private/scalastyle_2.11-0.6.0.jar")
 
-  ;; haskell with nix
-  (setq haskell-process-wrapper-function
-        (lambda (args) apply 'nix-shell-command (nix-current-sandbox) args))
+  ;; haskell with nix TODO repair?
+  ;; (setq haskell-process-wrapper-function
+  ;;       (lambda (args) apply 'nix-shell-command (nix-current-sandbox) args))
 
-  (setq flycheck-command-wrapper-function
-        (lambda (command) (apply 'nix-shell-command (nix-current-sandbox) command))
-        flycheck-executable-find
-        (lambda (cmd) (nix-executable-find (nix-current-sandbox) cmd)))
+  ;; (setq flycheck-command-wrapper-function
+  ;;       (lambda (command) (apply 'nix-shell-command (nix-current-sandbox) command))
+  ;;       flycheck-executable-find
+  ;;       (lambda (cmd) (nix-executable-find (nix-current-sandbox) cmd)))
 
-  (defun my-ghc-mod-setup ()
-    (set (make-local-variable 'my-ghc-mod) (nix-executable-find (nix-current-sandbox) "ghc-mod"))
-    (message "local ghc-mod is: %S" my-ghc-mod)
-    (set (make-local-variable 'ghc-module-command) my-ghc-mod)
-    (set (make-local-variable 'ghc-command) my-ghc-mod))
-  (add-hook 'haskell-mode-hook 'my-ghc-mod-setup)
+  ;; (defun my-ghc-mod-setup ()
+  ;;   (set (make-local-variable 'my-ghc-mod) (nix-executable-find (nix-current-sandbox) "ghc-mod"))
+  ;;   (message "local ghc-mod is: %S" my-ghc-mod)
+  ;;   (set (make-local-variable 'ghc-module-command) my-ghc-mod)
+  ;;   (set (make-local-variable 'ghc-command) my-ghc-mod))
+  ;; (add-hook 'haskell-mode-hook 'my-ghc-mod-setup)
 
   ;; org
   (with-eval-after-load 'org
