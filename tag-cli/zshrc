@@ -231,3 +231,4 @@ function y {
 alias p="pomodoro"
 alias bd="bg && disown"
 alias anki="anki -b $HOME/.Anki"
+alias windows="VirtualBox --startvm 'Windows 10' &!"
