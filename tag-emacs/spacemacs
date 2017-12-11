@@ -50,7 +50,7 @@ values."
      (haskell :variables haskell-completion-backend nil)
      ;; haskell
      ;; html
-     ivy ;; this disables helm (and is more lightweight)
+     ;; ivy ;; this disables helm (and is more lightweight)
      ;; java
      javascript
      (latex :variables
