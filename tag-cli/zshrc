@@ -1,3 +1,5 @@
+#!/usr/share/env zsh
+
 source ~/.zsh/oh-my-zsh-boilerplate.zsh
 
 # exports: see .zshenv
@@ -128,10 +130,10 @@ function st {
         read
     done
 }
-function sr { sbt "run $@" }
-function srm { sbt "run-main $@" }
-function sr- { sbt "~run $@" }
-function srm- { sbt "~run-main $@" }
+function sr { sbt "run $@"; }
+function srm { sbt "run-main $@"; }
+function sr- { sbt "~run $@"; }
+function srm- { sbt "~run-main $@"; }
 function sbtmuch {
     while true; do
         columns=$(tput cols)
@@ -185,7 +187,7 @@ function sumRSS {
 }
 function generate-afew-filters {
     index=0
-    for f in $(ls Mail/main); do
+    for f in Mail/main/*; do
         fLower=$(echo "$f" | awk '{print tolower($0)}')
         echo "[Filter.$index]"
         echo "message = Tag messages in main/$f as $fLower"
