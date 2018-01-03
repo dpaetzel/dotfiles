@@ -61,6 +61,11 @@ Plugin 'mileszs/ack.vim'
 " nicer status line
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+" Plugin 'itchyny/lightline.vim'
+
+" nice symbols everywhere (must be loaded later than many other plugins)
+" HOWEVER: most symbols are cut off until I resize the window
+Plugin 'https://github.com/ryanoasis/vim-devicons'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required

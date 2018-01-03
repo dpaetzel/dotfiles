@@ -42,7 +42,6 @@ syntax on
 " nowrap: split line at 'textwidth' (changing the buffer!)
 " wrap: only continue in the next line when reaching the windows end
 set wrap
-set list listchars=tab:›\ ,trail:·
 set noerrorbells
 set novisualbell
 set timeoutlen=500
@@ -53,12 +52,24 @@ set cursorline
 set nocursorcolumn
 set scrolloff=8
 set showcmd
-" TODO make all gui options ifgui only
-set guifont=Inconsolata\ 14
-set guicursor=a:blinkon0
+
 set guioptions-=m " disable menubar
 set guioptions-=T " disable toolbar
 set guioptions-=r " disable scrollbar
+
+" TODO make all gui options ifgui only
+" set guifont=Inconsolata\ 14
+"set guifont="InconsolataForPowerline Nerd Font Medium:h14"
+" set guifont="InconsolataForPowerline Nerd Font Medium 14"
+set guifont=InconsolataForPowerline\ Nerd\ Font\ Medium\ 14
+" space between lines (also increases status line height)
+set ambiwidth=double
+set list listchars=tab:›\ ,trail:␣
+set guicursor=a:blinkon0
+set linespace=2
+
+" not needed, statusline does it
+set noshowmode
 
 " indentation {{{
 " be smart about indentation pls (proper deleting also)
@@ -129,4 +140,15 @@ if executable('ag')
 endif
 
 let g:airline_theme='zenburn'
+let g:airline_powerline_fonts = 1
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+let g:airline_symbols.space = "\ua0"
+
+" needed for lightline to properly work
+" set laststatus=2
+" let g:lightline = {
+"       \ 'colorscheme': 'solarized',
+      " \ }
 " }}}
