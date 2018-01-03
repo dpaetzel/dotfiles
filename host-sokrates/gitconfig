@@ -1,0 +1,32 @@
+[user]
+name = David Pätzel
+email = david.paetzel@informatik.uni-augsburg.de
+
+[core]
+editor = vim
+excludesfile = ~/.gitignore_global
+attributesfile = ~/.gitattributes
+# askPass = pass web/github.com
+
+[alias]
+a   = add
+b   = branch
+ch  = checkout
+l   = pull
+lo  = pull origin
+p   = push
+s   = status --short --branch
+t   = commit -m
+tam = commit -am
+# [abbreviated commit hash] - ([author date, relative]) [subject] - [author name] [ref names, like the --decorate option of git-log]
+lg1 = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+# [abbreviated commit hash] - [author date, RFC2822 style] ([author date, relative]) [ref names, like the --decorate option of git-log]
+# [subject] - [author name]
+lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
+lg  = !"git lg1"
+
+[push]
+default = matching
+
+[credential]
+helper = cache --timeout=600
