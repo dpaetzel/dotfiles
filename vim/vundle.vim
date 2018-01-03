@@ -53,7 +53,14 @@ Plugin 'https://github.com/tpope/vim-scriptease'
 " journalin'
 Plugin 'https://github.com/ledger/vim-ledger'
 " syntax error hints
-" Plugin 'https://github.com/vim-syntastic/syntastic'
+Plugin 'https://github.com/vim-syntastic/syntastic'
+" opening files more easily
+Plugin 'https://github.com/ctrlpvim/ctrlp.vim'
+" searching file content (but use ag instead of ack)
+Plugin 'mileszs/ack.vim'
+" nicer status line
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -69,4 +76,3 @@ filetype plugin indent on    " required
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
-

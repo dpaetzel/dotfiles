@@ -72,18 +72,18 @@ set softtabstop=0
 " always indent by 2 spaces
 set shiftwidth=2
 " }}}
-" statusline {{{
-set statusline=%f                                  " tail of the filename
-set statusline+=\ %{fugitive#statusline()}         " git status
-set statusline+=\ [%{strlen(&fenc)?&fenc:&enc}]  " file encoding
-set statusline+=\ [%{&ff}]                         " file format
-set statusline+=\ %y                               " filetype
-set statusline+=\ %m                               " modified flag
-set statusline+=\ %r                               " read only flag
-set statusline+=\ %h                               " help file flag
-set statusline+=\ %=                               " left/right separator
-set statusline+=\ [%c%V,\ %l]                      " cursor column, cursor line
-set statusline+=\ [%L]                             " total lines
+" statusline (unneeded since using airline) {{{
+" set statusline=%f                                  " tail of the filename
+" set statusline+=\ %{fugitive#statusline()}         " git status
+" set statusline+=\ [%{strlen(&fenc)?&fenc:&enc}]    " file encoding
+" set statusline+=\ [%{&ff}]                         " file format
+" set statusline+=\ %y                               " filetype
+" set statusline+=\ %m                               " modified flag
+" set statusline+=\ %r                               " read only flag
+" set statusline+=\ %h                               " help file flag
+" set statusline+=\ %=                               " left/right separator
+" set statusline+=\ [%c%V,\ %l]                      " cursor column, cursor line
+" set statusline+=\ [%L]                             " total lines
 " }}}
 " folds {{{
 set foldmethod=marker
@@ -120,4 +120,13 @@ set encoding=UTF-8
 set autoread
 " autmatically save file when e.g. changing buffer
 set autowrite
+" }}}
+
+
+" plugin configuration {{{
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep' " --nogroup --nocolor --column'
+endif
+
+let g:airline_theme='zenburn'
 " }}}
