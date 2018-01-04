@@ -26,46 +26,47 @@ Plugin 'VundleVim/Vundle.vim'
 " different version somewhere else.
 " Plugin 'ascenator/L9', {'name': 'newL9'}
 
-" plugin management
-Plugin 'https://github.com/tpope/vim-pathogen'
-" add support for multiple simultaneous key presses
-Plugin 'https://github.com/kana/vim-arpeggio'
-Plugin 'https://github.com/sirver/UltiSnips'
-Plugin 'https://github.com/gerw/vim-latex-suite'
+" add support for simultaneous key press mappings
+Plugin 'kana/vim-arpeggio'
+Plugin 'sirver/UltiSnips'
+Plugin 'gerw/vim-latex-suite'
 " git client
-Plugin 'https://github.com/tpope/vim-fugitive'
+Plugin 'tpope/vim-fugitive'
 " proper color scheme
-Plugin 'https://github.com/altercation/vim-colors-solarized'
+Plugin 'altercation/vim-colors-solarized'
 " brackets
-Plugin 'https://github.com/tpope/vim-surround'
+Plugin 'tpope/vim-surround'
 " add ]] SPC stuff
-Plugin 'https://github.com/tpope/vim-unimpaired'
+Plugin 'tpope/vim-unimpaired'
 " comment out stuff
-Plugin 'https://github.com/tpope/vim-commentary'
+Plugin 'tpope/vim-commentary'
 " add '.' capabilities to some plugins
-Plugin 'https://github.com/tpope/vim-repeat'
+Plugin 'tpope/vim-repeat'
 " properly edit git stuff (commit messages etc.)
-Plugin 'https://github.com/tpope/vim-git'
+Plugin 'tpope/vim-git'
 " end keywords for ruby, bash, vimscript and others
-Plugin 'https://github.com/tpope/vim-endwise'
+Plugin 'tpope/vim-endwise'
 " making vim plugins
-Plugin 'https://github.com/tpope/vim-scriptease'
+Plugin 'tpope/vim-scriptease'
 " journalin'
-Plugin 'https://github.com/ledger/vim-ledger'
+Plugin 'ledger/vim-ledger'
 " syntax error hints
-Plugin 'https://github.com/vim-syntastic/syntastic'
+Plugin 'vim-syntastic/syntastic'
 " opening files more easily
-Plugin 'https://github.com/ctrlpvim/ctrlp.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
 " searching file content (but use ag instead of ack)
 Plugin 'mileszs/ack.vim'
 " nicer status line
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 " Plugin 'itchyny/lightline.vim'
+Plugin 'LnL7/vim-nix'
+" display git hunk statuses in the gutter
+Plugin 'airblade/vim-gitgutter'
 
 " nice symbols everywhere (must be loaded later than many other plugins)
 " HOWEVER: most symbols are cut off until I resize the window
-Plugin 'https://github.com/ryanoasis/vim-devicons'
+Plugin 'ryanoasis/vim-devicons'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
