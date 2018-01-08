@@ -30,6 +30,8 @@ set nocompatible
 
 
 " interface {{{
+" pls vim let me think about the keys I enter
+set notimeout
 set background=dark
 colorscheme solarized
 set history=1000
@@ -52,6 +54,15 @@ set cursorline
 set nocursorcolumn
 set scrolloff=8
 set showcmd
+
+" Every wrapped line will continue visually indented (same amount of
+" space as the beginning of that line), thus preserving horizontal blocks
+" of text.
+if exists('+breakindent')
+  set breakindent showbreak=\ +
+endif
+
+set display=lastline
 
 set guioptions-=m " disable menubar
 set guioptions-=T " disable toolbar
