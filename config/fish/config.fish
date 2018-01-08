@@ -17,7 +17,7 @@ alias lla='ls -alFh'
 alias lld='du -h | grep \'\./[^/]\+$\' | sed -e "s/\(.*\)\.\/\(.*\)/\1\2/"'
 function n --description='Echo newly created files'
   if test -z $argv; or test $argv = "t"
-    ls --sort time $TEMPORARY | head -1
+    echo $TEMPORARY/(ls --sort time $TEMPORARY | head -1)
   else if test $argv[1] = "f"
     ls --sort time (find -maxdepth 1 -type f \! -path './.*') | head -1
   else if test $argv[1] = "d"
