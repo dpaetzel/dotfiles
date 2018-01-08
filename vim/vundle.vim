@@ -63,6 +63,12 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'LnL7/vim-nix'
 " display git hunk statuses in the gutter
 Plugin 'airblade/vim-gitgutter'
+" org mode
+Plugin 'hsitz/VimOrganizer'
+" editing fish scripts
+Plugin 'dag/vim-fish'
+" Haskell!
+Plugin 'neovimhaskell/haskell-vim'
 
 " nice symbols everywhere (must be loaded later than many other plugins)
 " HOWEVER: most symbols are cut off until I resize the window
