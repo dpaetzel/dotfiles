@@ -3,6 +3,16 @@ map <space> \
 let maplocalleader = ","
 nnoremap <leader><space> :
 
+nnoremap <leader>qq :q<cr>
+nnoremap <leader>tf :call ToggleColorcolumn()<cr>
+function! ToggleColorcolumn()
+  if &colorcolumn == ""
+    set colorcolumn=80
+  else
+    set colorcolumn=
+  endif
+endfunction
+
 " directory {{{
 nnoremap <leader>dc :cd %:p:h<cr>:pwd<cr>
 " }}}
@@ -51,4 +61,4 @@ noremap L $
 nnoremap Y y$
 xmap s <Plug>VSurround
 
-map gh :noh<enter>
+map gh :noh<cr>:GhcModTypeClear<cr>

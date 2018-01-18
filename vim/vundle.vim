@@ -30,6 +30,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'kana/vim-arpeggio'
 Plugin 'sirver/UltiSnips'
 Plugin 'gerw/vim-latex-suite'
+" Plugin 'vim-scripts/LaTeX-Suite-aka-Vim-LaTeX'
 " git client
 Plugin 'tpope/vim-fugitive'
 " proper color scheme
@@ -69,6 +70,10 @@ Plugin 'hsitz/VimOrganizer'
 Plugin 'dag/vim-fish'
 " Haskell!
 Plugin 'neovimhaskell/haskell-vim'
+Plugin 'eagletmt/ghcmod-vim'
+" required for ghc-mod
+Plugin 'Shougo/vimproc.vim'
+" Plugin 'wting/lhaskell.vim' ugly, not quite working
 
 " nice symbols everywhere (must be loaded later than many other plugins)
 " HOWEVER: most symbols are cut off until I resize the window

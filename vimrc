@@ -44,6 +44,10 @@ syntax on
 " nowrap: split line at 'textwidth' (changing the buffer!)
 " wrap: only continue in the next line when reaching the windows end
 set wrap
+" do not autowrap text at textwidth
+set formatoptions-=t
+" remove comment leaders on J
+set formatoptions+=j
 set noerrorbells
 set novisualbell
 set timeoutlen=500
@@ -59,7 +63,7 @@ set showcmd
 " space as the beginning of that line), thus preserving horizontal blocks
 " of text.
 if exists('+breakindent')
-  set breakindent showbreak=\ +
+  set breakindent showbreak=
 endif
 
 set display=lastline
