@@ -2,10 +2,14 @@
 # ~/.bashrc
 #
 
-source $HOME/.bashenv
+# shellcheck source=/home/david/.bashenv
+# shellcheck disable=SC1091
+source "$HOME/.bashenv"
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
 alias ls='ls --color=auto'
 PS1='[\u@\h \W]\$ '
+
+alias g='git'
