@@ -37,8 +37,8 @@ values."
      emacs-lisp
      finance ;; this provides ledger-mode
      git
+     haskell
      html
-     ;; (haskell :variables haskell-completion-backend nil)
      ;; ivy ;; this disables helm (and is more lightweight)
      java
      javascript
@@ -372,7 +372,41 @@ you should place your code here."
   (add-hook 'focus-out-hook (lambda () (save-some-buffers t)))
   (setq-default
    evil-escape-key-sequence ""
-   vc-follow-symlinks t)
+   vc-follow-symlinks t
+   evil-surround-pairs-alist
+   (quote
+    ((40 "( " . " )")
+     (91 "[ " . " ]")
+     (123 "{ " . " }")
+     (41 "(" . ")")
+     (93 "[" . "]")
+     (125 "{" . "}")
+     (35 "#{" . "}")
+     (98 "(" . ")")
+     (66 "{" . "}")
+     (8222 "„" . "“")
+     (8220 "“" . "”")
+     (8218 "‚" . "‘")
+     (8216 "‘" . "’")
+     (62 "<" . ">")
+     (116 . evil-surround-read-tag)
+     (60 . evil-surround-read-tag)
+     (102 . evil-surround-function)))
+   magit-diff-use-overlays nil)
+
+  ;; haskell with nix (from https://github.com/Profpatsch/dotfiles/blob/katara/spacemacs/.spacemacs)
+  (setq haskell-process-wrapper-function
+        (lambda (args) apply 'nix-shell-command (nix-current-sandbox) args))
+  (setq flycheck-command-wrapper-function
+        (lambda (command) (apply 'nix-shell-command (nix-current-sandbox) command))
+        flycheck-executable-find
+        (lambda (cmd) (nix-executable-find (nix-current-sandbox) cmd)))
+  (defun my-ghc-mod-setup ()
+    (set (make-local-variable 'my-ghc-mod) (nix-executable-find (nix-current-sandbox) "ghc-mod"))
+    (message "local ghc-mod is: %S" my-ghc-mod)
+    (set (make-local-variable 'ghc-module-command) my-ghc-mod)
+    (set (make-local-variable 'ghc-command) my-ghc-mod))
+  (add-hook 'haskell-mode-hook 'my-ghc-mod-setup)
 
   ;; TeX
   (setq-default TeX-engine 'xetex)
@@ -394,29 +428,6 @@ you should place your code here."
    flycheck-ledger-executable "hledger"
    ledger-use-iso-dates t)
   ;; TODO '(ledger-post-amount-alignment-column 62 t)
-
-  (setq-default
-   evil-surround-pairs-alist
-   (quote
-    ((40 "( " . " )")
-     (91 "[ " . " ]")
-     (123 "{ " . " }")
-     (41 "(" . ")")
-     (93 "[" . "]")
-     (125 "{" . "}")
-     (35 "#{" . "}")
-     (98 "(" . ")")
-     (66 "{" . "}")
-     (8222 "„" . "“")
-     (8220 "“" . "”")
-     (8218 "‚" . "‘")
-     (8216 "‘" . "’")
-     (62 "<" . ">")
-     (116 . evil-surround-read-tag)
-     (60 . evil-surround-read-tag)
-     (102 . evil-surround-function)))
-   magit-diff-use-overlays nil)
-  ;; '(org-M-RET-may-split-line (quote ((default))))
 
   ;; e-mail
   (load-file "~/.emacs.d/private/fix-flowed.el")
@@ -449,17 +460,6 @@ you should place your code here."
    org-hide-leading-stars t
    org-list-allow-alphabetical t
    org-log-into-drawer t
-   ;; org-modules
-   ;; '(org-bbdb
-   ;;   org-bibtex
-   ;;   ;; org-docview
-   ;;   ;; org-gnus
-   ;;   org-habit
-   ;;   org-info
-   ;;   ;; org-irc
-   ;;   org-mhe
-   ;;   ;; org-rmail
-   ;;   org-w3m)
    org-pretty-entities t
    org-stuck-projects (quote ("+TODO=\"PROJECT\"" ("NEXT" "WAIT") nil ""))
    org-todo-keyword-faces (quote
@@ -469,6 +469,7 @@ you should place your code here."
    org-todo-keywords (quote
                       ((sequence "NEXT(n)" "TODO(t)" "PROJECT(p)" "WAIT(w)" "MAYBE(m)" "DONE(d!)")))
    org-use-property-inheritance nil)
+  ;; '(org-M-RET-may-split-line (quote ((default))))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -478,9 +479,10 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(evil-want-Y-yank-to-eol t)
  '(package-selected-packages
    (quote
-    (company-emacs-eclim eclim yaml-mode xterm-color web-mode web-beautify vimrc-mode tagedit slim-mode shell-pop scss-mode sass-mode pug-mode powershell phpunit phpcbf php-extras php-auto-yasnippets org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-download noflet nix-sandbox nix-mode muttrc-mode multi-term mmm-mode markdown-toc markdown-mode magit-annex livid-mode skewer-mode simple-httpd less-css-mode ledger-mode json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc intero insert-shebang htmlize hlint-refactor hindent helm-nixos-options helm-hoogle helm-css-scss helm-company helm-c-yasnippet haml-mode gnuplot gh-md fuzzy flycheck-pos-tip pos-tip flycheck-ledger flycheck-elm flycheck fish-mode eshell-z eshell-prompt-extras esh-help ensime sbt-mode scala-mode emmet-mode elm-mode drupal-mode php-mode dactyl-mode company-web web-completion-data company-tern dash-functional tern company-statistics company-shell company-nixos-options nixos-options company-ghci company-ghc ghc company-cabal company-auctex company coffee-mode cmm-mode auto-yasnippet yasnippet auctex-latexmk auctex ac-ispell auto-complete smeargle orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit ghub let-alist with-editor ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
+    (haskell-snippets flycheck-haskell haskell-mode company-emacs-eclim eclim yaml-mode xterm-color web-mode web-beautify vimrc-mode tagedit slim-mode shell-pop scss-mode sass-mode pug-mode powershell phpunit phpcbf php-extras php-auto-yasnippets org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-download noflet nix-sandbox nix-mode muttrc-mode multi-term mmm-mode markdown-toc markdown-mode magit-annex livid-mode skewer-mode simple-httpd less-css-mode ledger-mode json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc intero insert-shebang htmlize hlint-refactor hindent helm-nixos-options helm-hoogle helm-css-scss helm-company helm-c-yasnippet haml-mode gnuplot gh-md fuzzy flycheck-pos-tip pos-tip flycheck-ledger flycheck-elm flycheck fish-mode eshell-z eshell-prompt-extras esh-help ensime sbt-mode scala-mode emmet-mode elm-mode drupal-mode php-mode dactyl-mode company-web web-completion-data company-tern dash-functional tern company-statistics company-shell company-nixos-options nixos-options company-ghci company-ghc ghc company-cabal company-auctex company coffee-mode cmm-mode auto-yasnippet yasnippet auctex-latexmk auctex ac-ispell auto-complete smeargle orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit ghub let-alist with-editor ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
