@@ -89,6 +89,7 @@ gap_y = 3,
 	font = 'Inconsolata:size=11:antialias=true'
 };
 
+  -- ${battery_percent BAT1}%  |\
 conky.text = [[
   ${texeci 10 ~/.conky/scripts/networkmanager-profiles}  |\
   ${texeci 60 ~/Bin/global-ip} ${font Symbola:size=11}${texeci 10 ~/.conky/scripts/ping-status-inet}${font}${voffset -1}  |\
@@ -98,7 +99,7 @@ $alignr|\
   $memfree / $memeasyfree  |\
   chromium: ${texeci 5 ~/Bin/rss-sum chromium}  |\
   ${font Symbola:size=11}${exec ~/.conky/scripts/status-mute}$font${voffset -1} ${exec ~/Bin/volume}  |\
-  ${battery_percent BAT1}%  |\
+  ${battery_short BAT1}  |\
   ${time %F}  |\
   ${time %k:%M}  
 ]];
