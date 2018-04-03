@@ -58,3 +58,31 @@ alias df='dfc'
 
 alias v='vim'
 alias g='git'
+alias o='open'
+
+
+alias m='udiskie-mount -ar'
+alias um='udiskie-umount -a'
+
+
+# not beautiful but works(?)
+function vpn
+    set name $1
+
+    nm-applet ^ /dev/null &
+    set pid %1
+
+    sleep 2
+
+    nmcli con up {$name}-vpn
+
+    begin
+        sleep 10
+        kill $pid
+    end ^ /dev/null &
+end
+
+
+# alias plotting='nix-shell -p gnuplot haskellPackages.cassava haskellPackages.gnuplot ghc'
+alias plotting='nix-shell -p "haskellPackages.ghcWithPackages (pkgs : [ pkgs.cassava pkgs.easyplot ])" gnuplot'
+alias plottingNoEasy='nix-shell -p "haskellPackages.ghcWithPackages (pkgs : [ pkgs.cassava ])" gnuplot'
