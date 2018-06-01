@@ -5,17 +5,11 @@ caps=$(echo $s | sed -r 's/.*Caps Lock: *([^ ]*).*/\1/')
 num=$(echo $s | sed -r 's/.*Num Lock: *([^ ]*).*/\1/')
 
 if [[ $caps == "on" ]]; then
-    printf "⇪"
-else
-    printf "  "
+    printf "⇪ "
 fi
 
-printf " "
-
 if [[ $num == "on" ]]; then
-    printf "🔒"
-else
-    printf "  "
+    printf "🔒 "
 fi
 
 printf "\n"

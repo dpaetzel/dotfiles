@@ -90,16 +90,19 @@ gap_y = 3,
 };
 
   -- ${battery_percent BAT1}%  |\
+  -- ${execpi 60 ~/Bin/pomodoro conky}  |\
+  -- chromium: ${texeci 5 ~/Bin/rss-sum chromium}  |\
+  -- ${font Symbola:size=11}🐏$font ${membar 11,33}${voffset -1} |\
+  -- ${image ~/Ram.png -p 1500,0 -s 18x18 -n} ${membar 11,33}${voffset -1}  |\
 conky.text = [[
   ${texeci 10 ~/.conky/scripts/networkmanager-profiles}  |\
   ${texeci 60 ~/Bin/global-ip} ${font Symbola:size=11}${texeci 10 ~/.conky/scripts/ping-status-inet}${font}${voffset -1}  |\
-$alignr|\
-  ${execpi 60 ~/Bin/pomodoro conky}  |\
-  ${font Symbola:size=11}${texecpi 5 ~/.conky/scripts/modifiers}$font  |\
-  $memfree / $memeasyfree  |\
-  chromium: ${texeci 5 ~/Bin/rss-sum chromium}  |\
+  ${font Symbola:size=11}📶$font ${wireless_link_bar 11,33 wlp4s0}${voffset -1}  |\
+$alignr${voffset -1}\
+  ${font Symbola:size=11}${texecpi 5 ~/.conky/scripts/modifiers}$font |\
+    ${image ~/.conky/Ram.png -p 1502,1 -s 14x14 -n} ${membar 11,33}${voffset -1}  |\
   ${font Symbola:size=11}${exec ~/.conky/scripts/status-mute}$font${voffset -1} ${exec ~/Bin/volume}  |\
-  ${battery_short BAT1}  |\
+  ${font Symbola:size=11}⚡$font${voffset -1} ${battery_short BAT1}  |\
   ${time %F}  |\
   ${time %k:%M}  
 ]];
