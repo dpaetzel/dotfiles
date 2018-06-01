@@ -17,7 +17,7 @@ region if active, otherwise on the whole buffer."
       ;; I like to have one space after the quote indicators (but we need to be
       ;; careful not to suffix empty quote lines with a space)
       (goto-char start)
-      (replace-regexp "^\\(>+\\) *\\([^\n]\\)" "\\1 \\2")
+      (replace-regexp "^\\(>+\\) *\\([^>\n]\\)" "\\1 \\2")
       ;; all non-empty lines should end with a space (the user has to indicate
       ;; paragraphs with empty lines; but again, empty quote lines must not be
       ;; suffixed with a space)
