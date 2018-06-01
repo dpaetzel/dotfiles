@@ -47,7 +47,7 @@ checkout = git clone 'https://github.com/dpaetzel/utility.git' 'Bin'
 
 
 [.dotfiles]
-checkout = git clone 'git@github.com:dpaetzel/dotfiles.git' '.dotfiles'
+checkout = git clone 'https://github.com/dpaetzel/dotfiles.git' '.dotfiles'
 # need to update rc files twice b/c first update pulls in rcrc
 post_checkout = rcup ; rcup
 # must be checked out after .oh-my-zsh
