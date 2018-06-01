@@ -437,7 +437,7 @@ you should place your code here."
   ;; TODO '(ledger-post-amount-alignment-column 62 t)
 
   ;; e-mail
-  (load-file "~/.emacs.d/private/fix-flowed.el")
+  (load-file "~/.emacs.d/private/format-flowed.el")
   (add-hook 'message-mode-hook 'fix-flowed)
   (setq-default
    auto-mode-alist (cons '(".*\.mail" . message-mode) auto-mode-alist)
