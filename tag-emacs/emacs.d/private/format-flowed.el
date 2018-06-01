@@ -23,13 +23,13 @@ region if active, otherwise on the whole buffer."
       ;; suffixed with a space)
       (goto-char start)
       (replace-regexp "^\\(>+ \\)?\\([^>\n].*\\)$" "\\1\\2 ")
-      ;; fix signature indicators
-      (goto-char start)
-      (replace-regexp "^\\(>+ ?\\)?-- *$" "\\1--")
       ;; fix signatures
       (goto-char start)
       (search-forward-regexp "^\\(>+ ?\\)?-- *$")
       (replace-regexp " +$" "")
+      ;; fix signature indicators
+      (goto-char start)
+      (replace-regexp "^\\(>+ ?\\)?-- *$" "\\1-- ")
       ;; collapse multiple spaces at line's end (not required!)
       ;; (goto-char start)
       ;; (while (re-search-forward " +$" end t)
