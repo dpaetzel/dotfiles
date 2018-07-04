@@ -1,0 +1,212 @@
+" -*- mode: vimrc -*-
+
+
+" I want "vim-like" behaviour where removing a line from here makes the
+" setting disappear.
+sanitise tridactyllocal tridactylsync
+
+
+guiset gui full
+" guiset tabs always
+" guiset navbar autohide
+
+
+" this has to be done after the guiset stuff?
+colours shydactyl
+
+
+set editorcmd emacsclient -a emacs
+
+
+" general (g)
+set searchurls.gd https://duckduckgo.com/?q=
+set searchurls.gg https://google.com/?q=
+" shops (s)
+set searchurls.sa https://www.amazon.de/s/?field-keywords=
+" translate/language (t)
+set searchurls.td https://dict.cc/?s=
+set searchurls.tu https://www.duden.de/suchen/dudenonline/
+" wikipedia (w)
+set searchurls.we https://en.wikipedia.org/wiki/Special:Search/
+set searchurls.wd https://de.wikipedia.org/wiki/Spezial:Suche/
+" nix(os) (n)
+set searchurls.np https://nixos.org/nixos/packages.html#
+set searchurls.no https://nixos.org/nixos/options.html#
+" coding (c)
+set searchurls.cy https://hayoo.fh-wedel.de/?query=
+" misc
+set searchurls.y https://www.youtube.com/results?search_query=
+" the default is duckduckgo
+set searchengine gd
+
+
+set hintfiltermode vimperator-reflow
+set hintchars uiaeosnrdt
+
+
+set smoothscroll true
+
+
+" Make Tridactyl work on more sites at the expense of some security
+" TODO does this have any merit?
+set csp clobber
+fixamo
+
+
+" " mappings {{{
+" " general
+" nmap -builtin -javascript <C-R> plugins.tabgroups.tabGroup.appTabs.map (function (tab) config.tabbrowser.reloadTab (tab))
+" nmap -builtin <C-H> :rehash<CR>
+" imap -builtin <C-H> :rehash<CR>
+" " nmap -builtin <SPACE> :
+
+" " GUI maps
+" " remap unnerving stuff
+" nmap <C-K> <NOP>
+" nmap <C-F> <NOP>
+" imap <C-F> <NOP>
+" cmap <C-F> <NOP>
+" cmap <C-G> <NOP>
+
+" " nmap -builtin \\ <ESC>:toolbartoggle Add-on Bar<CR>
+" nmap -builtin hg :noh<CR>
+" nmap -builtin gh :noh<CR>
+" nmap -builtin <C-N> <NOP>
+" nmap -builtin <C-P> <NOP>
+
+" " tab maps
+" nmap -builtin (( :tabmove -1<CR>
+" nmap -builtin )) :tabmove +1<CR>
+" nmap -builtin <C-T> :tabduplicate<CR>
+
+" " tab group maps
+" " unmap s
+" nmap ss -builtin :tabgroup -switch 
+" nmap sp -builtin :tabgroup -pushtab 
+" nmap sa -builtin :tabgroup -add 
+" nmap sr -builtin :tabgroup -remove 
+
+" " navigation maps
+" nmap -builtin ga g0
+" nmap -builtin ge g$
+" nmap -builtin gl <C-6>
+" nmap -builtin <leader>p :tabopen <S-Insert>
+
+" " onsite maps
+" nmap -builtin <leader>f :flashtoggle<CR>
+" nmap -builtin <leader>w :private winopen 
+
+" " night mode toggling
+" nmap -builtin gn :nightmodetoggle<CR>
+" nmap -builtin gN :nightmodetoggletab<CR>
+
+" command! -nargs=+ SearchRef tabopen scholar <args> | ieee <args> | springer <args> | acm <args>
+" nmap -builtin SR :SearchRef 
+" " }}}
+" "functions {{{
+" " javascript <<EOF
+" " function searchPerson (person) {
+" "     ex.tabopen ("google " + person)
+" " }
+" " EOF
+" " }}}
+" " autocmds {{{
+" " automatically copy youtube video urls
+" " autocmd LocationChange '^https://www\.youtube\.com/watch\?v=.*' :normal! yd
+" " disable this annoying behaviour, again and again and again and...
+" autocmd LocationChange * set! ui.key.menuAccessKeyFocuses=false
+" " }}}
+" " pentadactyl options {{{
+" " GUI options
+" " colorscheme simple_dark
+" colorscheme ultimate
+" set guioptions=Cbnrs
+
+" " maximum number of items in a listing
+" set maxitems=10
+
+" " 1234567890 are too far away
+" set hintkeys="uiaenrtd"
+
+" " pass certain keys to certain webpages
+" " set passkeys=feedly.com:jkvrnpomsJKV,ga,gh,gl,www.google.*/search*:<TAB><Up><Down><BS>,www.google.*/calendar*:npjk
+" set passkeys=www.inoreader.com.*:r1234+-0!@#jknpovbmfJKNPOWX,gf,ga,gu,www.google.*/search*:<TAB><Up><Down><BS>,calendar.google.*/calendar*:npjk
+
+" " default search/suggest engine: google
+" set defsearch=google
+" set suggestengines=google
+
+" " completion priority in :[tab]open
+" set complete=location,search,bookmark,suggestion
+
+" " focus newly opened tabs automatically (but not diverted, links)
+" set activate=addons,bookmarks,downloads,extoptions,help,homepage,quickmark,tabopen,paste
+" " TODO: unset this on google search site
+
+" " scroll height of <C-d> / <C-u>
+" " set scroll=3
+
+" " match anywhere inside text of hinted links
+" set hintmatching=contains
+
+" " need <CR> anytime in hints mode
+" set followhints=1
+
+" " all type pages are opened in new tab
+" " addons + downloads + help + javascript + prefs
+" set newtab=all
+" "}}}
+" " plugin options {{{
+" loadplugins
+
+" " where to go on tabclosing
+" set tabclose=opener,left,previous,right
+
+" " where to open new tabs
+" set tabopen=link:end,orphan:end,external:end
+
+" " don't block flash on these sites
+" " set fbwhitelist=https://www.youtube.com*,http://www.dict.cc*,http://vimeo.com*
+
+" " alternative user agent strings
+" " -useragent="Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 (KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16"
+" "["iphone-3",
+" "Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 (KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16",
+" "Mozilla",
+" "Netscape",
+" "5.0 (iPhone; U; CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 (KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16",
+" "iPhone",
+" "Apple Computer, Inc.",
+" ""]
+" "javascript <<EOF
+" "plugins.useragent.useragents["ipad"] = plugins.useragent.UserAgent.fromArray ([
+" "    // useragent
+" "    "Mozilla/5.0 (iPad; CPU OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5355d Safari/8536.25",
+" "    // appname
+" "    "Mozilla",
+" "    // appcodename
+" "    "Netscape",
+" "    // appversion
+" "    "5.0 (iPad; CPU OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5355d Safari/8536.25",
+" "    // platform
+" "    "iPad",
+" "    // vendor
+" "    "Apple Computer, Inc."
+" "])
+" "EOF
+" " }}}
+" " firefox options" {{{
+
+" " sadly disabled in ff 31
+" " hide close buttons
+" " set! browser.tabs.closeButtons=2
+
+" " open tab in the background
+" set! browser.tabs.loadDivertedInBackground=true
+
+" " disable alt-key bringing up menu
+" set! ui.key.menuAccessKeyFocuses=false
+" " }}}
+
+
+" " vim: ft=vim ts=4 sw=4 sts=0 et fdm=marker fdc=3
