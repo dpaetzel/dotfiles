@@ -7,6 +7,14 @@ set -xg PATH $PATH $HOME/Bin
 set -xg TEMPORARY $HOME/Temporary
 
 
+set -xg GTK_IM_MODULE xim
+set -xg QT_IM_MODULE xim
+
+
+set -xg _JAVA_AWT_WM_NONREPARENTING 1
+set -xg _JAVA_OPTIONS '-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true'
+
+
 alias s='sudo'
 
 
@@ -58,3 +66,4 @@ alias df='dfc'
 
 alias v='vim'
 alias g='git'
+alias led='ledger --strict --file /home/david/Buchhaltung/Gesamt.journal'
