@@ -25,10 +25,10 @@ set notification-warning-bg "#839496" # base03
 set notification-warning-fg "#002b36" # base0
 set statusbar-bg "#002b36" # base03
 set statusbar-fg "#839496" # base0
-set tabbar-bg "#002b36" # base03
-set tabbar-fg "#839496" # base0
-set tabbar-focus-bg "#002b36" # base03
-set tabbar-focus-fg "#839496" # base0
+# set tabbar-bg "#002b36" # base03
+# set tabbar-fg "#839496" # base0
+# set tabbar-focus-bg "#002b36" # base03
+# set tabbar-focus-fg "#839496" # base0
 
 # solarized light
 # set recolor-lightcolor "#fdf6e3" # base3 (light background)

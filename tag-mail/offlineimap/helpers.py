@@ -54,7 +54,7 @@ def refresh_token(account):
 def get_pass(address):
   args = ["pass", "mail/%s" % address]
   try:
-    return subprocess.check_output(args).strip()
+    return subprocess.check_output(args).strip().splitlines()[0]
   except subprocess.CalledProcessError:
     return ""
 

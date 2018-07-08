@@ -42,7 +42,7 @@ unset mbox
   set pipe_decode
   set print_command     = "enscript -p - | psselect -r | lp"
   set quote_regexp      = "^( {0,4}[>|:#%]| {0,4}[a-z0-9]+[>|]+)+"
-  set query_command     = "goobook query"
+  # TODO set query_command     = "goobook query"
   set realname          = "David Pätzel"
   set reply_regexp      = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
   set reply_to
@@ -83,20 +83,19 @@ unhdr_order *
 hdr_order From: To: Cc: Date: Subject:
 
 
+source ~/.mutt/bindings.muttrc
+
+
 # source $alias_file
 source ~/.mutt/colors.muttrc
 source ~/.mutt/mailboxes.muttrc
 source ~/.mutt/accounts/uni.muttrc
 # source ~/.mutt/crypto # TODO
 
-# source ~/.mutt/keybindings/unbind
-source ~/.mutt/keybindings/generic.muttrc
-source ~/.mutt/keybindings/pager.muttrc
-source ~/.mutt/keybindings/index.muttrc
-source ~/.mutt/keybindings/index-pager.muttrc
-source ~/.mutt/keybindings/compose.muttrc
-source ~/.mutt/keybindings/attach.muttrc
-source ~/.mutt/keybindings/browser.muttrc
-source ~/.mutt/keybindings/pgp.muttrc
 
-source ~/.mutt/keybindings/overrides.muttrc
+# TODO add macros to Bindings.Mutt
+macro attach,compose,index,pager \Co <pipe-entry>'urlscan'<enter> "call urlscan to extract URLs out of a message"
+macro index,pager v <save-message>?<toggle-mailboxes><search> "save message/attachment to a mailbox/file (== 'move')"
+macro index,pager R <tag-pattern>~N<enter><tag-prefix><clear-flag>N<untag-pattern>~T<enter> "mark messages in current folder as read"
+macro index,pager c <change-folder>?<toggle-mailboxes><search> "show incoming mailboxes list"
+macro index <F5> "<shell-escape>sync-mail 2&1> /dev/null &<enter>" "download new mails"

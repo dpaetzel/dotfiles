@@ -1,0 +1,29 @@
+* starting point https://github.com/aspiers/emacs/blob/23a22af991b35fcc7a96ac12847e1b8723d4c5c2/.emacs.d/init.d/as-editing.el#L29
+* FAQ https://joeclark.org/ffaq.html
+* RFC http://www.ietf.org/rfc/rfc3676.txt
+  - mainly 4.2 since we are *generating* f=f
+  - kinds of lines
+    - flowed line: ends in a space
+    - fixed: does not end in a space
+    - "-- ": signature separator
+  - f=f message
+    - \geq 0 paragraphs that
+    - contain \geq 1 flowed line followed by
+    - 1 fixed line
+    - usual: series of flowed lines with empty fixed lines between them
+  - soft line breaks: SPACE CLRF
+    - technique 1: RFC 2464, simply break after ASCII spaces, however must set
+      delsp to no
+    - technique 2: more sophisticated, esp. useful when there are few ASCII
+      spaces, however must set delsp to yes
+  - generating f=f
+    - \leq 78 line length (including spaces)
+      - perhaps: 66 line length for those not capable of interpreting f=f
+    - trim spaces before user-inserted hard line breaks
+    - prefix lines with spaces whose text starts with a space, "From ", or ">"
+      (space-stuffing)
+    - "-- " line only if signature separator (be careful when rewrapping)
+    - quote lines start with ">* *" (*no spaces between the ">"* as these space
+      stuff the next ">"!)
+  - important: OpenPGP is discouraged with f=f, use OpenPGP-MIME instead!
+    - ~smime_is_default = yes~

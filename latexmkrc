@@ -1,3 +1,3 @@
 $pdf_mode = 1;
-$pdflatex = "xelatex %O %S";
+$pdflatex = "xelatex -shell-escape %O %S";
 $out_dir = "out";

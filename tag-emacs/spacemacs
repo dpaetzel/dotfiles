@@ -30,14 +30,19 @@ values."
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '((auto-completion
+   '(
+     (auto-completion
       :variables
       auto-completion-enable-snippets-in-popup t)
+     csv
      elm
      emacs-lisp
      finance ;; this provides ledger-mode
      git
      haskell
+     ;; (haskell
+     ;;  :variables
+     ;;  haskell-completion-backend nil)
      html
      ;; ivy ;; this disables helm (and is more lightweight)
      java
@@ -394,34 +399,36 @@ you should place your code here."
      (102 . evil-surround-function)))
    magit-diff-use-overlays nil)
 
+  ;; haskell
+  (setq-default
+   flycheck-disabled-checkers '(haskell-stack-ghc haskell-ghc haskell-lint))
   ;; haskell with nix (from https://github.com/Profpatsch/dotfiles/blob/katara/spacemacs/.spacemacs)
-  (setq haskell-process-wrapper-function
-        (lambda (args) apply 'nix-shell-command (nix-current-sandbox) args))
-  (setq flycheck-command-wrapper-function
-        (lambda (command) (apply 'nix-shell-command (nix-current-sandbox) command))
-        flycheck-executable-find
-        (lambda (cmd) (nix-executable-find (nix-current-sandbox) cmd)))
-  (defun my-ghc-mod-setup ()
-    (set (make-local-variable 'my-ghc-mod) (nix-executable-find (nix-current-sandbox) "ghc-mod"))
-    (message "local ghc-mod is: %S" my-ghc-mod)
-    (set (make-local-variable 'ghc-module-command) my-ghc-mod)
-    (set (make-local-variable 'ghc-command) my-ghc-mod))
-  (add-hook 'haskell-mode-hook 'my-ghc-mod-setup)
+  ;; (setq haskell-process-wrapper-function
+  ;;       (lambda (args) apply 'nix-shell-command (nix-current-sandbox) args))
+  ;; (setq flycheck-command-wrapper-function
+  ;;       (lambda (command) (apply 'nix-shell-command (nix-current-sandbox) command))
+  ;;       flycheck-executable-find
+  ;;       (lambda (cmd) (nix-executable-find (nix-current-sandbox) cmd)))
+  ;; (defun my-ghc-mod-setup ()
+  ;;   (set (make-local-variable 'my-ghc-mod) (nix-executable-find (nix-current-sandbox) "ghc-mod"))
+  ;;   (message "local ghc-mod is: %S" my-ghc-mod)
+  ;;   (set (make-local-variable 'ghc-module-command) my-ghc-mod)
+  ;;   (set (make-local-variable 'ghc-command) my-ghc-mod))
+  ;; (add-hook 'haskell-mode-hook 'my-ghc-mod-setup)
 
   ;; TeX
-  (setq-default TeX-engine 'xetex)
   (setq-default
+   TeX-engine 'xetex
    TeX-auto-local ".auctex-auto"
    TeX-view-program-list (quote (("zathura" ("zathura %o") nil)))
-   TeX-view-program-selection
-   (quote
-    (((output-dvi has-no-display-manager)
-      "dvi2tty")
-     ((output-dvi style-pstricks)
-      "dvips and gv")
-     (output-dvi "xdvi")
-     (output-pdf "zathura")
-     (output-html "xdg-open"))))
+   TeX-view-program-selection (quote
+                               (((output-dvi has-no-display-manager)
+                                 "dvi2tty")
+                                ((output-dvi style-pstricks)
+                                 "dvips and gv")
+                                (output-dvi "xdvi")
+                                (output-pdf "zathura")
+                                (output-html "xdg-open"))))
 
   ;; ledger
   (setq-default
@@ -430,14 +437,17 @@ you should place your code here."
   ;; TODO '(ledger-post-amount-alignment-column 62 t)
 
   ;; e-mail
-  (load-file "~/.emacs.d/private/fix-flowed.el")
+  (load-file "~/.emacs.d/private/format-flowed.el")
   (add-hook 'message-mode-hook 'fix-flowed)
   (setq-default
    auto-mode-alist (cons '(".*\.mail" . message-mode) auto-mode-alist)
    auto-mode-alist (cons '("mutt[^/]*$" . message-mode) auto-mode-alist))
 
   ;; org
+  ;; used for recursively finding org files in projects folder
+  (load-library "find-lisp")
   (with-eval-after-load 'org
+    ;; (setcdr (assoc "\\.pdf\\'" org-file-apps) "zathura %s")
     (setq-default org-startup-indented nil)
     (evil-define-key 'normal evil-org-mode-map
       "T" '(lambda ()
@@ -448,7 +458,7 @@ you should place your code here."
     "Q" 'org-clock-display
     "p" 'org-priority-up)
   (setq-default
-   org-agenda-files '("~/TODO.org")
+   org-agenda-files (cons "~/TODO.org" (find-lisp-find-files "/home/david/Projekte/" "\.org$"))
    org-agenda-restore-windows-after-quit t
    org-agenda-skip-deadline-prewarning-if-scheduled 2
    org-agenda-skip-scheduled-if-done t
@@ -462,6 +472,66 @@ you should place your code here."
    org-log-into-drawer t
    org-pretty-entities t
    org-stuck-projects (quote ("+TODO=\"PROJECT\"" ("NEXT" "WAIT") nil ""))
+   ;; '(org-tag-alist
+   ;;   (quote
+   ;;    ((:startgroup "Orte")
+   ;;     ("daheim" . 104)
+   ;;     ("Uni" . 117)
+   ;;     ("alteUni" . 97)
+   ;;     ("Bobingen" . 108)
+   ;;     ("Stadt" . 115)
+   ;;     (:endgroup)
+   ;;     (:startgrouptag)
+   ;;     ("Computer" . 99)
+   ;;     (:grouptags)
+   ;;     ("anaxagoras" . 120)
+   ;;     ("heraklit" . 101)
+   ;;     ("leukipp" . 105)
+   ;;     ("cleopatra" . 111)
+   ;;     ("Windows" . 119)
+   ;;     (:endgrouptag)
+   ;;     ("Film" . 109)
+   ;;     (:startgrouptag "Personen")
+   ;;     ("@Regine" . 82)
+   ;;     ("@Eltern" . 69)
+   ;;     (:endgrouptag "")
+   ;;     ("Amazon" . 122)
+   ;;     ("nachts" . 110)
+   ;;     ("Hörbuch" . 246)
+   ;;     ("Kochen" . 107)
+   ;;     ("Gutschein" . 103)
+   ;;     ("Besorgungen" . 98))))
+    org-agenda-custom-commands
+    (quote
+     (("R" "wöchentliches Review"
+       ((todo "WAIT"
+              ((org-agenda-overriding-header "Warten auf")))
+        (todo "NEXT"
+              ((org-agenda-overriding-header "Next Actions")))
+        (todo "TODO"
+              ((org-agenda-overriding-header "andere TODOs (noch nicht als Next Action ausführbares etc.)")))
+        (todo "MAYBE"
+              ((org-agenda-overriding-header "Vielleicht/Eines Tages")))
+        (todo "PROJECT"
+              ((org-agenda-overriding-header "Projekte")))
+        (stuck ""
+               ((org-agenda-overriding-header "Projekte ohne NEXT oder WAIT")))
+        (todo "DONE"
+              ((org-agenda-overriding-header "Erledigtes"))))
+       nil nil)
+      ("p" "Alle Projekte" todo "PROJECT" nil)
+      ("n" "Alle Next Actions" todo "NEXT" nil)
+      ("A" "Alle Next Actions (nicht daheim)" tags-todo "+TODO=\"NEXT\"-daheim" nil)
+      ;; ("h" "Daheim, ohne Computer"
+      ;;  ((tags-todo "+TODO=\"NEXT\"+daheim-Computer-heraklit-anaxagoras-filius-Windows|+TODO=\"NEXT\"+DAHEIM-COMPUTER-HERAKLIT-ANAXAGORAS-FILIUS-WINDOWS" nil))
+      ;;  nil nil)
+      ;; ("c" . "Computer")
+      ;; ("cr" "Computer, mit Regine" tags-todo "+TODO=\"NEXT\"+Computer|+TODO=\"NEXT+COMPUTER+REGINE+Regine" nil)
+      ;; ("cc" . "Computer, ohne Regine")
+      ;; ("ccc" "Computer, ohne Regine, wo auch immer" tags "+TODO=\"NEXT\"+Computer-anaxagoras-Windows-cleopatra-daheim-Regine|+TODO=\"NEXT\"+COMPUTER-ANAXAGORAS-WINDOWS-CLEOPATRA-DAHEIM-REGINE" nil)
+      ;; ("cch" "Computer, ohne Regine, daheim" tags "+TODO=\"NEXT\"+Computer-Regine|+TODO=\"NEXT\"+COMPUTER-REGINE" nil)
+      ;; ("r" "Regine" tags-todo "+TODO=\"NEXT\"+Regine|+TODO=\"NEXT\"+REGINE" nil)))
+      ))
    org-todo-keyword-faces (quote
                            (("TODO" :foreground "dim gray" :weight bold)
                             ("WAIT" :foreground "dim gray" :weight bold)
@@ -480,9 +550,25 @@ you should place your code here."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(evil-want-Y-yank-to-eol t)
+ '(helm-boring-file-regexp-list
+   (quote
+    ("\\.hi$" "\\.o$" "~$" "\\.bin$" "\\.lbin$" "\\.so$" "\\.a$" "\\.ln$" "\\.blg$" "\\.bbl$" "\\.elc$" "\\.lof$" "\\.glo$" "\\.idx$" "\\.lot$" "\\.svn/?" "\\.hg/?" "\\.git/?" "\\.bzr/?" "CVS/?" "_darcs/?" "_MTN/?" "\\.tfm$" "\\.class$" "\\.fas$" "\\.lib$" "\\.mem$" "\\.x86f$" "\\.sparcf$" "\\.dfsl$" "\\.pfsl$" "\\.d64fsl$" "\\.p64fsl$" "\\.lx64fsl$" "\\.lx32fsl$" "\\.dx64fsl$" "\\.dx32fsl$" "\\.fx64fsl$" "\\.fx32fsl$" "\\.sx64fsl$" "\\.sx32fsl$" "\\.wx64fsl$" "\\.wx32fsl$" "\\.fasl$" "\\.ufsl$" "\\.fsl$" "\\.dxl$" "\\.lo$" "\\.la$" "\\.gmo$" "\\.mo$" "\\.toc$" "\\.aux$" "\\.cp$" "\\.fn$" "\\.ky$" "\\.pg$" "\\.tp$" "\\.vr$" "\\.cps$" "\\.fns$" "\\.kys$" "\\.pgs$" "\\.tps$" "\\.vrs$" "\\.pyc$" "\\.pyo$")))
+ '(org-file-apps
+   (quote
+    ((auto-mode . emacs)
+     ("\\.mm\\'" . default)
+     ("\\.x?html?\\'" . default)
+     ("\\.pdf\\'" . "zathura %s"))))
+ '(org-tag-alist
+   (quote
+    ((:startgroup)
+     ("Arbeit" . 97)
+     ("daheim" . 100)
+     (:endgroup)
+     ("Campus" . 99))))
  '(package-selected-packages
    (quote
-    (haskell-snippets flycheck-haskell haskell-mode company-emacs-eclim eclim yaml-mode xterm-color web-mode web-beautify vimrc-mode tagedit slim-mode shell-pop scss-mode sass-mode pug-mode powershell phpunit phpcbf php-extras php-auto-yasnippets org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-download noflet nix-sandbox nix-mode muttrc-mode multi-term mmm-mode markdown-toc markdown-mode magit-annex livid-mode skewer-mode simple-httpd less-css-mode ledger-mode json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc intero insert-shebang htmlize hlint-refactor hindent helm-nixos-options helm-hoogle helm-css-scss helm-company helm-c-yasnippet haml-mode gnuplot gh-md fuzzy flycheck-pos-tip pos-tip flycheck-ledger flycheck-elm flycheck fish-mode eshell-z eshell-prompt-extras esh-help ensime sbt-mode scala-mode emmet-mode elm-mode drupal-mode php-mode dactyl-mode company-web web-completion-data company-tern dash-functional tern company-statistics company-shell company-nixos-options nixos-options company-ghci company-ghc ghc company-cabal company-auctex company coffee-mode cmm-mode auto-yasnippet yasnippet auctex-latexmk auctex ac-ispell auto-complete smeargle orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit ghub let-alist with-editor ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
+    (bind-key powerline avy packed hydra iedit epl s org-mime smartparens highlight evil helm helm-core projectile async csv-mode haskell-snippets flycheck-haskell haskell-mode company-emacs-eclim eclim yaml-mode xterm-color web-mode web-beautify vimrc-mode tagedit slim-mode shell-pop scss-mode sass-mode pug-mode powershell phpunit phpcbf php-extras php-auto-yasnippets org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-download noflet nix-sandbox nix-mode muttrc-mode multi-term mmm-mode markdown-toc markdown-mode magit-annex livid-mode skewer-mode simple-httpd less-css-mode ledger-mode json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc intero insert-shebang htmlize hlint-refactor hindent helm-nixos-options helm-hoogle helm-css-scss helm-company helm-c-yasnippet haml-mode gnuplot gh-md fuzzy flycheck-pos-tip pos-tip flycheck-ledger flycheck-elm flycheck fish-mode eshell-z eshell-prompt-extras esh-help ensime sbt-mode scala-mode emmet-mode elm-mode drupal-mode php-mode dactyl-mode company-web web-completion-data company-tern dash-functional tern company-statistics company-shell company-nixos-options nixos-options company-ghci company-ghc ghc company-cabal company-auctex company coffee-mode cmm-mode auto-yasnippet yasnippet auctex-latexmk auctex ac-ispell auto-complete smeargle orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit ghub let-alist with-editor ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

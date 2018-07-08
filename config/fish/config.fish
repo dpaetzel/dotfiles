@@ -67,3 +67,61 @@ alias df='dfc'
 alias v='vim'
 alias g='git'
 alias led='ledger --strict --file /home/david/Buchhaltung/Gesamt.journal'
+alias o='open'
+alias ont='o (n t)'
+alias onf='o (n f)'
+alias mutt='neomutt'
+
+
+alias m='udiskie-mount -ar'
+alias um='udiskie-umount -a'
+
+
+# not beautiful but works(?)
+function vpn
+    set name $1
+
+    nm-applet ^ /dev/null &
+    set pid %1
+
+    sleep 2
+
+    nmcli con up {$name}-vpn
+
+    begin
+        sleep 10
+        kill $pid
+    end ^ /dev/null &
+end
+
+
+# alias plotting='nix-shell -p gnuplot haskellPackages.cassava haskellPackages.gnuplot ghc'
+alias plotting='nix-shell -p "haskellPackages.ghcWithPackages (pkgs : [ pkgs.cassava pkgs.easyplot ])" gnuplot'
+alias plottingNoEasy='nix-shell -p "haskellPackages.ghcWithPackages (pkgs : [ pkgs.cassava ])" gnuplot'
+
+
+alias agenda='khal list -a Arbeit -a OC -a Ich -a Beide'
+
+
+function hearthstone
+    set -x WINEPREFIX "$HOME/Spiele/Hearthstone"
+    wine "C:/Program Files/Battle.net/Battle.net Launcher.exe"
+end
+
+
+function fixfonts
+    for f in $argv
+        set tmp (mktemp)
+        gs -o $tmp -sDEVICE=pdfwrite -dEmbedAllFonts=true $f
+        mv $tmp $f
+    end
+end
+
+
+function texr
+    set createCmd 'latexmk -interaction=nonstopmode *.tex'
+
+    rm out
+    ls | entr fish -c "$createCmd ; fixfonts out/*.pdf"
+    eval $createCmd ; fixfonts out/*.pdf
+end

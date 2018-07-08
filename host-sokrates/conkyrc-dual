@@ -92,11 +92,9 @@ gap_y = 314,
 conky.text = [[
   ${texeci 10 ~/.conky/scripts/networkmanager-profiles}  |\
   ${texeci 60 ~/Bin/global-ip} ${font Symbola:size=11}${texeci 10 ~/.conky/scripts/ping-status-inet}${font}${voffset -1}  |\
-$alignr|\
-  ${execpi 60 ~/Bin/pomodoro conky}  |\
+$alignr\
   ${font Symbola:size=11}${texecpi 2 ~/.conky/scripts/modifiers}$font  |\
-  $memfree / $memeasyfree  |\
-  chromium: ${texeci 5 ~/Bin/rss-sum chromium}  |\
+    ${image ~/.conky/Ram.png -p 1502,1 -s 14x14 -n} ${membar 11,33}${voffset -1}  |\
   ${font Symbola:size=11}${exec ~/.conky/scripts/status-mute}$font${voffset -1} ${exec ~/Bin/volume}  |\
   ${battery_percent}%  |\
   ${time %F}  |\
