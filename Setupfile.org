@@ -1,0 +1,6 @@
+#+OPTIONS: toc:nil
+#+LATEX_CLASS: scrartcl
+#+LATEX_CLASS_OPTIONS: [DIV=12,parskip=half]
+#+LATEX_HEADER: \pagenumbering{gobble}
+# #+LATEX_HEADER: \usepackage[top=1cm,bottom=1cm]{geometry}
+#+AUTHOR: David Pätzel
