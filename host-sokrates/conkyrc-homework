@@ -99,7 +99,7 @@ $alignr|\
   ${font Symbola:size=11}${texecpi 2 ~/.conky/scripts/modifiers}$font  |\
   $memfree / $memeasyfree  |\
   chromium: ${texeci 5 ~/Bin/rss-sum chromium}  |\
-  ${font Symbola:size=11}${exec ~/.conky/scripts/status-mute}$font${voffset -1} ${exec ~/Bin/volume}  |\
+  ${font Symbola:size=11}${exec ~/.conky/scripts/status-mute}$font${voffset -1} ${exec amixer get Master | awk -F "[%[]" '/%/ {print $2;exit}'} %  |\
   ${battery_percent}%  |\
   ${time %F}  |\
   ${time %k:%M}  

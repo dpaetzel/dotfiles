@@ -95,7 +95,7 @@ conky.text = [[
 $alignr\
   ${font Symbola:size=11}${texecpi 2 ~/.conky/scripts/modifiers}$font  |\
     ${image ~/.conky/Ram.png -p 1502,1 -s 14x14 -n} ${membar 11,33}${voffset -1}  |\
-  ${font Symbola:size=11}${exec ~/.conky/scripts/status-mute}$font${voffset -1} ${exec ~/Bin/volume}  |\
+  ${font Symbola:size=11}${exec ~/.conky/scripts/status-mute}$font${voffset -1} ${exec amixer get Master | awk -F "[%[]" '/%/ {print $2;exit}'} %  |\
   ${battery_percent}%  |\
   ${time %F}  |\
   ${time %k:%M}  
