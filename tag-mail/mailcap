@@ -1,4 +1,4 @@
-# application/*                                                         ; xdg-open %s                                  ; copiousoutput
+application/*                                                           ; xdg-open %s                                  ; copiousoutput
 # application/octet-stream                                              ; echo %s "can be anything..."                 ; copiousoutput
 application/msword                                                      ; libreoffice --view %s                        ; copiousoutput
 application/pdf                                                         ; zathura %s                                   ; copiousoutput
@@ -11,12 +11,14 @@ application/vnd.oasis.opendocument.text                                 ; libreo
 application/vnd.openxmlformats-officedocument.spreadsheetml.sheet       ; libreoffice --view %s                        ; copiousoutput
 application/vnd.openxmlformats-officedocument.wordprocessingml.document ; libreoffice --view %s                        ; copiousoutput
 application/zip                                                         ; unzip -l %s                                  ; copiousoutput
-audio/*                                                                 ; vlc %s                                       ; copiousoutput
+audio/*                                                                 ; mpv %s                                       ; copiousoutput
 image/*                                                                 ; geeqie %s                                    ; copiousoutput
-text/html                                                               ; chromium %s                                  ; nametemplate=%s.html ; test=test -n "$DISPLAY" ; needsterminal
-text/html                                                               ; elinks -dump 1 -no-numbering %s              ; copiousoutput        ; nametemplate=%s.html
-# text/html                                                               ; firefox -new-tab %s                          ; nametemplate=%s.html ; test=test -n "$DISPLAY" ; needsterminal
+# text/html                                                               ; xdg-open %s                                  ; nametemplate=%s.html ; test=test -n "$DISPLAY" ; needsterminal
 # text/html                                                               ; vimb %s                                      ; test=test -n "$DISPLAY" ; needsterminal
-video/*                                                                 ; vlc %s                                       ; copiousoutput
+# text/html                                                               ; chromium %s                                  ; nametemplate=%s.html ; test=test -n "$DISPLAY" ; needsterminal
+# sleep trick from: https://gitlab.com/muttmua/mutt/wikis/MuttFaq/Attachment#how-to-view-html-attachments-in-a-new-tab-in-firefox
+text/html                                                               ; firefox --new-tab %s & sleep 1               ; nametemplate=%s.html ; test=test -n "$DISPLAY" ; needsterminal
+text/html                                                               ; elinks -dump 1 -no-numbering %s              ; copiousoutput        ; nametemplate=%s.html
+video/*                                                                 ; mpv %s                                       ; copiousoutput
 
 application/*                                                           ; ~/Bin/add-mailcap.sh %t ; needsterminal
