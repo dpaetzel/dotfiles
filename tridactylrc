@@ -34,6 +34,11 @@ set searchurls.np https://nixos.org/nixos/packages.html#
 set searchurls.no https://nixos.org/nixos/options.html#
 " coding (c)
 set searchurls.cy https://hayoo.fh-wedel.de/?query=
+" maps (m)
+set searchurls.m https://www.openstreetmap.org/search?query=
+set searchurls.mg https://maps.google.com/maps/search/
+" research (r)
+set searchurls.rs https://scholar.google.de/scholar?q=
 " misc
 set searchurls.y https://www.youtube.com/results?search_query=
 " the default is duckduckgo
@@ -47,10 +52,14 @@ set hintchars uiaeosnrdt
 set smoothscroll true
 
 
+set yankto selection
+set putfrom selection
+
+
 " Make Tridactyl work on more sites at the expense of some security
 " TODO does this have any merit?
 set csp clobber
-fixamo
+fixamo_quiet
 
 
 " " mappings {{{
