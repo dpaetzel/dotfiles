@@ -41,7 +41,6 @@ unset mbox
   set pipe_decode
   set print_command     = "enscript -p - | psselect -r | lp"
   set quote_regexp      = "^( {0,4}[>|:#%]| {0,4}[a-z0-9]+[>|]+)+"
-  # TODO set query_command     = "goobook query"
   set realname          = "David Pätzel"
   set reply_regexp      = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
   set reply_to
@@ -52,6 +51,8 @@ unset reverse_realname
   set sort_aux          = last-date-received
   set sort_re
   set status_format     = "━┥%f┝━┥Msgs:%?M?%M/?%m%?n? New:%n?%?o? Old:%o?%?d? Del:%d?%?F? Flag:%F?%?t? Tag:%t?%?p? Post:%p?%?b? Inc:%b?%?l? %l?┝━━━┥%s/%S┝━%>━┥%P┝━━━"
+  # don't group by subject only
+  set strict_threads
   set text_flowed       = yes
   set thorough_search
   set thread_received
@@ -87,15 +88,6 @@ folder-hook privat/*  source ~/.mutt/accounts/privat.muttrc
 source ~/.mutt/bindings.muttrc
 
 
-# source $alias_file
 source ~/.mutt/colors.muttrc
 source ~/.mutt/accounts/uni.muttrc
 # source ~/.mutt/crypto # TODO
-
-
-# TODO add macros to Bindings.Mutt
-macro attach,compose,index,pager \Co <pipe-entry>'urlscan'<enter> "call urlscan to extract URLs out of a message"
-macro index,pager v <save-message>?<toggle-mailboxes><search> "save message/attachment to a mailbox/file (== 'move')"
-macro index,pager R <tag-pattern>~N<enter><tag-prefix><clear-flag>N<untag-pattern>~T<enter> "mark messages in current folder as read"
-macro index,pager c <change-folder>?<toggle-mailboxes><search> "show incoming mailboxes list"
-macro index <F5> "<shell-escape>sync-mail 2&1> /dev/null &<enter>" "download new mails"
