@@ -2,9 +2,9 @@ fish_vi_key_bindings
 
 
 set -xg PATH $PATH $HOME/Bin
-
-
 set -xg TEMPORARY $HOME/Temporary
+
+
 
 
 alias s='sudo'
@@ -56,12 +56,24 @@ alias x='chmod +x'
 alias df='dfc'
 
 
-alias v='vim'
+alias v='emacsclient -a emacs'
 alias g='git'
 alias o='open'
 alias ont='o (n t)'
 alias onf='o (n f)'
+alias of='o (fzf)'
 alias mutt='neomutt'
+# from `man feh`: Scale images to fit window geometry
+alias feh='feh --scale-down --theme=default'
+
+
+function sortimgs
+    set -l folder (mktemp -d -p .)
+    feh --action "mv %n $folder" --action1 "mkdir TRASH; mv %n TRASH"
+    ls $folder
+    read name
+    mv $folder $name
+end
 
 
 alias m='udiskie-mount -ar'
@@ -100,15 +112,6 @@ function hearthstone
 end
 
 
-function fixfonts
-    for f in $argv
-        set tmp (mktemp)
-        gs -o $tmp -sDEVICE=pdfwrite -dEmbedAllFonts=true $f
-        mv $tmp $f
-    end
-end
-
-
 function texr
     set createCmd 'latexmk -interaction=nonstopmode *.tex'
 
@@ -116,3 +119,28 @@ function texr
     ls | entr fish -c "$createCmd ; fixfonts out/*.pdf"
     eval $createCmd ; fixfonts out/*.pdf
 end
+
+
+function qt
+    # if test $argv[1] = "--system"
+    #     set -l PATH (echo $PATH | sed 's#/home/david/.nix-profile/bin ##')
+    # else if test $argv[1] = "--user"
+    #     set -l PATH (echo $PATH | sed 's#/run/current-system/sw/bin ##')
+    # else
+    #     echo "Either use --system or --user parameter"
+    set -l p $PATH
+    echo $argv[1]
+    echo $argv[2]
+    if test $argv[1] = "--system"
+        set PATH /run/current-system/sw/bin
+    else if test $argv[1] = "--user"
+        set PATH home/david/.nix-profile/bin
+    else
+        echo "Either use --system or --user parameter"
+    end
+
+    eval $argv[2]
+
+    set PATH $p
+end
+
