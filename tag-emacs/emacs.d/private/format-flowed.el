@@ -9,7 +9,8 @@ region if active, otherwise on the whole buffer."
     (save-excursion
       ;; remove all line ending spaces
       (goto-char start)
-      (replace-regexp " +$" "")
+      (while (re-search-forward " +$" end t)
+        (replace-match "" t))
       ;; collapse quote indicators (this is correct for most mails)
       (goto-char start)
       (while (and (goto-char start) (re-search-forward "^\\(>+\\) +\\(>+\\)" end t))
@@ -17,19 +18,23 @@ region if active, otherwise on the whole buffer."
       ;; I like to have one space after the quote indicators (but we need to be
       ;; careful not to suffix empty quote lines with a space)
       (goto-char start)
-      (replace-regexp "^\\(>+\\) *\\([^>\n]\\)" "\\1 \\2")
+      (while (re-search-forward "^\\(>+\\) *\\([^>\n]\\)" end t)
+        (replace-match "\\1 \\2" t))
       ;; all non-empty lines should end with a space (the user has to indicate
       ;; paragraphs with empty lines; but again, empty quote lines must not be
       ;; suffixed with a space)
       (goto-char start)
-      (replace-regexp "^\\(>+ \\)?\\([^>\n].*\\)$" "\\1\\2 ")
+      (while (re-search-forward "^\\(>+ \\)?\\([^>\n].*\\)$" end t)
+        (replace-match "\\1\\2 " t))
       ;; fix signatures
       (goto-char start)
-      (search-forward-regexp "^\\(>+ ?\\)?-- *$")
-      (replace-regexp " +$" "")
+      (if (search-forward-regexp "^\\(>+ ?\\)?-- *$" end t)
+          (while (re-search-forward " +$" end t)
+            (replace-match "" t)))
       ;; fix signature indicators
       (goto-char start)
-      (replace-regexp "^\\(>+ ?\\)?-- *$" "\\1-- ")
+      (while (re-search-forward "^\\(>+ ?\\)?-- *$" end t)
+        (replace-match "\\1-- " t))
       ;; collapse multiple spaces at line's end (not required!)
       ;; (goto-char start)
       ;; (while (re-search-forward " +$" end t)
