@@ -1,0 +1,20 @@
+#!/usr/bin/env fish
+
+
+sleep 2
+
+
+killall compton
+killall dzen2
+killall conky
+
+
+eval $HOME/.fehbg
+xmonad --restart
+compton -b
+
+
+sleep 2
+
+
+conky -c $HOME/.conkyrc-(autorandr --current)
