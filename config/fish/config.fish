@@ -5,6 +5,10 @@ set -xg PATH $PATH $HOME/Bin
 set -xg TEMPORARY $HOME/Temporary
 
 
+# default folder for mates
+# set -xg MATES_DIR ~/.kontakte
+# mates binary is in .cargo/bin
+# set -xg PATH $PATH $HOME/.cargo/bin
 
 
 set -xg GTK_IM_MODULE xim
@@ -112,21 +116,15 @@ alias plotting='nix-shell -p "haskellPackages.ghcWithPackages (pkgs : [ pkgs.cas
 alias plottingNoEasy='nix-shell -p "haskellPackages.ghcWithPackages (pkgs : [ pkgs.cassava ])" gnuplot'
 
 
+alias cal='khal calendar -a Arbeit -a OC -a Ich -a Beide'
 alias agenda='khal list -a Arbeit -a OC -a Ich -a Beide'
+alias urlaub='math 40 - (math (ls /mnt/oc-m/Verwaltung/Urlaubsantraege/Pätzel/ | sed -E "s/.*_([[:digit:]]+)Tag.*/\1/" | paste -sd+))'
+
 
 
 function hearthstone
     set -x WINEPREFIX "$HOME/Spiele/Hearthstone"
     wine "C:/Program Files/Battle.net/Battle.net Launcher.exe"
-end
-
-
-function texr
-    set createCmd 'latexmk -interaction=nonstopmode *.tex'
-
-    rm out
-    ls | entr fish -c "$createCmd ; fixfonts out/*.pdf"
-    eval $createCmd ; fixfonts out/*.pdf
 end
 
 
@@ -152,4 +150,3 @@ function qt
 
     set PATH $p
 end
-
