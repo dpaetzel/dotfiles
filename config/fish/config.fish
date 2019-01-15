@@ -22,18 +22,20 @@ set -xg _JAVA_OPTIONS '-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true'
 alias s='sudo'
 
 
-alias ls='ls --color=auto'
-alias l='ls -CF'
-alias la='ls -A'
-alias lla='ls -alFh'
+alias ls='exa'
+alias l='exa'
+alias ll='exa -l'
+alias la='ls -a'
+alias lla='ll -a'
+alias tree='exa --tree'
 alias lld='du -h | grep \'\./[^/]\+$\' | sed -e "s/\(.*\)\.\/\(.*\)/\1\2/"'
 function n --description='Echo newly created files'
   if test -z $argv; or test $argv = "t"
-    echo $TEMPORARY/(ls --sort time $TEMPORARY | head -1)
+    echo $TEMPORARY/(command ls --sort time $TEMPORARY | head -1)
   else if test $argv[1] = "f"
-    ls --sort time (find -maxdepth 1 -type f \! -path './.*') | head -1
+    command ls --sort time (find -maxdepth 1 -type f \! -path './.*') | head -1
   else if test $argv[1] = "d"
-    ls --sort time (find -maxdepth 1 -type d \! -path './.*' \! -name '.') | head -1
+    command ls --sort time (find -maxdepth 1 -type d \! -path './.*' \! -name '.') | head -1
   end
 end
 
@@ -83,7 +85,7 @@ alias feh='feh --scale-down --theme=default'
 function sortimgs
     set -l folder (mktemp -d -p .)
     feh --action "mv %n $folder" --action1 "mkdir TRASH; mv %n TRASH"
-    ls $folder
+    command ls $folder
     read name
     mv $folder $name
 end
@@ -118,7 +120,7 @@ alias plottingNoEasy='nix-shell -p "haskellPackages.ghcWithPackages (pkgs : [ pk
 
 alias cal='khal calendar -a Arbeit -a OC -a Ich -a Beide'
 alias agenda='khal list -a Arbeit -a OC -a Ich -a Beide'
-alias urlaub='math 40 - (math (ls /mnt/oc-m/Verwaltung/Urlaubsantraege/Pätzel/ | sed -E "s/.*_([[:digit:]]+)Tag.*/\1/" | paste -sd+))'
+alias urlaub='math 40 - (math (command ls /mnt/oc-m/Verwaltung/Urlaubsantraege/Pätzel/ | sed -E "s/.*_([[:digit:]]+)Tag.*/\1/" | paste -sd+))'
 
 
 
