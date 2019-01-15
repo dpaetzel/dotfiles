@@ -1,17 +1,14 @@
-#!/usr/bin/env python
+#!/usr/bin/env fish
 
-import dbus
 
-try:
-    bus = dbus.SessionBus()
-    player = bus.get_object('com.spotify.qt', '/')
-    iface = dbus.Interface(player, 'org.freedesktop.MediaPlayer2')
-    info = iface.GetMetadata()
-    # OUT: [dbus.String(u'xesam:album'), dbus.String(u'xesam:title'), dbus.String(u'xesam:trackNumber'), dbus.String(u'xesam:artist'), dbus.String(u'xesam:discNumber'), dbus.String(u'mpris:trackid'), dbus.String(u'mpris:length'), dbus.String(u'mpris:artUrl'), dbus.String(u'xesam:autoRating'), dbus.String(u'xesam:contentCreated'), dbus.String(u'xesam:url')]
-    print(info['xesam:artist'][0] + ": " + info['xesam:title'])
-    # print str(info)
+function getDbusMetadata
+    dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'Metadata'
+end
 
-except dbus.exceptions.DBusException:
-    print(" ")
-except KeyError:
-    print(" ")
+
+set title (getDbusMetadata |egrep -A 1 "title"|egrep -v "title"|cut -b 44-|cut -d '"' -f 1|egrep -v '^$')
+set artist (getDbusMetadata | egrep -A 2 "artist"|egrep -v "artist"|egrep -v "array"|cut -b 27-|cut -d '"' -f 1|egrep -v '^$')
+set album (getDbusMetadata |egrep -A 1 "album"|egrep -v "album"|cut -b 44-|cut -d '"' -f 1|egrep -v '^$')
+
+
+echo $artist – $title \($album\)
