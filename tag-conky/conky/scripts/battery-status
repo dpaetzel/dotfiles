@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+
+acpi | grep Battery\ 1 | sed -E 's/.*Charging,/C/;s/.*Full,/F/;s/.*Discharging,/D/;s/([[:digit:]]+)%.*/\1 %/'

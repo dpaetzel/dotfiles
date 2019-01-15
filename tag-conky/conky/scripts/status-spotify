@@ -1,0 +1,16 @@
+#!/usr/bin/env fish
+
+
+function getPlaybackStatus
+    dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'PlaybackStatus'
+end
+
+
+set playbackStatus (getPlaybackStatus | grep -E "variant" | sed -r 's/.*string "(.*)"/\1/')
+
+
+if test $playbackStatus = "Playing"
+    echo ▶
+else if test $playbackStatus = "Paused"
+    echo ⏸
+end
