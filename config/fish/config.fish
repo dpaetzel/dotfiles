@@ -77,6 +77,7 @@ alias o='open'
 alias ont='o (n t)'
 alias onf='o (n f)'
 alias of='o (fzf)'
+alias mvt='mv (n t)'
 alias mutt='neomutt'
 # from `man feh`: Scale images to fit window geometry
 alias feh='feh --scale-down --theme=default'
@@ -93,6 +94,11 @@ end
 
 alias m='udiskie-mount -ar'
 alias um='udiskie-umount -a'
+alias umoc='sudo umount -f /mnt/oc-h ; sudo umount -f /mnt/oc-m'
+alias moc='sudo mount /mnt/oc-h ; sudo mount /mnt/oc-m'
+
+
+alias tnat='nix-shell -p python3 --command "curl -fsSl https://raw.githubusercontent.com/tridactyl/tridactyl/master/native/install.sh | bash"'
 
 
 # not beautiful but works(?)
@@ -120,8 +126,26 @@ alias plottingNoEasy='nix-shell -p "haskellPackages.ghcWithPackages (pkgs : [ pk
 
 alias cal='khal calendar -a Arbeit -a OC -a Ich -a Beide'
 alias agenda='khal list -a Arbeit -a OC -a Ich -a Beide'
+alias arbeit='khal new -a Arbeit'
+alias ich='khal new -a Ich'
+alias beide='khal new -a Beide'
 alias urlaub='math 40 - (math (command ls /mnt/oc-m/Verwaltung/Urlaubsantraege/Pätzel/ | sed -E "s/.*_([[:digit:]]+)Tag.*/\1/" | paste -sd+))'
 
+
+function texr
+    entr fish -c "latexmk $argv ; fixfonts out/*.pdf"
+end
+
+
+function sources
+    if test -z "$argv"
+        echo *.tex
+        cat *.tex | grep -E '\\\\input{' | sed -E 's/.*\\\\input\{(.*)\}.*/\1.tex/'
+    else
+        echo $argv
+        cat $argv | grep -E '\\\\input{' | sed -E 's/.*\\\\input\{(.*)\}.*/\1.tex/'
+    end
+end
 
 
 function hearthstone
