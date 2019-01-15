@@ -50,6 +50,12 @@ set searchurls.y https://www.youtube.com/results?search_query=
 set searchengine gd
 
 
+" bind / find
+" bind ? find -1
+" bind n findnext 1
+" bind N findnext -1
+
+
 set hintfiltermode vimperator-reflow
 set hintchars uiaeosnrdt
 
