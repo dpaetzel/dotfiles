@@ -9,7 +9,8 @@ set completion-group-bg "#002b36" # base03
 set completion-group-fg "#839496" # base0
 set completion-highlight-bg "#839496" # base03
 set completion-highlight-fg "#002b36" # base0
-set default-bg "#002b36" # base03
+# set default-bg "#002b36" # base03
+set default-bg "#000000" # black (b/c presentations …)
 set default-fg "#839496" # base0
 set index-active-bg "#839496" # base03
 set index-active-fg "#002b36" # base0
