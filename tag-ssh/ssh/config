@@ -1,3 +1,0 @@
-Host *
-    PreferredAuthentications publickey
-    IdentityFile /home/%u/.ssh/id_rsa.%h.%r
