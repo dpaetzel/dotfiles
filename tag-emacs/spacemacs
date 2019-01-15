@@ -31,6 +31,8 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     python
+     rust
      (auto-completion
       :variables
       auto-completion-return-key-behavior 'complete
@@ -56,7 +58,9 @@ values."
       latex-enable-folding t)
      markdown
      nixos
-     org
+     (org
+      :variables
+      org-enable-github-support t)
      php
      scala
      (shell
@@ -503,13 +507,16 @@ codepoints starting from codepoint-start."
    ledger-use-iso-dates t)
   ;; TODO '(ledger-post-amount-alignment-column 62 t)
 
+  ;; netlogo
+  (load-file "~/.emacs.d/private/netlogo-mode.el")
+
   ;; e-mail
   (load-file "~/.emacs.d/private/format-flowed.el")
   (add-hook 'message-mode-hook 'fix-flowed)
   (setq-default
    auto-mode-alist (append
                     '((".*\\.mail$" . message-mode)
-                      ("\\(neo\\)?mutt[^/].*$" . message-mode))
+                      ("neomutt[^/].*$" . message-mode))
                     auto-mode-alist))
 
   ;; org
@@ -527,7 +534,10 @@ codepoints starting from codepoint-start."
     "Q" 'org-clock-display
     "p" 'org-priority-up)
   (setq-default
-   org-agenda-files (cons "~/TODO.org" (find-lisp-find-files "/home/david/Projekte/" "\\.org$"))
+   org-agenda-files
+   (cons "~/TODO.org" (append
+                       (find-lisp-find-files "/home/david/Projekte/" "\\.org$")
+                       (find-lisp-find-files "/home/david/Literatur/" "\\.org$")))
    org-agenda-restore-windows-after-quit t
    org-agenda-skip-deadline-prewarning-if-scheduled 2
    org-agenda-skip-scheduled-if-done t
@@ -604,10 +614,9 @@ codepoints starting from codepoint-start."
    org-todo-keyword-faces (quote
                            (("TODO" :foreground "dim gray" :weight bold)
                             ("WAIT" :foreground "dim gray" :weight bold)
+                            ("THEN" :foreground "dim gray" :weight bold)
                             ("MAYBE" :foreground "dim gray" :weight bold)))
-   org-todo-keywords (quote
-                      ((sequence "NEXT(n)" "TODO(t)" "PROJECT(p)" "WAIT(w)" "MAYBE(m)" "DONE(d!)")))
-   org-use-property-inheritance nil)
+   org-use-property-inheritance t)
   ;; '(org-M-RET-may-split-line (quote ((default))))
   )
 
@@ -631,6 +640,8 @@ codepoints starting from codepoint-start."
              ((org-agenda-overriding-header "Next Actions")))
        (todo "TODO"
              ((org-agenda-overriding-header "andere TODOs (noch nicht als Next Action ausführbares etc.)")))
+       (todo "THEN"
+             ((org-agenda-overriding-header "TODOs, die von anderen abhängen")))
        (todo "MAYBE"
              ((org-agenda-overriding-header "Vielleicht/Eines Tages")))
        (todo "PROJECT"
@@ -641,15 +652,36 @@ codepoints starting from codepoint-start."
              ((org-agenda-overriding-header "Erledigtes"))))
       nil nil)
      ("p" "Alle Projekte" todo "PROJECT" nil)
+     ("w" "Mein Workflow" tags "+Promotion"
+      ((org-agenda-skip-function
+        (quote
+         (org-agenda-skip-entry-if
+          (quote notscheduled))))))
      ("N" "Alle Next Actions" tags-todo "+TODO=\"NEXT\"-lesen" nil)
      ("n" "Alle Next Actions (Arbeit)" tags-todo "+TODO=\"NEXT\"-lesen-daheim" nil)
-     ("A" "Agenda (Arbeit)" agenda ""
-      ((org-agenda-tag-filter-preset
-        (quote
-         ("-daheim"))))))))
+     ("A" "Agenda (Arbeit)"
+      ((agenda ""
+               ((org-agenda-overriding-header "Arbeit")
+                (org-agenda-span
+                 (quote day))
+                (org-agenda-skip-function
+                 (quote
+                  (org-agenda-skip-subtree-if
+                   (quote regexp)
+                   ":daheim:")))))
+       (agenda ""
+               ((org-agenda-overriding-header "daheim")
+                (org-agenda-span
+                 (quote day))
+                (org-agenda-skip-function
+                 (quote
+                  (org-agenda-skip-subtree-if
+                   (quote notregexp)
+                   ":daheim:"))))))
+      nil))))
  '(org-agenda-files
    (quote
-    ("~/TODO.org" "/home/david/Projekte/Seminare/Seminare.org" "/home/david/Projekte/Seminare/Vorgehen Seminararbeit.org" "/home/david/Projekte/Seminare/Seminarthemen.org" "/home/david/Projekte/Seminare/Erstes Gespräch.org" "/home/david/Projekte/Seminare/2017-WS Betreuung.org" "/home/david/Projekte/bibs/bibs.org" "/home/david/Projekte/Website/Website.org" "/home/david/Projekte/BA Stefan/BA Stefan.org" "/home/david/Projekte/Singsation/Baba Yetu Aufnahmen.org" "/home/david/Projekte/Singsation/Links.org" "/home/david/Projekte/Singsation/2016-10-09 Nicht so gute Punkte.org" "/home/david/Projekte/Singsation/2016-10-09 Diskussionsvorbereitung.org" "/home/david/Projekte/Singsation/2016-09-25 Notizen zur Diskussion.org" "/home/david/Projekte/Singsation/Lied-Ideen.org" "/home/david/Projekte/Singsation/2017-01-08 Agenda.org" "/home/david/Projekte/Singsation/Singsation.org" "/home/david/Projekte/Fahrrad/Fahrrad.org" "/home/david/Projekte/haxcs/Code Style.org" "/home/david/Projekte/haxcs/haxcs.org" "/home/david/Projekte/BA Maxi/2018-04-24-feedback-expose-v1/Exposé-Feedback.org" "/home/david/Projekte/BA Maxi/BA Maxi.org" "/home/david/Projekte/PM Marc/PM Marc.org" "/home/david/Projekte/Themen/Themen.org" "/home/david/Projekte/Demonstrator/Demonstrator.org" "/home/david/Projekte/Finanzen/Finanzen.org" "/home/david/Projekte/Theorie-Survey/Theorie-Survey.org" "/home/david/Projekte/Korrektur/Projektmodul.org" "/home/david/Projekte/Korrektur/Korrektur.org" "/home/david/Projekte/Promotion/Promotion.org" "/home/david/Projekte/Promotion/2017-09-26 Erstes Gespräch.org" "/home/david/Projekte/Hiwi David/Hiwi David.org" "/home/david/Projekte/Bindings/Bindings.org" "/home/david/Projekte/Zahlengerade-Web/Zahlengerade-Web.org")))
+    ("~/TODO.org" "/home/david/Projekte/nakata2017 verallgemeinern/nakata2017 verallgemeinern.org" "/home/david/Projekte/Seminare/Seminare.org" "/home/david/Projekte/Seminare/Vorgehen Seminararbeit.org" "/home/david/Projekte/Seminare/Seminarthemen.org" "/home/david/Projekte/Seminare/Erstes Gespräch.org" "/home/david/Projekte/Seminare/2017-WS Betreuung.org" "/home/david/Projekte/Website/Website.org" "/home/david/Projekte/Server/Server.org" "/home/david/Projekte/Singsation/Auftritte.org" "/home/david/Projekte/Singsation/Baba Yetu Aufnahmen.org" "/home/david/Projekte/Singsation/Links.org" "/home/david/Projekte/Singsation/Stücke.org" "/home/david/Projekte/Singsation/2019 Konzerttermine im Frühjahr.org" "/home/david/Projekte/Singsation/Proben.org" "/home/david/Projekte/Singsation/2016-10-09 Nicht so gute Punkte.org" "/home/david/Projekte/Singsation/2016-10-09 Diskussionsvorbereitung.org" "/home/david/Projekte/Singsation/Termine.org" "/home/david/Projekte/Singsation/2016-09-25 Notizen zur Diskussion.org" "/home/david/Projekte/Singsation/2017-01-08 Agenda.org" "/home/david/Projekte/Singsation/Singsation.org" "/home/david/Projekte/Fahrrad/Fahrrad.org" "/home/david/Projekte/Lesen/Lesen.org" "/home/david/Projekte/haxcs/Code Style.org" "/home/david/Projekte/haxcs/haxcs.org" "/home/david/Projekte/Hiwi Anastasia/Hiwi Anastasia.org" "/home/david/Projekte/Publikationen planen/Publikationen planen.org" "/home/david/Projekte/PM Marc/PM Marc.org" "/home/david/Projekte/Persönliche Website/Persönliche Website.org" "/home/david/Projekte/BA Niklas/BA Niklas.org" "/home/david/Projekte/Demonstrator/Demonstrator.org" "/home/david/Projekte/Finanzen/Finanzen.org" "/home/david/Projekte/Theorie-Review/Theorie-Review.org" "/home/david/Projekte/GOC-Übung/GOC-Übung.org" "/home/david/Projekte/GOC-Übung/NetLogo.org" "/home/david/Projekte/Grundwissen vertiefen/Grundwissen vertiefen.org" "/home/david/Projekte/Korrektur/Projektmodul.org" "/home/david/Projekte/Korrektur/Korrektur.org" "/home/david/Projekte/Korrektur/Bachelorarbeit-Kick-off.org" "/home/david/Projekte/Promotion/Promotion.org" "/home/david/Projekte/Promotion/2017-09-26 Erstes Gespräch.org" "/home/david/Projekte/Promotion/Recherche.org" "/home/david/Projekte/Keeping up/Keeping up.org" "/home/david/Projekte/PM Rusmin/PM Rusmin.org" "/home/david/Projekte/Unfall/Unfall.org" "/home/david/Projekte/BA Jonas/BA Jonas.org" "/home/david/Literatur/lanzi2000/lanzi2000.org" "/home/david/Literatur/nakata2012/nakata2012.org" "/home/david/Literatur/wada2005/wada2005.org" "/home/david/Literatur/lanzi2005/lanzi2005.org" "/home/david/Literatur/zhang2017/zhang2017.org" "/home/david/Literatur/mcbride2008/mcbride2008.org" "/home/david/Literatur/sankar2013/sankar2013.org" "/home/david/Literatur/ioannides2011/ioannides2011.org" "/home/david/Literatur/sutton.org" "/home/david/Literatur/rajagopalan2011/rajagopalan2011.org" "/home/david/Literatur/butz2003b/butz2003b.org" "/home/david/Literatur/iqbal2015/iqbal2015.org" "/home/david/Literatur/butz2001/butz2001.org" "/home/david/Literatur/hughes1989/hughes1989.org" "/home/david/Literatur/hochreiter1997/hochreiter1997.org" "/home/david/Literatur/hoare1983/hoare1983.org" "/home/david/Literatur/butz2005b/butz2005.org" "/home/david/Literatur/day1977/day1977.org" "/home/david/Literatur/knox2012/knox2012.org" "/home/david/Literatur/drugowitsch2006b/drugowitsch2006b.org" "/home/david/Literatur/greveler2012/greveler2012.org" "/home/david/Literatur/butz2000/butz2000.org" "/home/david/Literatur/stalph2009a/stalph2009a.org" "/home/david/Literatur/ioannides2007/ioannides2007.org" "/home/david/Literatur/wilson1995/wilson1995.org" "/home/david/Literatur/drugowitsch2007a/drugowitsch2007a.org" "/home/david/Literatur/felter2014/felter2014.org" "/home/david/Literatur/butz20012/butz20012.org" "/home/david/Literatur/butz2005/butz2005.org" "/home/david/Literatur/bonarini2000/bonarini2000.org" "/home/david/Literatur/drugowitsch2008b/drugowitsch2008b.org" "/home/david/Literatur/calma2016/calma2016.org" "/home/david/Literatur/drugowitsch2006a/drugowitsch2006a.org" "/home/david/Literatur/zaharia2010/zaharia2010.org" "/home/david/Literatur/liang1995/liang1995.org" "/home/david/Literatur/gers1999/gers1999.org" "/home/david/Literatur/butz2008/butz2008.org" "/home/david/Literatur/sutton2017/sutton2017.org" "/home/david/Literatur/wilson2002/wilson2002.org" "/home/david/Literatur/gers2002/gers2002.org" "/home/david/Literatur/kovacs2016/kovacs2016.org" "/home/david/Literatur/bull2003/bull2003.org" "/home/david/Literatur/rial2012/rial2012.org" "/home/david/Literatur/nakata2017a/nakata2017a.org" "/home/david/Literatur/nakata2017b/nakata2017b.org" "/home/david/Literatur/calma2017/calma2017.org" "/home/david/Literatur/wilson2001/wilson2001.org" "/home/david/Literatur/kovacs1996/kovacs1996.org" "/home/david/Literatur/graves2013/graves2013.org" "/home/david/Literatur/silver2016/silver2016.org" "/home/david/Literatur/holland1978/holland1978.org" "/home/david/Literatur/dean2008/dean2008.org" "/home/david/Literatur/silver2017/silver2017.org" "/home/david/Literatur/wender2012/wender2012.org" "/home/david/Literatur/holland1992/holland1992.org" "/home/david/Literatur/butz2003a/butz2003a.org" "/home/david/Literatur/efthymiou2010/efthymiou2010.org" "/home/david/Literatur/butz2004/butz2004.org" "/home/david/Literatur/deepmind2016/deepmind2016.org" "/home/david/Literatur/iqbal2017/iqbal2017.org" "/home/david/Literatur/sutton2018/sutton2018.org" "/home/david/Literatur/kovacs1999/kovacs1999.org" "/home/david/Literatur/molina-markham2010/molina-markham2010.org" "/home/david/Literatur/osullivan2008/osullivan2008.org" "/home/david/Literatur/tan2013/tan2013.org" "/home/david/Literatur/tatsumi2017/tatsumi2017.org" "/home/david/Literatur/knuth1984/knuth1984.org" "/home/david/Literatur/mellor2009/mellor2009.org" "/home/david/Literatur/orriols-puig2010/orriols-puig2010.org" "/home/david/Literatur/erwig2006/erwig2006.org" "/home/david/Literatur/stalph2012/stalph2012.org" "/home/david/Literatur/bull2015/bull2015.org" "/home/david/Literatur/keshav2007/keshav2007.org" "/home/david/Literatur/llora2006/llora2006.org" "/home/david/Literatur/edakunni2009/edakunni2009.org" "/home/david/Literatur/dixon2002/dixon2002.org" "/home/david/Literatur/kovacs1998a/kovacs1998a.org" "/home/david/Literatur/bull2002/bull2002.org" "/home/david/Literatur/lin2010/lin2010.org" "/home/david/Literatur/bohli2010/bohli2010.org" "/home/david/Literatur/garza-cuellar2017/garza-cuellar2017.org" "/home/david/Literatur/drugowitsch2008a/drugowitsch2008a.org" "/home/david/Literatur/deberg2008/deberg2008.org" "/home/david/Literatur/spivak2012/spivak2012.org" "/home/david/Literatur/stein2017/stein2017.org" "/home/david/Literatur/wadler1989/wadler1989.org" "/home/david/Literatur/petterson2016/petterson2016.org" "/home/david/Literatur/franco2010/franco2010.org" "/home/david/Literatur/wilson2000/wilson2000.org" "/home/david/Literatur/urbanowicz2009/urbanowicz2009.org" "/home/david/Literatur/chu2006/chu2006.org" "/home/david/Literatur/dalipi2016/dalipi2016.org" "/home/david/Literatur/graves2014/graves2014.org" "/home/david/Literatur/marlon2012/marlon2012.org" "/home/david/Literatur/hurst2001/hurst2001.org" "/home/david/Literatur/orriols-puig2006/orriols-puig2006.org" "/home/david/Literatur/miranda2017/miranda2017.org" "/home/david/Literatur/smith1990/smith1990.org" "/home/david/Literatur/boyd2009/boyd2009.org" "/home/david/Literatur/wilson1998/wilson1998.org" "/home/david/Literatur/zhang2016a/zhang2016a.org" "/home/david/Literatur/lanzi2008/lanzi2008.org" "/home/david/Literatur/wadler1990/wadler1990.org" "/home/david/Literatur/spivak2013/spivak2013.org" "/home/david/Literatur/butz20013/butz20013.org" "/home/david/Literatur/müller2017/müller2017.org" "/home/david/Literatur/eibl2015/eibl2015.org" "/home/david/Literatur/decraene2007/decraene2007.org" "/home/david/Literatur/wadler2000/wadler2000.org" "/home/david/Literatur/pearlmutter2008/pearlmutter2008.org" "/home/david/Literatur/graves2016/graves2016.org" "/home/david/Literatur/stalph2009b/stalph2009b.org" "/home/david/Literatur/baez2009/baez2009.org" "/home/david/Literatur/lipschutz1968/lipschutz1968.org" "/home/david/Literatur/nakata2018/nakata2018.org" "/home/david/Literatur/nakata2015/nakata2015.org" "/home/david/Literatur/iqbal2012/iqbal2012.org" "/home/david/Literatur/lanzi2001/lanzi2001.org" "/home/david/Literatur/nakata2017c/nakata2017c.org" "/home/david/Literatur/orriols-puig2007/orriols-puig2007.org" "/home/david/Literatur/butz2007/butz2007.org" "/home/david/Literatur/reitmaier2013/reitmaier2013.org" "/home/david/Literatur/gers2001/gers2001.org" "/home/david/Literatur/google2015/google2015.org" "/home/david/Literatur/orriols-puig2006b/orriols-puig2006b.org" "/home/david/Literatur/kalogridis2010/kalogridis2010.org" "/home/david/Literatur/shi2015/shi2015.org" "/home/david/Literatur/cdoerr2018/cdoerr2018.org" "/home/david/Literatur/chung2014/chung2014.org" "/home/david/Literatur/shrivastava2004/shrivastava2004.org")))
  '(org-file-apps
    (quote
     ((auto-mode . emacs)
@@ -689,10 +721,14 @@ codepoints starting from codepoint-start."
      ("daheim" . 100)
      (:endgroup)
      ("Campus" . 99)
-     ("lesen" . 108))))
+     ("lesen" . 108)
+     ("anschauen" . 119))))
+ '(org-todo-keywords
+   (quote
+    ((sequence "NEXT(n)" "TODO(t)" "PROJECT(p)" "WAIT(w)" "THEN(h)" "MAYBE(m)" "1(1)" "2(2)" "3(3)" "DONE(d!)"))))
  '(package-selected-packages
    (quote
-    (company-quickhelp bind-key powerline avy packed hydra iedit epl s org-mime smartparens highlight evil helm helm-core projectile async csv-mode haskell-snippets flycheck-haskell haskell-mode company-emacs-eclim eclim yaml-mode xterm-color web-mode web-beautify vimrc-mode tagedit slim-mode shell-pop scss-mode sass-mode pug-mode powershell phpunit phpcbf php-extras php-auto-yasnippets org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-download noflet nix-sandbox nix-mode muttrc-mode multi-term mmm-mode markdown-toc markdown-mode magit-annex livid-mode skewer-mode simple-httpd less-css-mode ledger-mode json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc intero insert-shebang htmlize hlint-refactor hindent helm-nixos-options helm-hoogle helm-css-scss helm-company helm-c-yasnippet haml-mode gnuplot gh-md fuzzy flycheck-pos-tip pos-tip flycheck-ledger flycheck-elm flycheck fish-mode eshell-z eshell-prompt-extras esh-help ensime sbt-mode scala-mode emmet-mode elm-mode drupal-mode php-mode dactyl-mode company-web web-completion-data company-tern dash-functional tern company-statistics company-shell company-nixos-options nixos-options company-ghci company-ghc ghc company-cabal company-auctex company coffee-mode cmm-mode auto-yasnippet yasnippet auctex-latexmk auctex ac-ispell auto-complete smeargle orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit ghub let-alist with-editor ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
+    (parent-mode flx anzu goto-chg reformatter diminish bind-map popup pkg-info f yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode helm-pydoc cython-mode company-anaconda anaconda-mode pythonic ox-gfm toml-mode racer flycheck-rust cargo rust-mode company-quickhelp bind-key powerline avy packed hydra iedit epl s org-mime smartparens highlight evil helm helm-core projectile async csv-mode haskell-snippets flycheck-haskell haskell-mode company-emacs-eclim eclim yaml-mode xterm-color web-mode web-beautify vimrc-mode tagedit slim-mode shell-pop scss-mode sass-mode pug-mode powershell phpunit phpcbf php-extras php-auto-yasnippets org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-download noflet nix-sandbox nix-mode muttrc-mode multi-term mmm-mode markdown-toc markdown-mode magit-annex livid-mode skewer-mode simple-httpd less-css-mode ledger-mode json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc intero insert-shebang htmlize hlint-refactor hindent helm-nixos-options helm-hoogle helm-css-scss helm-company helm-c-yasnippet haml-mode gnuplot gh-md fuzzy flycheck-pos-tip pos-tip flycheck-ledger flycheck-elm flycheck fish-mode eshell-z eshell-prompt-extras esh-help ensime sbt-mode scala-mode emmet-mode elm-mode drupal-mode php-mode dactyl-mode company-web web-completion-data company-tern dash-functional tern company-statistics company-shell company-nixos-options nixos-options company-ghci company-ghc ghc company-cabal company-auctex company coffee-mode cmm-mode auto-yasnippet yasnippet auctex-latexmk auctex ac-ispell auto-complete smeargle orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit ghub let-alist with-editor ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
