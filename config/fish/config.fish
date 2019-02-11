@@ -1,8 +1,9 @@
 fish_vi_key_bindings
 
 
-set -xg PATH $PATH $HOME/Bin
-set -xg TEMPORARY $HOME/Temporary
+set -xg PATH $PATH "$HOME/Bin"
+set -xg TEMPORARY "$HOME/Temporary"
+set -xg INBOX "$HOME/Inbox"
 
 
 # default folder for mates
@@ -17,6 +18,9 @@ set -xg QT_IM_MODULE xim
 
 set -xg _JAVA_AWT_WM_NONREPARENTING 1
 set -xg _JAVA_OPTIONS '-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true'
+
+
+set fish_greeting
 
 
 alias s='sudo'
@@ -36,6 +40,8 @@ function n --description='Echo newly created files'
     command ls --sort time (find -maxdepth 1 -type f \! -path './.*') | head -1
   else if test $argv[1] = "d"
     command ls --sort time (find -maxdepth 1 -type d \! -path './.*' \! -name '.') | head -1
+  else if test -z $argv; or test $argv = "t"
+    echo $INBOX/(command ls --sort time $TEMPORARY | head -1)
   end
 end
 
@@ -62,6 +68,14 @@ end
 alias rmr='command rm -rv'
 alias cp='cp -v'
 alias mv='mv -v'
+function mvc --wraps=mv --description='Create the destination directory, then move the files there'
+  if test (count $argv) -gt 1
+      mkdir -p $argv[-1]
+      mv $argv
+  else
+      echo "Not enough arguments given"
+  end
+end
 
 
 alias x='chmod +x'
@@ -76,8 +90,11 @@ alias led='ledger --strict --file /home/david/Buchhaltung/Gesamt.journal'
 alias o='open'
 alias ont='o (n t)'
 alias onf='o (n f)'
-alias of='o (fzf)'
+alias oni='o (n i)'
 alias mvt='mv (n t)'
+alias mvi='mv (n i)'
+alias mvf='mv (n f)'
+alias mvd='mv (n d)'
 alias mutt='neomutt'
 # from `man feh`: Scale images to fit window geometry
 alias feh='feh --scale-down --theme=default'
@@ -94,7 +111,7 @@ end
 
 alias m='udiskie-mount -ar'
 alias um='udiskie-umount -a'
-alias umoc='sudo umount -f /mnt/oc-h ; sudo umount -f /mnt/oc-m'
+alias umoc='sudo umount -l /mnt/oc-h ; sudo umount -l /mnt/oc-m'
 alias moc='sudo mount /mnt/oc-h ; sudo mount /mnt/oc-m'
 
 
