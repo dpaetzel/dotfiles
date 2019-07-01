@@ -94,7 +94,7 @@ conky.text = [[
   ${texeci 10 ~/.conky/scripts/networkmanager-profiles}  |\
   ${texeci 60 ~/Bin/global-ip} ${font Symbola:size=11}${texeci 10 ~/.conky/scripts/ping-status-inet}${font}${voffset -1}  |\
   ${font Symbola:size=11}📶$font ${voffset 1}${wireless_link_bar 8,33 wlp4s0}${voffset -2}  |\
-$alignr${voffset -1}\
+$alignr\
   ${texecpi 5 ~/.conky/scripts/modifiers} |\
   ${font Symbola:size=11}♈$font ${voffset 1}${membar 8,33}${voffset -2}  |\
   ${font Symbola:size=11}${exec ~/.conky/scripts/status-mute}$font${voffset -1} ${exec amixer get Master | awk -F "[%[]" '/%/ {print $2;exit}'} %  |\
