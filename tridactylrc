@@ -18,6 +18,9 @@ colours shydactyl
 set editorcmd emacsclient -a emacs
 
 
+set modeindicator false
+
+
 " general (g)
 set searchurls.gd https://duckduckgo.com/?q=
 set searchurls.gg https://google.com/?q=
@@ -55,11 +58,11 @@ set searchurls.y https://www.youtube.com/results?search_query=
 set searchengine gd
 
 
-bind / fillcmdline find
-bind ? fillcmdline find -?
-bind n findnext 1
-bind N findnext -1
-bind gh nohlsearch
+" bind / fillcmdline find
+" bind ? fillcmdline find -?
+" bind n findnext 1
+" bind N findnext -1
+" bind gh nohlsearch
 
 
 set hintfiltermode vimperator-reflow
