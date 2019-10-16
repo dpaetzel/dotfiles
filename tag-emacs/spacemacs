@@ -557,6 +557,12 @@ before packages are loaded."
   ;; haskell
   (setq-default
    flycheck-disabled-checkers '(haskell-stack-ghc haskell-ghc haskell-lint))
+  (spacemacs/set-leader-keys-for-major-mode 'haskell-mode
+    "F" '(lambda ()
+           (interactive)
+           (shell-command (concat "ormolu --mode inplace "
+                                  (buffer-file-name (current-buffer))))
+           (kill-buffer "*Shell Command Output*")))
 
 
   ;; TeX
