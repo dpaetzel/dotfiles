@@ -76,6 +76,9 @@ set yankto selection
 set putfrom selection
 
 
+set bmarkweight 10
+
+
 " Make Tridactyl work on more sites at the expense of some security
 " TODO does this have any merit?
 set csp clobber
