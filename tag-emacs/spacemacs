@@ -573,12 +573,17 @@ before packages are loaded."
   ;; haskell
   (setq-default
    flycheck-disabled-checkers '(haskell-stack-ghc haskell-ghc haskell-lint))
-  (spacemacs/set-leader-keys-for-major-mode 'haskell-mode
-    "F" '(lambda ()
-           (interactive)
-           (shell-command (concat "ormolu --mode inplace "
-                                  (buffer-file-name (current-buffer))))
-           (kill-buffer "*Shell Command Output*")))
+  (defun haskell-mode-ormolu-buffer ()
+        (interactive)
+        (save-buffer)
+        (shell-command (concat "ormolu --mode inplace "
+                               (buffer-file-name (current-buffer))))
+        (kill-buffer "*Shell Command Output*")
+        (revert-buffer nil 1))
+  (add-hook 'haskell-mode-hook
+            (lambda ()
+              (spacemacs/set-leader-keys-for-major-mode 'haskell-mode
+                "F" 'haskell-mode-ormolu-buffer)))
 
 
   ;; TeX
