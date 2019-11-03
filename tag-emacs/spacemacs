@@ -509,6 +509,14 @@ before packages are loaded."
   ;; variable is not buffer-local, then setq and setq-default do the same thing.
 
 
+  ;; fixes the “<dead-acute> is not defined” problem but destroys the 3rd neo layer
+  ;; (require 'iso-transl)
+
+  ;; don't want to have emacs's dirty custom stuff in my spacemacs configuration
+  (setq custom-file "~/.emacs.d/private/custom-settings.el")
+  (load custom-file)
+
+
   ;; mappings
   (spacemacs/set-leader-keys
     "fq" 'server-edit
