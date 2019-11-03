@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
 
 
-acpi | grep Battery\ 1 | sed -E 's/.*Charging,/C/;s/.*Full,/F/;s/.*Discharging,/D/;s/([[:digit:]]+)%.*/\1 %/'
+acpi \
+    | sed -E 's/.*Charging,/C/;s/.*Full,/F/;s/.*Discharging,/D/;s/.*Unknown,/U/;s/([[:digit:]]+)%, (([[:digit:]]{2}):([[:digit:]]{2}):([[:digit:]]{2}))?.*$/\1 % (\3:\4 h)/' \
+    | paste --delimiters="#" --serial \
+    | sed -E 's/#/ \/ /'
