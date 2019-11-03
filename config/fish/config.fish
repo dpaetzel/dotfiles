@@ -1,6 +1,3 @@
-fish_vi_key_bindings
-
-
 set -xg PATH $PATH "$HOME/Bin"
 set -xg TEMPORARY "$HOME/Temporary"
 set -xg INBOX "$HOME/Inbox"
@@ -18,9 +15,14 @@ set -xg QT_IM_MODULE xim
 
 set -xg _JAVA_AWT_WM_NONREPARENTING 1
 set -xg _JAVA_OPTIONS '-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true'
-
-
 set fish_greeting
+
+
+# Fixes strange output when Emacs runs Fish
+# https://github.com/fish-shell/fish-shell/issues/1155#issuecomment-420962831
+if ! test "$TERM" = "dumb"
+    fish_vi_key_bindings
+end
 
 
 alias s='sudo'
