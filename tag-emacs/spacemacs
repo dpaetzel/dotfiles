@@ -61,9 +61,7 @@ This function should only modify configuration layer settings."
       latex-enable-folding t)
      markdown
      nixos
-     (org
-      :variables
-      org-enable-github-support t)
+     org
      php
      scala
      (shell
@@ -519,10 +517,7 @@ before packages are loaded."
 
   ;; mappings
   (spacemacs/set-leader-keys
-    "fq" 'server-edit
-    "A" 'org-agenda
-    "O" '(lambda () (interactive) (find-file "~/TODO.org"))
-    "aog" 'org-clock-goto)
+    "fq" 'server-edit)
   (define-key evil-insert-state-map (kbd "<right>") 'hippie-expand)
   (define-key evil-normal-state-map (kbd "gh") 'evil-search-highlight-persist)
   (define-key evil-normal-state-map (kbd "C-i") 'evil-jump-forward)
@@ -623,230 +618,72 @@ before packages are loaded."
 
   ;; org
   ;; used for recursively finding org files in projects folder
+  (spacemacs/set-leader-keys
+    "A" 'org-agenda
+    "aog" 'org-clock-goto)
   (load-library "find-lisp")
   (with-eval-after-load 'org
-    ;; (setcdr (assoc "\\.pdf\\'" org-file-apps) "zathura %s")
-    (setq-default org-startup-indented nil)
+    (spacemacs/set-leader-keys-for-major-mode 'org-mode
+  ;;     "Q" 'org-clock-display
+      "p" 'org-priority-up)
+    (setq-default
+     org-startup-indented nil
+     ;; TODO this is killing everything because there is a directory link loop somewhere?
+     ;; org-agenda-files
+     ;;    (cons "~/TODO.org" (append
+     ;;                        (find-lisp-find-files "/home/david/Projekte/" "\\.org$")
+     ;;                        (find-lisp-find-files "/home/david/Literatur/" "\\.org$")))
+     ;; org-agenda-files
+     ;; (cons "~/TODO.org" (append
+     ;;                     (find-lisp-find-files "/home/david/Projekte/" "\\.org$")
+     ;;                     (find-lisp-find-files "/home/david/Literatur/" "\\.org$")))
+     org-agenda-files
+     (mapcar 'abbreviate-file-name
+             (split-string
+              (shell-command-to-string "find ~/Projekte -name \"*.org\"")
+              "\n"))
+     org-agenda-restore-windows-after-quit t
+     org-agenda-skip-deadline-prewarning-if-scheduled 2
+     org-agenda-skip-scheduled-if-done t
+     org-agenda-tags-column -90
+     org-bullets-bullet-list (quote ("*"))
+     org-catch-invisible-edits (quote error)
+     org-columns-default-format "%CATEGORY %40ITEM %TODO %SCHEDULED %DEADLINE %TAGS"
+     org-directory "~/.gtd"
+     org-hide-leading-stars t
+     org-list-allow-alphabetical t
+     org-log-into-drawer t
+     org-pretty-entities t
+     org-stuck-projects (quote ("+TODO=\"PROJECT\"" ("NEXT" "WAIT" "1" "2" "3") nil "OK"))
+     org-todo-keyword-faces (quote
+                             (("TODO" :foreground "dim gray" :weight bold)
+                              ("WAIT" :foreground "dim gray" :weight bold)
+                              ("THEN" :foreground "dim gray" :weight bold)
+                              ("MAYBE" :foreground "dim gray" :weight bold)))
+     org-use-property-inheritance t)
     (evil-define-key 'normal evil-org-mode-map
       "T" '(lambda ()
              (interactive)
              (evil-org-eol-call
-              (lambda() (org-insert-todo-heading-respect-content nil))))))
-  (spacemacs/set-leader-keys-for-major-mode 'org-mode
-    "Q" 'org-clock-display
-    "p" 'org-priority-up)
-  (setq-default
-   org-agenda-files
-   (cons "~/TODO.org" (append
-                       (find-lisp-find-files "/home/david/Projekte/" "\\.org$")
-                       (find-lisp-find-files "/home/david/Literatur/" "\\.org$")))
-   org-agenda-restore-windows-after-quit t
-   org-agenda-skip-deadline-prewarning-if-scheduled 2
-   org-agenda-skip-scheduled-if-done t
-   org-agenda-tags-column -90
-   org-bullets-bullet-list (quote ("*"))
-   org-catch-invisible-edits (quote error)
-   org-columns-default-format "%CATEGORY %40ITEM %TODO %SCHEDULED %DEADLINE %TAGS"
-   org-directory "~/.gtd"
-   org-hide-leading-stars t
-   org-list-allow-alphabetical t
-   org-log-into-drawer t
-   org-pretty-entities t
-   org-stuck-projects (quote ("+TODO=\"PROJECT\"" ("NEXT" "WAIT") nil ""))
-   ;; '(org-tag-alist
-   ;;   (quote
-   ;;    ((:startgroup "Orte")
-   ;;     ("daheim" . 104)
-   ;;     ("Uni" . 117)
-   ;;     ("alteUni" . 97)
-   ;;     ("Bobingen" . 108)
-   ;;     ("Stadt" . 115)
-   ;;     (:endgroup)
-   ;;     (:startgrouptag)
-   ;;     ("Computer" . 99)
-   ;;     (:grouptags)
-   ;;     ("anaxagoras" . 120)
-   ;;     ("heraklit" . 101)
-   ;;     ("leukipp" . 105)
-   ;;     ("cleopatra" . 111)
-   ;;     ("Windows" . 119)
-   ;;     (:endgrouptag)
-   ;;     ("Film" . 109)
-   ;;     (:startgrouptag "Personen")
-   ;;     ("@Regine" . 82)
-   ;;     ("@Eltern" . 69)
-   ;;     (:endgrouptag "")
-   ;;     ("Amazon" . 122)
-   ;;     ("nachts" . 110)
-   ;;     ("Hörbuch" . 246)
-   ;;     ("Kochen" . 107)
-   ;;     ("Gutschein" . 103)
-   ;;     ("Besorgungen" . 98))))
-   org-todo-keyword-faces (quote
-                           (("TODO" :foreground "dim gray" :weight bold)
-                            ("WAIT" :foreground "dim gray" :weight bold)
-                            ("THEN" :foreground "dim gray" :weight bold)
-                            ("MAYBE" :foreground "dim gray" :weight bold)))
-   org-use-property-inheritance t)
+              (lambda() (org-insert-todo-heading-respect-content nil)))))
+    (add-hook 'org-mode-hook
+              (auto-fill-mode t)))
   )
 
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
-(defun dotspacemacs/emacs-custom-settings ()
-  "Emacs custom settings.
-This is an auto-generated function, do not modify its content directly, use
-Emacs customize menu instead.
-This function is called at the very end of Spacemacs initialization."
-  (custom-set-variables
-   ;; custom-set-variables was added by Custom.
-   ;; If you edit it by hand, you could mess it up, so be careful.
-   ;; Your init file should contain only one such instance.
-   ;; If there is more than one, they won't work right.
-   '(evil-want-Y-yank-to-eol t)
-   '(helm-boring-file-regexp-list
-     (quote
-      ("\\.hi$" "\\.o$" "~$" "\\.bin$" "\\.lbin$" "\\.so$" "\\.a$" "\\.ln$" "\\.blg$" "\\.bbl$" "\\.elc$" "\\.lof$" "\\.glo$" "\\.idx$" "\\.lot$" "\\.svn/?" "\\.hg/?" "\\.git/?" "\\.bzr/?" "CVS/?" "_darcs/?" "_MTN/?" "\\.tfm$" "\\.class$" "\\.fas$" "\\.lib$" "\\.mem$" "\\.x86f$" "\\.sparcf$" "\\.dfsl$" "\\.pfsl$" "\\.d64fsl$" "\\.p64fsl$" "\\.lx64fsl$" "\\.lx32fsl$" "\\.dx64fsl$" "\\.dx32fsl$" "\\.fx64fsl$" "\\.fx32fsl$" "\\.sx64fsl$" "\\.sx32fsl$" "\\.wx64fsl$" "\\.wx32fsl$" "\\.fasl$" "\\.ufsl$" "\\.fsl$" "\\.dxl$" "\\.lo$" "\\.la$" "\\.gmo$" "\\.mo$" "\\.toc$" "\\.aux$" "\\.cp$" "\\.fn$" "\\.ky$" "\\.pg$" "\\.tp$" "\\.vr$" "\\.cps$" "\\.fns$" "\\.kys$" "\\.pgs$" "\\.tps$" "\\.vrs$" "\\.pyc$" "\\.pyo$")))
-   '(hl-todo-keyword-faces
-     (quote
-      (("TODO" . "#dc752f")
-       ("NEXT" . "#dc752f")
-       ("THEM" . "#2d9574")
-       ("PROG" . "#4f97d7")
-       ("OKAY" . "#4f97d7")
-       ("DONT" . "#f2241f")
-       ("FAIL" . "#f2241f")
-       ("DONE" . "#86dc2f")
-       ("NOTE" . "#b1951d")
-       ("KLUDGE" . "#b1951d")
-       ("HACK" . "#b1951d")
-       ("TEMP" . "#b1951d")
-       ("FIXME" . "#dc752f")
-       ("XXX" . "#dc752f")
-       ("XXXX" . "#dc752f")
-       ("???" . "#dc752f"))))
-   '(org-agenda-custom-commands
-     (quote
-      (("R" "wöchentliches Review"
-        ((todo "WAIT"
-               ((org-agenda-overriding-header "Warten auf")))
-         (todo "NEXT"
-               ((org-agenda-overriding-header "Next Actions")))
-         (todo "TODO"
-               ((org-agenda-overriding-header "andere TODOs (noch nicht als Next Action ausführbares etc.)")))
-         (todo "THEN"
-               ((org-agenda-overriding-header "TODOs, die von anderen abhängen")))
-         (todo "MAYBE"
-               ((org-agenda-overriding-header "Vielleicht/Eines Tages")))
-         (todo "PROJECT"
-               ((org-agenda-overriding-header "Projekte")))
-         (stuck ""
-                ((org-agenda-overriding-header "Projekte ohne NEXT oder WAIT")))
-         (todo "DONE"
-               ((org-agenda-overriding-header "Erledigtes"))))
-        nil nil)
-       ("p" "Alle Projekte" todo "PROJECT" nil)
-       ("w" "Mein Workflow" tags "+Promotion"
-        ((org-agenda-skip-function
-          (quote
-           (org-agenda-skip-entry-if
-            (quote notscheduled))))))
-       ("N" "Alle Next Actions" tags-todo "+TODO=\"NEXT\"-lesen" nil)
-       ("n" "Alle Next Actions (Arbeit)" tags-todo "+TODO=\"NEXT\"-lesen-daheim" nil)
-       ("A" "Agenda (Arbeit)"
-        ((agenda ""
-                 ((org-agenda-overriding-header "Arbeit")
-                  (org-agenda-span
-                   (quote day))
-                  (org-agenda-skip-function
-                   (quote
-                    (org-agenda-skip-subtree-if
-                     (quote regexp)
-                     ":daheim:")))))
-         (agenda ""
-                 ((org-agenda-overriding-header "daheim")
-                  (org-agenda-span
-                   (quote day))
-                  (org-agenda-skip-function
-                   (quote
-                    (org-agenda-skip-subtree-if
-                     (quote notregexp)
-                     ":daheim:"))))))
-        nil))))
-   '(org-agenda-files
-     (quote
-      ("~/TODO.org" "/home/david/Projekte/BA Jonas/BA Jonas.org" "/home/david/Projekte/Singsation/Termine.org" "/home/david/Projekte/Singsation/Proben.org" "/home/david/Projekte/Singsation/Links.org" "/home/david/Projekte/Singsation/2016-10-09 Diskussionsvorbereitung.org" "/home/david/Projekte/Singsation/Auftritte.org" "/home/david/Projekte/Singsation/Singsation.org" "/home/david/Projekte/Singsation/2016-09-25 Notizen zur Diskussion.org" "/home/david/Projekte/Singsation/2016-10-09 Nicht so gute Punkte.org" "/home/david/Projekte/Singsation/2019 Konzerttermine im Frühjahr.org" "/home/david/Projekte/Singsation/arranging/Say Something/Say Something.org" "/home/david/Projekte/Singsation/2017-01-08 Agenda.org" "/home/david/Projekte/Singsation/Stücke.org" "/home/david/Projekte/Singsation/2019-01-20 Probentag.org" "/home/david/Projekte/Singsation/2019-02-09 Ansage Konzert.org" "/home/david/Projekte/Singsation/Baba Yetu Aufnahmen.org" "/home/david/Projekte/Korrektur/Korrektur.org" "/home/david/Projekte/Korrektur/Bachelorarbeit-Kick-off.org" "/home/david/Projekte/Korrektur/Projektmodul.org" "/home/david/Projekte/Lesen/Lesen.org" "/home/david/Projekte/haxcs/haxcs.org" "/home/david/Projekte/haxcs/Code Style.org" "/home/david/Projekte/Unfall/Unfall.org" "/home/david/Projekte/Website/Website.org" "/home/david/Projekte/Hiwi Anastasia/Hiwi Anastasia.org" "/home/david/Projekte/RL-Vortrag/RL-Vortrag.org" "/home/david/Projekte/Grundwissen vertiefen/Grundwissen vertiefen.org" "/home/david/Projekte/BA Niklas/BA Niklas.org" "/home/david/Projekte/Fahrrad/Fahrrad.org" "/home/david/Projekte/GOC-Übung/GOC-Übung.org" "/home/david/Projekte/Finanzen/Finanzen.org" "/home/david/Projekte/Seminare/2017-WS Betreuung.org" "/home/david/Projekte/Seminare/Seminare.org" "/home/david/Projekte/Seminare/Erstes Gespräch.org" "/home/david/Projekte/Seminare/Vorgehen Seminararbeit.org" "/home/david/Projekte/Seminare/Seminarthemen.org" "/home/david/Projekte/Server/Server.org" "/home/david/Projekte/Keeping up/Keeping up.org" "/home/david/Projekte/Promotion/Recherche.org" "/home/david/Projekte/Promotion/Promotion.org" "/home/david/Projekte/Promotion/2017-09-26 Erstes Gespräch.org" "/home/david/Projekte/Persönliche Website/Persönliche Website.org" "/home/david/Projekte/PM Rusmin/PM Rusmin.org" "/home/david/Projekte/Demonstrator/Demonstrator.org" "/home/david/Literatur/lanzi2000/lanzi2000.org" "/home/david/Literatur/wender2012/wender2012.org" "/home/david/Literatur/butz2002/butz2002.org" "/home/david/Literatur/silver2017/silver2017.org" "/home/david/Literatur/drugowitsch2008a/drugowitsch2008a.org" "/home/david/Literatur/stalph2012/stalph2012.org" "/home/david/Literatur/pearlmutter2008/pearlmutter2008.org" "/home/david/Literatur/zaharia2010/zaharia2010.org" "/home/david/Literatur/gers1999/gers1999.org" "/home/david/Literatur/ioannides2011/ioannides2011.org" "/home/david/Literatur/gers2001/gers2001.org" "/home/david/Literatur/calma2016/calma2016.org" "/home/david/Literatur/hochreiter1997/hochreiter1997.org" "/home/david/Literatur/nakata2011/nakata2011.org" "/home/david/Literatur/stein2017/stein2017.org" "/home/david/Literatur/tatsumi2017/tatsumi2017.org" "/home/david/Literatur/drugowitsch2006a/drugowitsch2006a.org" "/home/david/Literatur/spivak2013/spivak2013.org" "/home/david/Literatur/butz20012/butz20012.org" "/home/david/Literatur/urbanowicz2009/urbanowicz2009.org" "/home/david/Literatur/nakata2018/nakata2018.org" "/home/david/Literatur/wadler1989/wadler1989.org" "/home/david/Literatur/hurst2001/hurst2001.org" "/home/david/Literatur/spivak2012/spivak2012.org" "/home/david/Literatur/liang1995/liang1995.org" "/home/david/Literatur/sutton2017/sutton2017.org" "/home/david/Literatur/nakata2015/nakata2015.org" "/home/david/Literatur/eibl2015/eibl2015.org" "/home/david/Literatur/miranda2017/miranda2017.org" "/home/david/Literatur/lanzi2001/lanzi2001.org" "/home/david/Literatur/butz2008/butz2008.org" "/home/david/Literatur/franco2010/franco2010.org" "/home/david/Literatur/calma2017/calma2017.org" "/home/david/Literatur/sutton.org" "/home/david/Literatur/cdoerr2018/cdoerr2018.org" "/home/david/Literatur/orriols-puig2006b/orriols-puig2006b.org" "/home/david/Literatur/drugowitsch2006b/drugowitsch2006b.org" "/home/david/Literatur/butz20013/butz20013.org" "/home/david/Literatur/kovacs1996/kovacs1996.org" "/home/david/Literatur/silver2016/silver2016.org" "/home/david/Literatur/bull2015/bull2015.org" "/home/david/Literatur/molina-markham2010/molina-markham2010.org" "/home/david/Literatur/knox2012/knox2012.org" "/home/david/Literatur/shi2015/shi2015.org" "/home/david/Literatur/nakata2017c/nakata2017c.org" "/home/david/Literatur/butz2001d/butz2001d.org" "/home/david/Literatur/wilson1998/wilson1998.org" "/home/david/Literatur/wilson2000/wilson2000.org" "/home/david/Literatur/graves2013/graves2013.org" "/home/david/Literatur/müller2017/müller2017.org" "/home/david/Literatur/nakata2012/nakata2012.org" "/home/david/Literatur/orriols-puig2006/orriols-puig2006.org" "/home/david/Literatur/dean2008/dean2008.org" "/home/david/Literatur/boyd2009/boyd2009.org" "/home/david/Literatur/drugowitsch2007b/drugowitsch2007b.org" "/home/david/Literatur/decraene2007/decraene2007.org" "/home/david/Literatur/kovacs2016/kovacs2016.org" "/home/david/Literatur/nakata2017a/nakata2017a.org" "/home/david/Literatur/butz2003a/butz2003a.org" "/home/david/Literatur/drugowitsch2007a/drugowitsch2007a.org" "/home/david/Literatur/nakata2012b/nakata2012b.org" "/home/david/Literatur/verma2018/verma2018.org" "/home/david/Literatur/shrivastava2004/shrivastava2004.org" "/home/david/Literatur/greveler2012/greveler2012.org" "/home/david/Literatur/lin2010/lin2010.org" "/home/david/Literatur/graves2016/graves2016.org" "/home/david/Literatur/nakata2017b/nakata2017b.org" "/home/david/Literatur/rial2012/rial2012.org" "/home/david/Literatur/nakata2015b/nakata2015b.org" "/home/david/Literatur/dixon2002/dixon2002.org" "/home/david/Literatur/sutton2018/sutton2018.org" "/home/david/Literatur/marlon2012/marlon2012.org" "/home/david/Literatur/reitmaier2013/reitmaier2013.org" "/home/david/Literatur/wada2005/wada2005.org" "/home/david/Literatur/hughes1989/hughes1989.org" "/home/david/Literatur/chu2006/chu2006.org" "/home/david/Literatur/iqbal2017/iqbal2017.org" "/home/david/Literatur/mellor2009/mellor2009.org" "/home/david/Literatur/felter2014/felter2014.org" "/home/david/Literatur/holland1978/holland1978.org" "/home/david/Literatur/mcbride2008/mcbride2008.org" "/home/david/Literatur/butz2005/butz2005.org" "/home/david/Literatur/deepmind2016/deepmind2016.org" "/home/david/Literatur/butz2001/butz2001.org" "/home/david/Literatur/day1977/day1977.org" "/home/david/Literatur/dalipi2016/dalipi2016.org" "/home/david/Literatur/deberg2008/deberg2008.org" "/home/david/Literatur/kovacs1999/kovacs1999.org" "/home/david/Literatur/orriols-puig2010/orriols-puig2010.org" "/home/david/Literatur/iqbal2012/iqbal2012.org" "/home/david/Literatur/wilson2002/wilson2002.org" "/home/david/Literatur/keshav2007/keshav2007.org" "/home/david/Literatur/iqbal2015/iqbal2015.org" "/home/david/Literatur/wadler2000/wadler2000.org" "/home/david/Literatur/holland1992/holland1992.org" "/home/david/Literatur/sankar2013/sankar2013.org" "/home/david/Literatur/petterson2016/petterson2016.org" "/home/david/Literatur/smith1990/smith1990.org" "/home/david/Literatur/wadler1990/wadler1990.org" "/home/david/Literatur/bull2003/bull2003.org" "/home/david/Literatur/garza-cuellar2017/garza-cuellar2017.org" "/home/david/Literatur/tan2013/tan2013.org" "/home/david/Literatur/zhang2017/zhang2017.org" "/home/david/Literatur/osullivan2008/osullivan2008.org" "/home/david/Literatur/lanzi2005/lanzi2005.org" "/home/david/Literatur/butz2005b/butz2005.org" "/home/david/Literatur/wilson2001/wilson2001.org" "/home/david/Literatur/ioannides2007/ioannides2007.org" "/home/david/Literatur/efthymiou2010/efthymiou2010.org" "/home/david/Literatur/gers2002/gers2002.org" "/home/david/Literatur/llora2006/llora2006.org" "/home/david/Literatur/bohli2010/bohli2010.org" "/home/david/Literatur/wilson1995/wilson1995.org" "/home/david/Literatur/kovacs1998a/kovacs1998a.org" "/home/david/Literatur/butz2004/butz2004.org" "/home/david/Literatur/butz2006/butz2006.org" "/home/david/Literatur/drugowitsch2008b/drugowitsch2008b.org" "/home/david/Literatur/lipschutz1968/lipschutz1968.org" "/home/david/Literatur/kalogridis2010/kalogridis2010.org" "/home/david/Literatur/lanzi2008/lanzi2008.org" "/home/david/Literatur/google2015/google2015.org" "/home/david/Literatur/orriols-puig2007/orriols-puig2007.org" "/home/david/Literatur/stalph2009a/stalph2009a.org" "/home/david/Literatur/edakunni2009/edakunni2009.org" "/home/david/Literatur/knuth1984/knuth1984.org" "/home/david/Literatur/rajagopalan2011/rajagopalan2011.org" "/home/david/Literatur/chung2014/chung2014.org" "/home/david/Literatur/hoare1983/hoare1983.org" "/home/david/Literatur/butz2000/butz2000.org" "/home/david/Literatur/bonarini2000/bonarini2000.org" "/home/david/Literatur/graves2014/graves2014.org" "/home/david/Literatur/butz2007/butz2007.org" "/home/david/Literatur/zhang2016a/zhang2016a.org" "/home/david/Literatur/baez2009/baez2009.org" "/home/david/Literatur/bull2002/bull2002.org" "/home/david/Literatur/erwig2006/erwig2006.org" "/home/david/Literatur/stalph2009b/stalph2009b.org" "/home/david/Literatur/butz2003b/butz2003b.org")))
-   '(org-agenda-skip-function-global
-     (quote
-      (org-agenda-skip-entry-if
-       (quote todo)
-       (quote
-        ("THEN")))))
-   '(org-file-apps
-     (quote
-      ((auto-mode . emacs)
-       ("\\.mm\\'" . default)
-       ("\\.x?html?\\'" . default)
-       ("\\.pdf\\'" . "zathura %s"))))
-   '(org-latex-classes
-     (quote
-      (("scrartcl" "\\documentclass{scrartcl}"
-        ("\\section{%s}" . "\\section*{%s}")
-        ("\\subsection{%s}" . "\\subsection*{%s}")
-        ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-        ("\\paragraph{%s}" . "\\paragraph*{%s}")
-        ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
-       ("article" "\\documentclass[11pt]{article}"
-        ("\\section{%s}" . "\\section*{%s}")
-        ("\\subsection{%s}" . "\\subsection*{%s}")
-        ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-        ("\\paragraph{%s}" . "\\paragraph*{%s}")
-        ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
-       ("report" "\\documentclass[11pt]{report}"
-        ("\\part{%s}" . "\\part*{%s}")
-        ("\\chapter{%s}" . "\\chapter*{%s}")
-        ("\\section{%s}" . "\\section*{%s}")
-        ("\\subsection{%s}" . "\\subsection*{%s}")
-        ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))
-       ("book" "\\documentclass[11pt]{book}"
-        ("\\part{%s}" . "\\part*{%s}")
-        ("\\chapter{%s}" . "\\chapter*{%s}")
-        ("\\section{%s}" . "\\section*{%s}")
-        ("\\subsection{%s}" . "\\subsection*{%s}")
-        ("\\subsubsection{%s}" . "\\subsubsection*{%s}")))))
-   '(org-tag-alist
-     (quote
-      ((:startgroup)
-       ("Arbeit" . 97)
-       ("daheim" . 100)
-       (:endgroup)
-       ("Campus" . 99)
-       ("lesen" . 108)
-       ("anschauen" . 119))))
-   '(org-todo-keywords
-     (quote
-      ((sequence "NEXT(n)" "TODO(t)" "PROJECT(p)" "WAIT(w)" "THEN(h)" "MAYBE(m)" "1(1)" "2(2)" "3(3)" "DONE(d!)"))))
-   '(package-selected-packages
-     (quote
-      (magit-svn helm-git-grep gitignore-templates spinner undo-tree transient lv parent-mode flx anzu goto-chg reformatter diminish bind-map popup pkg-info f yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode helm-pydoc cython-mode company-anaconda anaconda-mode pythonic ox-gfm toml-mode racer flycheck-rust cargo rust-mode company-quickhelp bind-key powerline avy packed hydra iedit epl s org-mime smartparens highlight evil helm helm-core projectile async csv-mode haskell-snippets flycheck-haskell haskell-mode company-emacs-eclim eclim yaml-mode xterm-color web-mode web-beautify vimrc-mode tagedit slim-mode shell-pop scss-mode sass-mode pug-mode powershell phpunit phpcbf php-extras php-auto-yasnippets org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-download noflet nix-sandbox nix-mode muttrc-mode multi-term mmm-mode markdown-toc markdown-mode magit-annex livid-mode skewer-mode simple-httpd less-css-mode ledger-mode json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc intero insert-shebang htmlize hlint-refactor hindent helm-nixos-options helm-hoogle helm-css-scss helm-company helm-c-yasnippet haml-mode gnuplot gh-md fuzzy flycheck-pos-tip pos-tip flycheck-ledger flycheck-elm flycheck fish-mode eshell-z eshell-prompt-extras esh-help ensime sbt-mode scala-mode emmet-mode elm-mode drupal-mode php-mode dactyl-mode company-web web-completion-data company-tern dash-functional tern company-statistics company-shell company-nixos-options nixos-options company-ghci company-ghc ghc company-cabal company-auctex company coffee-mode cmm-mode auto-yasnippet yasnippet auctex-latexmk auctex ac-ispell auto-complete smeargle orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit ghub let-alist with-editor ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line)))
-   '(pdf-view-midnight-colors (quote ("#b2b2b2" . "#292b2e")))
-   '(yas-indent-line (quote fixed)))
-
-
-  (custom-set-faces
-   ;; custom-set-faces was added by Custom.
-   ;; If you edit it by hand, you could mess it up, so be careful.
-   ;; Your init file should contain only one such instance.
-   ;; If there is more than one, they won't work right.
-   '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
-   '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil))))
-   '(org-level-1 ((t (:family "Inconsolata" :inherit variable-pitch :height 1.0))))
-   '(org-level-2 ((t (:family "Inconsolata" :inherit variable-pitch :height 1.0))))
-   '(org-level-3 ((t (:family "Inconsolata" :inherit variable-pitch :height 1.0))))
-   '(org-level-4 ((t (:family "Inconsolata" :inherit variable-pitch :height 1.0))))
-   '(org-level-5 ((t (:family "Inconsolata" :inherit variable-pitch :height 1.0))))
-   '(org-level-6 ((t (:family "Inconsolata" :inherit variable-pitch :height 1.0))))
-   '(org-level-7 ((t (:family "Inconsolata" :inherit variable-pitch :height 1.0))))
-   '(org-level-8 ((t (:family "Inconsolata" :inherit variable-pitch :height 1.0))))
-   '(org-level-9 ((t (:family "Inconsolata" :inherit variable-pitch :height 1.0)))))
-  )
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (yapfify yaml-mode xterm-color ws-butler winum which-key web-mode web-beautify volatile-highlights vimrc-mode vi-tilde-fringe uuidgen use-package toml-mode toc-org tagedit spaceline powerline smeargle slim-mode shell-pop scss-mode sass-mode restart-emacs rainbow-delimiters racer pyvenv pytest pyenv-mode py-isort pug-mode powershell popwin pip-requirements phpunit phpcbf php-extras php-auto-yasnippets persp-mode pcre2el paradox spinner ox-gfm orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-plus-contrib org-mime org-download org-bullets open-junk-file noflet nix-mode neotree multi-term move-text mmm-mode markdown-toc magit-gitflow magit-popup macrostep lorem-ipsum livid-mode skewer-mode simple-httpd live-py-mode linum-relative link-hint ledger-mode json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc intero insert-shebang indent-guide hydra lv hy-mode hungry-delete htmlize hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-pydoc helm-projectile projectile helm-nixos-options helm-mode-manager helm-make helm-hoogle helm-gitignore request helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag haskell-snippets haml-mode google-translate golden-ratio gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md fuzzy flycheck-rust flycheck-pos-tip flycheck-ledger flycheck-haskell flycheck-elm flycheck pkg-info epl flx-ido flx fish-mode fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit magit transient git-commit with-editor evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu eshell-z eshell-prompt-extras esh-help ensime sbt-mode scala-mode emmet-mode elm-mode reformatter elisp-slime-nav dumb-jump drupal-mode php-mode diminish define-word dactyl-mode cython-mode csv-mode company-web web-completion-data company-tern dash-functional tern company-statistics company-shell company-quickhelp pos-tip company-nixos-options nixos-options company-ghci company-ghc ghc haskell-mode company-emacs-eclim eclim company-cabal company-auctex company-anaconda company column-enforce-mode coffee-mode cmm-mode clean-aindent-mode cargo markdown-mode rust-mode bind-map bind-key auto-yasnippet yasnippet auto-highlight-symbol auto-compile packed auctex-latexmk auctex anaconda-mode pythonic f s aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core async ac-ispell auto-complete popup solarized-theme dash))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
