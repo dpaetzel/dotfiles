@@ -151,10 +151,24 @@ alias beide='khal new --calendar Beide --alarms 1d,2h,1h'
 alias urlaub='math 10 + 30 + 30 - (math (command ls /mnt/oc-m/Verwaltung/Urlaubsantraege/Pätzel/ | sed -E "s/.*_([[:digit:]]+)Tag.*/\1/" | paste -sd+))'
 
 
+function mkrefs
+    find ~/Literatur -iname '*.bib' -exec cat '{}' \;
+end
 
 
 function texr
-    entr fish -c "latexmk $argv ; fixfonts out/*.pdf"
+    if test "$argv" = "--fix"
+        entr fish -c "mkrefs > References.bib ; latexmk -f -interaction=nonstopmode $argv | grep -v 'characters of junk seen' ; fixfonts out/*.pdf"
+    else
+        entr fish -c "mkrefs > References.bib ; latexmk -f -interaction=nonstopmode $argv | grep -v 'characters of junk seen'"
+    end
+end
+function texrl
+    if test "$argv" = "--fix"
+        entr fish -c "mkrefs > References.bib ; latexmk -f -interaction=nonstopmode -r ./.latexmkrc $argv | grep -v 'characters of junk seen' ; fixfonts out/*.pdf"
+    else
+        entr fish -c "mkrefs > References.bib ; latexmk -f -interaction=nonstopmode -r ./.latexmkrc $argv | grep -v 'characters of junk seen'"
+    end
 end
 
 
@@ -162,9 +176,11 @@ function sources
     if test -z "$argv"
         echo *.tex
         cat *.tex | grep -E '\\\\input{' | sed -E 's/.*\\\\input\{(.*)\}.*/\1.tex/'
+        cat *.tex | grep -E '\\\\bibliography{' | sed -E 's/.*\\\\bibliography\{(.*)\}.*/\1.bib/'
     else
         echo $argv
         cat $argv | grep -E '\\\\input{' | sed -E 's/.*\\\\input\{(.*)\}.*/\1.tex/'
+        cat $argv | grep -E '\\\\bibliography{' | sed -E 's/.*\\\\bibliography\{(.*)\}.*/\1.bib/'
     end
 end
 
