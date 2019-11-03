@@ -94,6 +94,7 @@ alias mvd='mv (n d)'
 alias mutt='neomutt'
 # from `man feh`: Scale images to fit window geometry
 alias feh='feh --scale-down --theme=default'
+alias zz='z -l Temp | head -1 | awk \'{print $2}\''
 
 
 function sortimgs
@@ -188,4 +189,38 @@ function qt
     eval $argv[2]
 
     set PATH $p
+end
+
+
+function ord
+    echo "$argv" | od -A n -t d1 | read -l addr num ;and echo $addr
+end
+
+
+function chr
+    printf "%b\n" '\0'(printf '%o\n' "$argv")
+end
+
+
+
+
+function mkmail
+    mkdir -p "$argv"/{cur,new,tmp}
+end
+
+
+
+
+alias update-spacemacs="\
+cd ~/.emacs.d && \
+  git pull --rebase; \
+  find ~/.emacs.d/elpa/2*/develop/org-plus-contrib* -name '*.elc' -delete"
+
+
+function gong
+    date
+    for t in $argv
+      sleep $t
+      mpv "$HOME/.Gong.mp3" &
+    end
 end
