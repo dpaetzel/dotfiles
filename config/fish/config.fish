@@ -138,12 +138,19 @@ alias plotting='nix-shell -p "haskellPackages.ghcWithPackages (pkgs : [ pkgs.cas
 alias plottingNoEasy='nix-shell -p "haskellPackages.ghcWithPackages (pkgs : [ pkgs.cassava ])" gnuplot'
 
 
-alias cal='khal calendar -a Arbeit -a OC -a Ich -a Beide'
-alias agenda='khal list -a Arbeit -a OC -a Ich -a Beide'
-alias arbeit='khal new -a Arbeit'
-alias ich='khal new -a Ich'
-alias beide='khal new -a Beide'
-alias urlaub='math 40 - (math (command ls /mnt/oc-m/Verwaltung/Urlaubsantraege/Pätzel/ | sed -E "s/.*_([[:digit:]]+)Tag.*/\1/" | paste -sd+))'
+function cal
+    khal --color calendar -a Arbeit -a OC -a Ich -a Beide -a Geburtstage $argv | sed "s/ \?\[\]//"
+end
+function agenda
+    khal --color list -a Arbeit -a OC -a Ich -a Beide -a Geburtstage $argv | sed "s/ \?\[\]//"
+end
+alias call='khal calendar'
+alias arbeit='khal new --calendar Arbeit --alarms 1d,2h,1h'
+alias ich='khal new --calendar Ich --alarms 1d,2h,1h'
+alias beide='khal new --calendar Beide --alarms 1d,2h,1h'
+alias urlaub='math 10 + 30 + 30 - (math (command ls /mnt/oc-m/Verwaltung/Urlaubsantraege/Pätzel/ | sed -E "s/.*_([[:digit:]]+)Tag.*/\1/" | paste -sd+))'
+
+
 
 
 function texr
