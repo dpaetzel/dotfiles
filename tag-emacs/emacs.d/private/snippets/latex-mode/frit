@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: frame with itemize
+# key: frit
+# --
+\begin{frame}{$1}
+  \begin{itemize}
+  \item $2
+  \end{itemize}
+\end{frame}
