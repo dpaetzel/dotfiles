@@ -254,6 +254,20 @@ function mkmail
 end
 
 
+alias cinit="\
+cabal init \
+  --cabal-version=2.2 \
+  --dependency=\"base ^>=4.12.0.0\" \
+  --dependency=protolude \
+  --dependency=QuickCheck \
+  --source-dir=src \
+  --category=\"\" \
+  --homepage=\"\" \
+  --synopsis=\"\" \
+  --language=Haskell2010 \
+  --main-is=src/Main.hs \
+  --license=\"GPL-3\" \
+  --no-comments"
 
 
 alias update-spacemacs="\
