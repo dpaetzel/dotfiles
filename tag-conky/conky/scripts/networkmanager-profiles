@@ -6,16 +6,16 @@ string=$(nmcli con show --active |\
     paste --delimiter='&' -s |\
     sed -r 's/&/ & /g')
 
-if [[ -z $string ]]; then
+if test -z "$string"; then
     printf down
 else
-    printf $string
+    printf "%s" "$string"
 fi
 
-function device_addresses {
-    device=$1
+device_addresses() {
+    device="$1"
 
-    nmcli dev show $device |\
+    nmcli dev show "$device" |\
         grep -E 'IP4\.ADDRESS' |\
         sed -r 's/IP4\.ADDRESS\[.+\]: *([^ \/]+)\/.*$/\1/'
 }
@@ -25,15 +25,15 @@ active_devices=$(nmcli con show --active |\
                      awk '{ print $4 }' |\
                      paste --delimiter=' ' -s)
 
-string=$(( for d in $active_devices; do
-               echo $(device_addresses $d) "($d)"
+string=$( ( for d in $active_devices; do
+               echo "$(device_addresses "$d")" "($d)"
            done ) |\
              sort -u |\
              paste --delimiter='/' -s |\
              sed -r 's/\// \/ /g')
 
-if [[ -n $string ]]; then
-    printf "  |  $string"
+if test -n "$string"; then
+    printf "  |  %s" "$string"
 fi
 
 echo
