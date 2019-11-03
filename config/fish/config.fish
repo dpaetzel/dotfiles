@@ -9,12 +9,6 @@ set -xg INBOX "$HOME/Inbox"
 # set -xg PATH $PATH $HOME/.cargo/bin
 
 
-set -xg GTK_IM_MODULE xim
-set -xg QT_IM_MODULE xim
-
-
-set -xg _JAVA_AWT_WM_NONREPARENTING 1
-set -xg _JAVA_OPTIONS '-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true'
 set fish_greeting
 
 
