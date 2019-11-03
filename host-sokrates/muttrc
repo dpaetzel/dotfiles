@@ -11,7 +11,7 @@ unset confirmappend
   set date_format       = "%H:%M %Y-%m-%d"
   set delete
   set edit_headers
-  set editor            = "emacsclient -a emacs +8:0"
+  set editor            = "v -c +8:0"
   set fast_reply
   set forward_decode
   set forward_format    = "Fwd: %s"
