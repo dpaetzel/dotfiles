@@ -247,6 +247,28 @@ function bib
 end
 
 
+function allpass
+    for f in (find ~/.password-store/ -type f -iname '*.gpg' | sed -r 's/^.*store\///;s/.gpg$//')
+        set -l IFS
+        set content (pass "$f")
+        set pw (echo "$content" | head -1)
+        echo "$f: $pw"
+    end
+end
+
+
+function checkpass
+    for f in (find ~/.password-store/ -type f -iname '*.gpg' | sed -r 's/^.*store\///;s/.gpg$//')
+        set -l IFS
+        set content (pass "$f")
+        set pw (echo "$content" | head -1)
+        if test (string length -- "$pw") -lt 25
+            if test (echo "$content" | tail -1) != "Regeln"
+              echo "$f: $pw"
+            end
+        end
+    end
+end
 
 
 function mkmail
