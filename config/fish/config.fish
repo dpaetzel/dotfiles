@@ -202,6 +202,51 @@ function chr
 end
 
 
+function lit
+    if test "$argv[1]" != "" -a "$argv[2]" != "" -a "$argv[3]" != "" -a "$argv[4]" != ""
+        set -l num
+        if test "$argv[5]" = ""
+            set num ""
+        else
+            set num "$argv[5]"
+        end
+
+        set -l pdf "$argv[1]"
+        set -l author "$argv[2]"
+        set -l year "$argv[3]"
+        set -l title "$argv[4]"
+
+        set -l short "$author$year"
+        set -l long "$year $title"
+
+        if test -d "$HOME/Literatur/$short$num"
+            if test "$num" = ""
+                lit "$pdf" "$author" "$year" "$title" "b"
+            else
+                lit "$pdf" "$author" "$year" "$title" (chr (math (ord "$num") + 1))
+            end
+        else
+            echo "Creating Literatur/$short$num"
+            mkdir "$HOME/Literatur/$short$num"
+            mv "$pdf" "$HOME/Literatur/$short$num/$long.pdf"
+            echo "* 1 $short$num" >> "$HOME/Literatur/$short$num/$short$num.org"
+        end
+    end
+end
+
+
+function bib
+    if test "$argv[1]" != "" -a "$argv[2]" != ""
+        set -l file "$argv[1]"
+        set -l name "$argv[2]"
+
+        v "$file"
+        cp "$file" "$HOME/Literatur/$name/$name.bib"
+        rm "$file"
+    end
+end
+
+
 
 
 function mkmail
