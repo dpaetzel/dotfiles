@@ -42,8 +42,8 @@ gap_y = 3,
 --max_specials = '512',
 	max_text_width = 0,
 	max_user_text = 16384,
-	minimum_width = 1920,
-	maximum_width = 1920,
+	minimum_width = 1940,
+	maximum_width = 1940,
 --mpd_host
 --mpd_password
 --mpd_port
@@ -69,8 +69,8 @@ gap_y = 3,
 	pad_percents = 0,
 --pop3                          TODO!!!
 	short_units = true,
-	show_graph_range = true,
-	show_graph_scale = true,
+	show_graph_range = false,
+	show_graph_scale = false,
 	stippled_borders = no,
 	temperature_unit = 'celsius',
 	text_buffer_size = 2048,
@@ -93,10 +93,15 @@ gap_y = 3,
 conky.text = [[
   ${texeci 10 ~/.conky/scripts/networkmanager-profiles}  |\
   ${texeci 60 ~/Bin/global-ip} ${font Symbola:size=11}${texeci 10 ~/.conky/scripts/ping-status-inet}${font}${voffset -1}  |\
-  ${font Symbola:size=11}📶$font ${voffset 1}${wireless_link_bar 8,33 wlp4s0}${voffset -2}  |\
+  ${font Symbola:size=10}📶$font${offset -10}${wireless_link_qual_perc wlp4s0} %  |\
 $alignr\
+  ${texecpi 5 ~/Bin/pomodoro conky}\
   ${texecpi 5 ~/.conky/scripts/modifiers} |\
-  ${font Symbola:size=11}♈$font ${voffset 1}${membar 8,33}${voffset -2}  |\
+  ${voffset 2}${cpugraph cpu1 10,33 000000 ffffff -t}${voffset -2}  |\
+  ${voffset 2}${cpugraph cpu2 10,33 000000 ffffff -t}${voffset -2}  |\
+  ${voffset 2}${cpugraph cpu3 10,33 000000 ffffff -t}${voffset -2}  |\
+  ${voffset 2}${cpugraph cpu4 10,33 000000 ffffff -t}${voffset -2}  |\
+  ${voffset 2}${memgraph 10,33 000000 ffffff -t}${voffset -2}  |\
   ${font Symbola:size=11}${exec ~/.conky/scripts/status-mute}$font${voffset -1} ${exec amixer get Master | awk -F "[%[]" '/%/ {print $2;exit}'} %  |\
   ${font Symbola:size=11}⚡$font${voffset -1} ${exec ~/.conky/scripts/battery-status}  |\
   ${time %F}  |\
