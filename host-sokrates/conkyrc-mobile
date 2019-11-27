@@ -42,8 +42,8 @@ gap_y = 3,
 --max_specials = '512',
 	max_text_width = 0,
 	max_user_text = 16384,
-	minimum_width = 1940,
-	maximum_width = 1940,
+	minimum_width = 1920,
+	maximum_width = 1920,
 --mpd_host
 --mpd_password
 --mpd_port
@@ -105,5 +105,5 @@ $alignr\
   ${font Symbola:size=11}${exec ~/.conky/scripts/status-mute}$font${voffset -1} ${exec amixer get Master | awk -F "[%[]" '/%/ {print $2;exit}'} %  |\
   ${font Symbola:size=11}⚡$font${voffset -1} ${exec ~/.conky/scripts/battery-status}  |\
   ${time %F}  |\
-  ${time %k:%M}  
+  ${time %k:%M}
 ]];

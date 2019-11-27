@@ -46,6 +46,8 @@ gap_y = 320,
 	-- maximum_width = 2560,
   -- larger width needed due to graphs not taking up the space they really
   -- require
+	-- minimum_width = 2560,
+	-- maximum_width = 2560,
 	minimum_width = 2700,
 	maximum_width = 2700,
 --mpd_host
@@ -101,7 +103,7 @@ conky.text = [[
 $alignr\
   ${texecpi 5 ~/Bin/pomodoro conky}\
   ${texecpi 5 ~/.conky/scripts/modifiers}\
-  ${texecpi 5 ~/.conky/scripts/info-spotify}  |\
+${texecpi 5 ~/.conky/scripts/info-spotify}  |\
   ${voffset 2}${cpugraph cpu1 10,33 000000 ffffff -t}${voffset -2}  |\
   ${voffset 2}${cpugraph cpu2 10,33 000000 ffffff -t}${voffset -2}  |\
   ${voffset 2}${cpugraph cpu3 10,33 000000 ffffff -t}${voffset -2}  |\
