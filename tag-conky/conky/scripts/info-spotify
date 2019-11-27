@@ -1,6 +1,14 @@
 #!/usr/bin/env fish
 
 
+function getPlaybackStatus
+    dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'PlaybackStatus'
+end
+
+
+set playbackStatus (getPlaybackStatus | grep -E "variant" | sed -r 's/.*string "(.*)"/\1/')
+
+
 function getDbusMetadata
     dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'Metadata'
 end
@@ -11,4 +19,15 @@ set artist (getDbusMetadata | egrep -A 2 "artist"|egrep -v "artist"|egrep -v "ar
 set album (getDbusMetadata |egrep -A 1 "album"|egrep -v "album"|cut -b 44-|cut -d '"' -f 1|egrep -v '^$')
 
 
-echo $artist – $title \($album\)
+function output
+    printf '|  ${voffset -1}${font Symbola:size=10}'$argv[1]'$font${voffset 1} '$artist' – '$title' ('$album')'
+end
+
+
+if test "X$playbackStatus" = "XPlaying"
+    output ▶
+else if test "X$playbackStatus" = "XPaused"
+    output ⏸
+else
+    output uiae
+end
