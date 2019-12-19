@@ -12,6 +12,10 @@ set -xg INBOX "$HOME/Inbox"
 set fish_greeting
 
 
+# Workaround for https://github.com/fish-shell/fish-shell/issues/5994.
+set -x PAGER less -R
+
+
 # Fixes strange output when Emacs runs Fish
 # https://github.com/fish-shell/fish-shell/issues/1155#issuecomment-420962831
 if ! test "$TERM" = "dumb"
