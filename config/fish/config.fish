@@ -305,26 +305,55 @@ function mkmail
 end
 
 
-alias cinit="\
-cabal init \
-  --cabal-version=2.2 \
-  --dependency=\"base ^>=4.12.0.0\" \
-  --dependency=protolude \
-  --dependency=QuickCheck \
-  --source-dir=src \
-  --category=\"\" \
-  --homepage=\"\" \
-  --synopsis=\"\" \
-  --language=Haskell2010 \
-  --main-is=src/Main.hs \
-  --license=\"GPL-3\" \
-  --no-comments"
+function cinit
+    cabal init \
+        --cabal-version=2.2 \
+        --dependency="base ^>=4.12.0.0" \
+        --dependency=protolude \
+        --dependency=QuickCheck \
+        --source-dir=src \
+        --category="" \
+        --homepage="" \
+        --synopsis="" \
+        --language=Haskell2010 \
+        --main-is=src/Main.hs \
+        --license="GPL-3" \
+        --no-comments
+
+    set name (grep "^name: " *.cabal | sed "s/^name: *//")
+    echo "(import ./release.nix).$name.env" > shell.nix
+    echo "
+    let
+    config = {
+    packageOverrides = pkgs: rec {
+    haskellPackages = pkgs.haskellPackages.override {
+    overrides = haskellPackagesNew: haskellPackagesOld: rec {
+    # NOTE to enable profiling in all other libraries (to enable for
+    # haxcs, add ghc-options)
+    # mkDerivation = args: super.mkDerivation (args // {
+    #   enableLibraryProfiling = true;
+    # });
+
+    cabal-test-quickcheck = with pkgs.haskell.lib;
+    doJailbreak (unmarkBroken haskellPackagesOld.cabal-test-quickcheck);
+
+    $name = haskellPackagesNew.callPackage ./default.nix { };
+    };
+    };
+    };
+    };
+    pkgs = import <nixpkgs> { inherit config; };
+    in { $name = pkgs.haskellPackages.$name; }
+    " > release.nix
+    nixfmt release.nix
+    cabal2nix > default.nix
+end
 
 
 alias update-spacemacs="\
 cd ~/.emacs.d && \
-  git pull --rebase; \
-  find ~/.emacs.d/elpa/2*/develop/org-plus-contrib* -name '*.elc' -delete"
+git pull --rebase; \
+find ~/.emacs.d/elpa/2*/develop/org-plus-contrib* -name '*.elc' -delete"
 
 
 function gong
