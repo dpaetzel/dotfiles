@@ -85,7 +85,10 @@ alias df='dfc'
 
 
 alias g='git'
-alias led='ledger --strict --file /home/david/Buchhaltung/Gesamt.journal'
+# alias led="$HOME/Code/buchhaltung/.stack-work/dist/x86_64-linux-nix/Cabal-2.0.1.0/build/buchhaltung/buchhaltung ledger"
+alias led="ledger -f $HOME/Buchhaltung/Gesamt.ledger"
+# alias buch="$HOME/Code/buchhaltung/.stack-work/dist/x86_64-linux-nix/Cabal-2.0.1.0/build/buchhaltung/buchhaltung"
+alias buch="$HOME/Code/buchhaltung/dist-newstyle/build/x86_64-linux/ghc-8.6.5/buchhaltung-0.0.7/x/buchhaltung/build/buchhaltung/buchhaltung"
 alias o='open'
 alias ont='o (n t)'
 alias onf='o (n f)'
