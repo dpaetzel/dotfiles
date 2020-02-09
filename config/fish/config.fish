@@ -84,7 +84,6 @@ alias x='chmod +x'
 alias df='dfc'
 
 
-alias v='emacsclient -a emacs'
 alias g='git'
 alias led='ledger --strict --file /home/david/Buchhaltung/Gesamt.journal'
 alias o='open'
