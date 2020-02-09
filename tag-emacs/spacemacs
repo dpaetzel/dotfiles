@@ -64,7 +64,8 @@ This function should only modify configuration layer settings."
       latex-enable-folding t)
      markdown
      nixos
-     org
+     (org :variables
+          org-enable-github-support t) ;; required for Markdown export
      php
      scala
      (shell
@@ -573,7 +574,7 @@ before packages are loaded."
    magit-diff-use-overlays nil)
 
 
-  ;; haskell
+  ;; Haskell
   (setq-default
    flycheck-disabled-checkers '(haskell-stack-ghc haskell-ghc haskell-lint))
   (defun haskell-mode-ormolu-buffer ()
@@ -632,9 +633,7 @@ before packages are loaded."
   (load-library "find-lisp")
   (with-eval-after-load 'org
     ;; to be able to export as markdown
-    '(require 'ox-md nil t)
     (spacemacs/set-leader-keys-for-major-mode 'org-mode
-  ;;     "Q" 'org-clock-display
       "p" 'org-priority-up)
     (setq-default
      org-startup-indented nil
