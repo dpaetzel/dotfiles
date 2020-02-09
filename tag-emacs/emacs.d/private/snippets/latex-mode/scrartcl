@@ -15,8 +15,7 @@
 \usepackage{csquotes}
 
 
-\usepackage{polyglossia}
-\setdefaultlanguage[babelshorthands=true]{german}
+\usepackage[british]{babel}
 
 
 \usepackage{microtype}
