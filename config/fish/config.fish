@@ -359,7 +359,7 @@ find ~/.emacs.d/elpa/2*/develop/org-plus-contrib* -name '*.elc' -delete"
 function gong
     date
     for t in $argv
-      sleep $t
-      mpv "$HOME/.Gong.mp3" &
+        sleep $t
+        mpv --really-quiet "$HOME/.Gong.mp3" &
     end
 end
