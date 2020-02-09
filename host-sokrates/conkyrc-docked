@@ -46,10 +46,8 @@ gap_y = 320,
 	-- maximum_width = 2560,
   -- larger width needed due to graphs not taking up the space they really
   -- require
-	-- minimum_width = 2560,
-	-- maximum_width = 2560,
-	minimum_width = 2700,
-	maximum_width = 2700,
+	minimum_width = 2560,
+	maximum_width = 2560,
 --mpd_host
 --mpd_password
 --mpd_port
