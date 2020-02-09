@@ -11,7 +11,7 @@ unset confirmappend
   set date_format       = "%H:%M %Y-%m-%d"
   set delete
   set edit_headers
-  set editor            = "v -c +8:0"
+  set editor            = "~/Bin/v -c +8:0"
   set fast_reply
   set forward_decode
   set forward_format    = "Fwd: %s"
@@ -81,13 +81,11 @@ unhdr_order *
 hdr_order From: To: Cc: Date: Subject:
 
 
-folder-hook uni/*  source ~/.mutt/accounts/uni.muttrc
-folder-hook privat/*  source ~/.mutt/accounts/privat.muttrc
-
-
-source ~/.mutt/bindings.muttrc
-
-
+source ~/.mutt/bindings.muttrc.bak3.sorted
 source ~/.mutt/colors.muttrc
 source ~/.mutt/accounts/uni.muttrc
-# source ~/.mutt/crypto # TODO
+
+
+folder-hook uni/*  source ~/.mutt/accounts/uni.muttrc
+folder-hook privat/*  source ~/.mutt/accounts/privat.muttrc
+folder-hook beide/*  source ~/.mutt/accounts/beide.muttrc

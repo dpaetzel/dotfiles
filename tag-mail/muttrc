@@ -76,6 +76,8 @@ alternative_order text/enriched text/plain text/html
 folder-hook gmail/*  source ~/.mutt/accounts/gmail.muttrc
 folder-hook dpaetzel/*  source ~/.mutt/accounts/dpaetzel.muttrc
 folder-hook uni/*  source ~/.mutt/accounts/uni.muttrc
+folder-hook privat/*  source ~/.mutt/accounts/privat.muttrc
+folder-hook beide/*  source ~/.mutt/accounts/beide.muttrc
 # folder-hook * "exec collapse-all"
 
 
