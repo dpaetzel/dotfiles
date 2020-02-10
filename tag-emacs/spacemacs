@@ -626,26 +626,15 @@ before packages are loaded."
 
 
   ;; org
-  ;; used for recursively finding org files in projects folder
   (spacemacs/set-leader-keys
     "A" 'org-agenda
     "aog" 'org-clock-goto)
-  (load-library "find-lisp")
   (with-eval-after-load 'org
     ;; to be able to export as markdown
     (spacemacs/set-leader-keys-for-major-mode 'org-mode
       "p" 'org-priority-up)
     (setq-default
      org-startup-indented nil
-     ;; TODO this is killing everything because there is a directory link loop somewhere?
-     ;; org-agenda-files
-     ;;    (cons "~/TODO.org" (append
-     ;;                        (find-lisp-find-files "/home/david/Projekte/" "\\.org$")
-     ;;                        (find-lisp-find-files "/home/david/Literatur/" "\\.org$")))
-     ;; org-agenda-files
-     ;; (cons "~/TODO.org" (append
-     ;;                     (find-lisp-find-files "/home/david/Projekte/" "\\.org$")
-     ;;                     (find-lisp-find-files "/home/david/Literatur/" "\\.org$")))
      org-agenda-files
      (cons "~/TODO.org" (append
                          (mapcar 'abbreviate-file-name
