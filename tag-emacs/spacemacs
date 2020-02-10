@@ -663,7 +663,6 @@ before packages are loaded."
      org-bullets-bullet-list (quote ("*"))
      org-catch-invisible-edits (quote error)
      org-columns-default-format "%CATEGORY %40ITEM %TODO %SCHEDULED %DEADLINE %TAGS"
-     org-directory "~/.gtd"
      org-hide-leading-stars t
      org-list-allow-alphabetical t
      org-log-into-drawer t
