@@ -53,7 +53,8 @@
 (map!
  :leader "w/" 'evil-window-vsplit
  :leader "w-" 'evil-window-split
- :leader :desc "Save all open files" "fS" 'evil-write-all)
+ :leader :desc "Save all open files" "fS" 'evil-write-all
+ :leader :desc "Mark buffer as done and close" "fq" 'server-edit)
 
 
 (setq-default
