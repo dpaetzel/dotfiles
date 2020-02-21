@@ -1,0 +1,47 @@
+# -*- mode: snippet -*-
+# name: scrartcl
+# key: scrartcl
+# --
+\documentclass[parskip=half]{scrartcl}
+
+
+\title{Neu}
+\date{}
+
+
+\usepackage{xltxtra}
+
+
+\usepackage{csquotes}
+
+
+\usepackage[british]{babel}
+
+
+\usepackage{microtype}
+
+
+\usepackage{libertine}
+\setmonofont{Inconsolata}
+
+
+\usepackage[backend=biber]{biblatex}
+\addbibresource{References.bib}
+
+
+\usepackage{hyperref}
+
+
+\begin{document}
+
+
+\maketitle
+
+
+$1
+
+
+\printbibliography
+
+
+\end{document}

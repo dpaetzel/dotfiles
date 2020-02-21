@@ -1,0 +1,51 @@
+# -*- mode: snippet -*-
+# name: beamer
+# key: beamer
+# --
+\documentclass{beamer}
+
+
+\title{Neu}
+\author{David}
+
+
+\usetheme[%
+block=fill,
+]{metropolis}
+\setbeamertemplate{caption}[default]
+% \metroset{background=dark}
+
+
+\usepackage{fontspec}
+\newfontfamily\syfamily{Symbola}
+
+
+\usepackage{polyglossia}
+\setmainlanguage{german}
+
+
+\usepackage{tabu}
+
+
+\usepackage[outputdir=out]{minted}
+\newminted{nix}{escapeinside=||}
+
+
+\usepackage{marvosym}
+
+
+\newcommand{\shell}{{\footnotesize\color{gray}\syfamily 🐚}}
+\newcommand{\Shell}{{\Huge\syfamily 🐚}}
+\newcommand{\browser}{{\footnotesize\color{gray}\syfamily 🌎}}
+\newcommand{\Browser}{{\Huge\syfamily 🌎}}
+\newcommand{\editor}{{\footnotesize\color{gray}\syfamily 📄}}
+\newcommand{\Editor}{{\Huge\syfamily 📄}}
+
+
+\begin{document}
+
+
+$1
+
+
+\end{document}
