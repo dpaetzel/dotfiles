@@ -71,7 +71,7 @@
 (map! :leader "j" 'evil-avy-goto-char :after avy)
 
 
-;; evil-surround
+(use-package! evil-surround)
 (map! :map evil-surround-mode-map :v "s" 'evil-embrace-evil-surround-region)
 (setq-default
  evil-surround-pairs-alist
