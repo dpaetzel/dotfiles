@@ -95,6 +95,21 @@
 ;; mode-specific settings
 
 
+(setq-default
+  flycheck-disabled-checkers '(haskell-stack-ghc haskell-ghc haskell-lint))
+(defun haskell-mode-ormolu-buffer ()
+      (interactive)
+      (save-buffer)
+      (shell-command (concat "ormolu --mode inplace "
+                              (buffer-file-name (current-buffer))))
+      (kill-buffer "*Shell Command Output*")
+      (revert-buffer nil 1))
+(add-hook 'haskell-mode-hook
+          (lambda ()
+            (map!
+             :map haskell-mode-map :localleader "F"  'haskell-mode-ormolu-buffer)))
+
+
 (map!
  :map ledger-mode-map :localleader "F"  'ledger-mode-clean-buffer :after ledger)
 
