@@ -15,10 +15,15 @@
 
 
 (map! :map org-mode-map
-      :localleader "*" 'org-ctrl-c-star :after org
-      :localleader "-" 'org-ctrl-c-minus :after org
       :n "C-RET" 'org-insert-heading :after org
-      :n "C-S-RET" 'org-insert-todo-heading :after org)
+      :n "C-S-RET" 'org-insert-todo-heading :after org
+      :localleader
+      "," 'org-ctrl-c-ctrl-c :after org
+      "*" 'org-ctrl-c-star :after org
+      "-" 'org-ctrl-c-minus :after org)
+      ;; NOTE Stuff like this *should* work …
+      ;; (:prefix ("i" . "insert")
+      ;;   "l" 'org-insert-link :after org))
 
 
 (after! org
