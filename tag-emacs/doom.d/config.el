@@ -61,7 +61,7 @@
    whitespace-style '(face trailing tabs))
 
 
-(add-hook 'focus-out-hook 'evil-write-all)
+(add-hook 'focus-out-hook (lambda () (evil-write-all nil)))
 
 
 ;; package-specific settings
