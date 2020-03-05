@@ -50,11 +50,21 @@
 (setq doom-localleader-key ",")
 
 
+(defun alternate-buffer ()
+  (interactive)
+  (switch-to-buffer (other-buffer)))
+
+
 (map!
- :leader "w/" 'evil-window-vsplit
- :leader "w-" 'evil-window-split
- :leader :desc "Save all open files" "fS" 'evil-write-all
- :leader :desc "Mark buffer as done and close" "fq" 'server-edit)
+ :leader "w/" #'evil-window-vsplit
+ :leader "w-" #'evil-window-split
+ :leader :desc "Save all open files" "fS" #'evil-write-all
+ :leader :desc "Mark buffer as done and close" "fq" #'server-edit
+ :leader "TAB" #'alternate-buffer)
+
+(map!
+ :nvm "j" #'next-line
+ :nvm "k" #'previous-line)
 
 
 (setq-default
