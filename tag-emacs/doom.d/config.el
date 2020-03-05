@@ -102,6 +102,14 @@
     ?‘)))
 
 
+(use-package! yapfify
+  :hook
+  (python-mode . yapf-mode)
+  (before-save . (lambda ()
+                   (when (eq major-mode 'python-mode)
+                     (yapfify-buffer)))))
+
+
 ;; mode-specific settings
 
 
