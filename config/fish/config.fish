@@ -371,3 +371,10 @@ alias randid="cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1"
 function camera
     ffmpeg -f v4l2 -video_size 1920x1080 -i /dev/video0 -c:v libx264 -preset ultrafast (date -I)\ "$argv.mp4"
 end
+
+
+alias neu="neuron -d $HOME/Zettels"
+
+
+alias vpn="nmcli con up uni-vpn --ask"
+alias vpnd="nmcli con down uni-vpn"
