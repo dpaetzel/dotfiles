@@ -39,8 +39,8 @@ set searchurls.tl https://www.linguee.de/deutsch-englisch/search?source=auto&que
 set searchurls.we https://en.wikipedia.org/wiki/Special:Search/
 set searchurls.wd https://de.wikipedia.org/wiki/Spezial:Suche/
 " nix(os) (n)
-set searchurls.np https://nixos.org/nixos/packages.html#
-set searchurls.no https://nixos.org/nixos/options.html#
+set searchurls.np https://search.nixos.org/packages?channel=unstable&from=0&size=30&sort=relevance&query=%s
+set searchurls.no https://search.nixos.org/options?channel=unstable&from=0&size=30&sort=relevance&query=%s
 set searchurls.ng https://github.com/NixOS/nixpkgs/search?q=%s
 " coding (c)
 set searchurls.cg https://github.com/search?utf8=%E2%9C%93&type=&q=
