@@ -146,7 +146,11 @@ alias urlaub='math 10 + 30 + 30 - (math (command ls /mnt/oc-m/Verwaltung/Urlaubs
 
 
 function mkrefs
-    find ~/Literatur -iname '*.bib'  -exec echo '{}' \; -exec awk '{print}; END {print "\n"}' '{}' \;
+    find ~/Literatur \
+        -iname '*.bib' \
+        '!' -iname 'References.bib' \
+        -exec echo '{}' \; \
+        -exec awk '{print}; END {print "\n"}' '{}' \;
 end
 
 
