@@ -90,7 +90,7 @@ conky.config = {
 --xftalpha
 --xftfont                        Roboto:size=12
 --xftfont                        Arial:size=14:antialias=true
-	font = 'Inconsolata:size=11:antialias=true'
+	font = 'Inconsolata for Powerline:size=11:antialias=true'
 };
 
 
