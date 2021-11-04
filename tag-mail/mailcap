@@ -19,6 +19,7 @@ image/*                                                                 ; geeqie
 # sleep trick from: https://gitlab.com/muttmua/mutt/wikis/MuttFaq/Attachment#how-to-view-html-attachments-in-a-new-tab-in-firefox
 text/html                                                               ; firefox --new-tab %s & sleep 1               ; nametemplate=%s.html ; test=test -n "$DISPLAY" ; needsterminal
 text/html                                                               ; elinks -dump 1 -no-numbering %s              ; copiousoutput        ; nametemplate=%s.html
+text/calendar                                                           ; khal printics %s                             ; copiousoutput        ; nametemplate=%s.ics
 video/*                                                                 ; mpv %s                                       ; copiousoutput
 
 application/*                                                           ; ~/Bin/add-mailcap.sh %t ; needsterminal

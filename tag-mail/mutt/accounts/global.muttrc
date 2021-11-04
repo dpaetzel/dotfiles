@@ -17,7 +17,6 @@ macro index,pager gs "<change-folder>+$my_account_sent<enter>" "change to sent m
 bind index,pager gt noop
 macro index,pager gt "<change-folder>+$my_account_trash<enter>" "change to trash"
 
-
 macro index,pager gfa "<change-folder>~/Mail/uni/INBOX<enter>"
 macro index,pager gfp "<change-folder>~/Mail/privat/INBOX<enter>"
 macro index,pager gfb "<change-folder>~/Mail/beide/INBOX<enter>"
