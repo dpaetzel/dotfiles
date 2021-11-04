@@ -46,6 +46,9 @@ function n --description='Echo newly created files'
 end
 
 
+alias p=ipython
+
+
 function rm --wraps=rm --description='Delete using trash directory'
   if test (count $argv) -gt 0
     set -l trash_dir "$HOME/.TRASH"
@@ -119,24 +122,6 @@ alias moc='sudo mount /mnt/oc-h ; sudo mount /mnt/oc-m'
 
 
 alias tnat='nix-shell -p python3 --command "curl -fsSl https://raw.githubusercontent.com/tridactyl/tridactyl/master/native/install.sh | bash"'
-
-
-# not beautiful but works(?)
-function vpn
-    set name $1
-
-    nm-applet ^ /dev/null &
-    set pid %1
-
-    sleep 2
-
-    nmcli con up {$name}-vpn
-
-    begin
-        sleep 10
-        kill $pid
-    end ^ /dev/null &
-end
 
 
 # alias plotting='nix-shell -p gnuplot haskellPackages.cassava haskellPackages.gnuplot ghc'
