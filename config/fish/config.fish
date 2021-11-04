@@ -354,6 +354,16 @@ function gong
         sleep $t
         mpv --really-quiet "$HOME/.Gong.mp3" &
     end
+    date
+end
+
+
+function ring
+    date
+    for t in $argv
+        sleep $t
+        mpv --really-quiet "$HOME/.Ring.mp3" &
+    end
 end
 
 
