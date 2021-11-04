@@ -1,15 +1,14 @@
 ;;; ~/.doom.d/latex-config.el -*- lexical-binding: t; -*-
 
 
-(map! :map LaTeX-mode-map
-      :localleader "s" #'LaTeX-section
-      :localleader "e" #'LaTeX-environment
-      :localleader "c" #'LaTeX-close-environment
-      :localleader "ii" #'LaTeX-insert-item
-      :localleader "m" #'TeX-insert-macro :after latex)
-
-
 (after! latex
+
+  (map! :map LaTeX-mode-map
+        :localleader "s" #'LaTeX-section
+        :localleader "e" #'LaTeX-environment
+        :localleader "c" #'LaTeX-close-environment
+        :localleader "ii" #'LaTeX-insert-item
+        :localleader "m" #'TeX-insert-macro :after latex)
 
   (setq reftex-default-bibliography "References.bib")
 
