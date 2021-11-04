@@ -22,7 +22,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. These are the defaults.
-(setq doom-theme 'doom-one)
+(setq doom-theme 'doom-solarized-dark)
 
 
 ;; If you want to change the style of line numbers, change this to `relative' or
@@ -47,6 +47,10 @@
 ;; they are implemented.
 
 
+(load "server")
+(unless (server-running-p) (server-start))
+
+
 (setq doom-localleader-key ",")
 
 
@@ -60,11 +64,23 @@
  :leader "w-" #'evil-window-split
  :leader :desc "Save all open files" "fS" #'evil-write-all
  :leader :desc "Mark buffer as done and close" "fq" #'server-edit
- :leader "TAB" #'alternate-buffer)
+ :leader "TAB" #'alternate-buffer
+ :leader "/" #'+default/search-project
+ )
+
+(defun spacemacs/alternate-window ()
+  "Switch back and forth between current and last window in the
+current frame."
+  (interactive)
+  (let (;; switch to first window previously shown in this frame
+        (prev-window (get-mru-window nil t t)))
+    ;; Check window was not found successfully
+    (unless prev-window (user-error "Last window not found."))
+    (select-window prev-window)))
 
 (map!
- :nvm "j" #'next-line
- :nvm "k" #'previous-line)
+ :nv "j" #'next-line
+ :nv "k" #'previous-line)
 
 
 (setq-default
@@ -72,6 +88,10 @@
 
 
 (add-hook 'focus-out-hook (lambda () (evil-write-all nil)))
+
+
+;; Fix not being able to input accented letters such as è.
+(require 'iso-transl)
 
 
 ;; package-specific settings
@@ -103,14 +123,23 @@
 
 
 (use-package! yapfify
-  :hook
-  (python-mode . yapf-mode)
-  (before-save . (lambda ()
-                   (when (eq major-mode 'python-mode)
-                     (yapfify-buffer)))))
+  ;; :hook
+  ;; (python-mode . yapf-mode)
+  ;; (before-save . (lambda ()
+  ;;                  (when (eq major-mode 'python-mode)
+  ;;                    (yapfify-buffer))))
+  )
+
+
+;; trying this out for Christoph, not sure whether it works
+(use-package! flycheck-mypy)
 
 
 ;; mode-specific settings
+
+
+(setq-hook! python-mode
+   pyimport-pyflakes-path "/home/david/.nix-profile/bin/pyflakes")
 
 
 (setq-default
@@ -132,7 +161,43 @@
  :map ledger-mode-map :localleader "F"  'ledger-mode-clean-buffer :after ledger)
 
 
+;; I use neuron far more often than Markdown mode
+(add-to-list 'auto-mode-alist '("\\.md\\'" . neuron-mode))
+(add-hook! 'neuron-mode-hook
+  (defun enable-auto-fill ()
+    (auto-fill-mode 1)))
+
+
+;; (setq-default 'truncate-lines t)
+
+
 (load! "latex-config.el")
 
 
 (load! "org-config.el")
+
+
+;; from layers/+distributions/spacemacs-bootstrap/packages.el
+;;  (spacemacs|define-transient-state paste
+;;    :title "Pasting Transient State"
+;;    :doc "\n[%s(length kill-ring-yank-pointer)/%s(length kill-ring)] \
+;; [_C-j_/_C-k_] cycles through yanked text, [_p_/_P_] pastes the same text \
+;; above or below. Anything else exits."
+;;    :bindings
+;;    ("C-j" evil-paste-pop)
+;;    ("C-k" evil-paste-pop-next)
+;;    ("p" evil-paste-after)
+;;    ("P" evil-paste-before)
+;;    ("0" spacemacs//transient-state-0))
+;; (when dotspacemacs-enable-paste-transient-state
+;;   (define-key evil-normal-state-map
+;;     "p" 'spacemacs/paste-transient-state/evil-paste-after)
+;;   (define-key evil-normal-state-map
+;;     "P" 'spacemacs/paste-transient-state/evil-paste-before))
+
+
+(defadvice! fix-exclude-agenda-buffers-from-recentf-advice (orig-fn file)
+  :override #'+org--exclude-agenda-buffers-from-recentf-a
+  (let ((recentf-exclude (list (lambda (_file) t)))
+        find-file-hook)
+    (funcall orig-fn file)))

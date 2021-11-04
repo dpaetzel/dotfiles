@@ -1,8 +1,0 @@
-# -*- mode: snippet -*-
-# name : code block split
-# key: edoc
-# --
-\end{code}
-
-
-\begin{code}

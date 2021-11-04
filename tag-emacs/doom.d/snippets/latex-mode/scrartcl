@@ -9,6 +9,12 @@
 \date{}
 
 
+% 1. One sentence per line, thus each line should end with a period or colon.
+% 2. Two empty lines for paragraphs.
+% 3. Ideally a comment above each paragraph that gives it a “title”.
+% 4. Let's do british English correctly (analyse but energize etc.)? See https://tinyurl.com/ya45bh4d.
+
+
 \usepackage{fontspec}
 
 
@@ -29,7 +35,7 @@
 \addbibresource{References.bib}
 
 
-\usepackage{hyperref}
+\usepackage[pdfusetitle]{hyperref}
 
 
 \begin{document}

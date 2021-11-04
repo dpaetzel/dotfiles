@@ -1,8 +1,0 @@
-# -*- mode: snippet -*-
-# name : inverted code block
-# key: edoc
-# --
-\end{code}
-
-$0
-\begin{code}

@@ -51,4 +51,12 @@
 ;; our package manager can't deal with; see raxod502/straight.el#279)
 ;(package! builtin-package :recipe (:branch "develop"))
 
+
+(package! helm-nixos-options
+  :recipe (:host github :repo "travisbhartwell/nix-emacs"))
+
+
 (package! yapfify)
+
+
+(package! flycheck-mypy)
