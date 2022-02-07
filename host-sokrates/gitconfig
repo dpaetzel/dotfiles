@@ -1,6 +1,6 @@
 [user]
 name = David Pätzel
-email = david.paetzel@informatik.uni-augsburg.de
+email = david.paetzel@uni-a.de
 
 [core]
 editor = vim
@@ -31,3 +31,6 @@ default = matching
 
 [credential]
 helper = cache --timeout=600
+
+[init]
+defaultBranch = main
