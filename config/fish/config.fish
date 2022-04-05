@@ -46,7 +46,8 @@ function n --description='Echo newly created files'
 end
 
 
-alias p=ipython
+alias p="nix run github:dpaetzel/flake-ipython-shell -- --profile=p --matplotlib=auto"
+alias pp="nix run github:dpaetzel/flake-ipython-shell --"
 
 
 function rm --wraps=rm --description='Delete using trash directory'
