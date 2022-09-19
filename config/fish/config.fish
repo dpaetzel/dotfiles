@@ -50,6 +50,7 @@ end
 
 
 alias p="nix run github:dpaetzel/flake-ipython-shell -- --profile=p --matplotlib=auto"
+alias pl="nix run path:/home/david/Code/flakes/flake-python/ -- --profile=p --matplotlib=auto"
 alias pp="nix run github:dpaetzel/flake-ipython-shell --"
 
 
