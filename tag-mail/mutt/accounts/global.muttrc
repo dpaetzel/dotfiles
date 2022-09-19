@@ -1,4 +1,4 @@
-# -*- mode: muttrc -*-
+# -*- mode: conf[space] -*-
 
 
   set folder    = "~/Mail/$my_account"
@@ -14,8 +14,8 @@ source ~/.mutt/accounts/$my_account-mailboxes.muttrc
 
 macro index,pager gi "<change-folder>+$my_account_inbox<enter>" "change to inbox"
 macro index,pager gs "<change-folder>+$my_account_sent<enter>" "change to sent mail"
-bind index,pager gt noop
 macro index,pager gt "<change-folder>+$my_account_trash<enter>" "change to trash"
+
 
 macro index,pager gfa "<change-folder>~/Mail/uni/INBOX<enter>"
 macro index,pager gfp "<change-folder>~/Mail/privat/INBOX<enter>"

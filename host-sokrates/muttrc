@@ -81,6 +81,19 @@ unhdr_order *
 hdr_order From: To: Cc: Date: Subject:
 
 
+# TODO
+# source ~/.mutt/keybindings/unbind
+# source ~/.mutt/keybindings/generic.muttrc
+# source ~/.mutt/keybindings/pager.muttrc
+# source ~/.mutt/keybindings/index.muttrc
+# source ~/.mutt/keybindings/index-pager.muttrc
+# source ~/.mutt/keybindings/compose.muttrc
+# source ~/.mutt/keybindings/attach.muttrc
+# source ~/.mutt/keybindings/browser.muttrc
+# source ~/.mutt/keybindings/pgp.muttrc
+# source ~/.mutt/keybindings/overrides.muttrc
+
+
 source ~/.mutt/bindings.muttrc.bak3.sorted
 source ~/.mutt/colors.muttrc
 source ~/.mutt/accounts/uni.muttrc

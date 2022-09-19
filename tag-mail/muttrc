@@ -11,7 +11,7 @@ unset confirmappend
   set date_format       = "%H:%M %Y-%m-%d"
   set delete
   set edit_headers
-  set editor            = "emacsclient -a emacs +8:0"
+  set editor            = "~/Bin/v -c +8:0"
   set fast_reply
   set folder            = ~/Mail
   set forward_decode
@@ -42,7 +42,6 @@ unset mbox
   set pipe_decode
   set print_command     = "enscript -p - | psselect -r | lp"
   set quote_regexp      = "^( {0,4}[>|:#%]| {0,4}[a-z0-9]+[>|]+)+"
-  set query_command     = "goobook query"
   set realname          = "David Pätzel"
   set reply_regexp      = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
   set reply_to
@@ -52,8 +51,9 @@ unset reverse_realname
   set sort              = reverse-threads
   set sort_aux          = last-date-received
   set sort_re
-  set spoolfile         = "+gmail/inbox"
   set status_format     = "━┥%f┝━┥Msgs:%?M?%M/?%m%?n? New:%n?%?o? Old:%o?%?d? Del:%d?%?F? Flag:%F?%?t? Tag:%t?%?p? Post:%p?%?b? Inc:%b?%?l? %l?┝━━━┥%s/%S┝━%>━┥%P┝━━━"
+  # don't group by subject only
+  set strict_threads
   set text_flowed       = yes
   set thorough_search
   set thread_received
@@ -73,11 +73,6 @@ auto_view text/html
 alternative_order text/enriched text/plain text/html
 
 
-folder-hook gmail/*  source ~/.mutt/accounts/gmail.muttrc
-folder-hook dpaetzel/*  source ~/.mutt/accounts/dpaetzel.muttrc
-folder-hook uni/*  source ~/.mutt/accounts/uni.muttrc
-folder-hook privat/*  source ~/.mutt/accounts/privat.muttrc
-folder-hook beide/*  source ~/.mutt/accounts/beide.muttrc
 # folder-hook * "exec collapse-all"
 
 
@@ -87,7 +82,7 @@ unhdr_order *
 hdr_order From: To: Cc: Date: Subject:
 
 
-# source $alias_file
+source ~/.mutt/bindings.muttrc.bak3.sorted
 source ~/.mutt/colors.muttrc
 source ~/.mutt/mailboxes.muttrc
 source ~/.mutt/accounts/gmail.muttrc

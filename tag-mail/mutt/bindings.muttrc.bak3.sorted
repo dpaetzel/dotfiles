@@ -1,0 +1,195 @@
+# -*- mode: conf[space] -*-
+
+
+# TODO Clean up this mess
+
+
+bind index,pager g noop
+
+
+bind compose a noop
+bind compose af attach-file # attach file(s) to this message
+bind compose y noop
+bind compose ya attach-key # attach a PGP public key
+bind compose am attach-message # attach message(s) to this message
+bind editor <Backspace> backspace # delete the char in front of the cursor
+bind editor \Cb backward-char # move the cursor one character to the left
+bind editor \Ca bol # jump to the beginning of the line
+bind attach,index,pager b bounce-message # remail a message to another user
+bind browser,index,pager . buffy-list # list mailboxes with new mail
+bind browser c change-dir # change directories
+bind index,pager C change-folder # open a different folder
+macro index,pager c "<change-folder>?<toggle-mailboxes><search>" "show incoming mailboxes list"
+bind attach,index,pager y noop
+bind attach,index,pager yc check-traditional-pgp # check for classic PGP
+bind index,pager W clear-flag # clear a status flag from a message
+bind index <Backtab> collapse-all # collapse/uncollapse all threads
+bind attach zM collapse-parts # toggle display of subparts
+bind index <Tab> collapse-thread # collapse/uncollapse current thread
+bind editor <Tab> complete # complete filename or alias
+bind editor \Ct complete-query # complete address with query
+bind compose c copy-file # save message/attachment to a mailbox/file
+bind index,pager V copy-message # copy a message to a file/mailbox
+bind index,pager,query a create-alias # create an alias from a message sender
+bind browser C create-mailbox # create a new mailbox (IMAP only)
+bind index,pager ys decode-save # make decoded copy (text/plain) and delete
+bind editor \Cd delete-char # delete the char under the cursor
+bind alias,attach,postpone d delete-entry # delete the current entry
+bind browser d delete-mailbox # delete the current mailbox (IMAP only)
+bind compose d detach-file # delete the current entry
+bind index,pager @ display-address # display full address of sender
+bind browser @ display-filename # display the currently selected file's name
+bind index <Return> display-message # display a message
+bind attach,compose,index,pager h display-toggle-weed # display message and toggle header weeding
+
+
+bind compose e noop
+bind compose eb edit-bcc # edit the BCC list
+bind compose ec edit-cc # edit the CC list
+bind compose ed edit-description # edit attachment description
+bind compose ee edit-encoding # edit attachment transfer-encoding
+bind compose ep edit-fcc # enter a file to save a copy of this message in
+bind compose el edit-file # edit the file to be attached
+bind compose ef edit-from # edit the from field
+bind compose eh edit-headers # edit the message with headers
+bind compose em edit-message # edit the message
+bind compose ei edit-mime # edit attachment using mailcap entry
+
+
+bind index,pager Y edit-label # add, change, or delete a message's label
+bind compose \Cl edit-language # edit the Content-Language of the attachment
+bind pager e noop
+bind index,pager em edit-or-view-raw-message # edit the raw message if the mailbox is not read-only, otherwise view it
+bind compose er edit-reply-to # edit the Reply-To field
+bind compose es edit-subject # edit the subject of this message
+bind compose et edit-to # edit the TO list
+bind attach,index,pager,compose ey edit-type # edit attachment content type
+bind generic,pager : enter-command # enter a neomuttrc command
+bind browser l enter-mask # enter a file mask
+bind editor \Ce eol # jump to the end of the line
+bind generic,pager q exit # exit this menu
+bind attach,index,pager ye extract-keys # extract supported public keys
+bind index G fetch-mail # retrieve mail from POP server
+bind compose F filter-entry # filter attachment through a shell command
+bind generic gg first-entry # move to the first entry
+bind index,pager s flag-message # toggle a message's 'important' flag
+bind attach,compose,index,pager yf forget-passphrase # wipe passphrase(s) from memory
+bind editor \Cf forward-char # move the cursor one character to the right
+bind attach,index,pager f forward-message # forward a message with comments
+bind compose G get-attachment # get a temporary copy of an attachment
+bind browser = goto-folder # swap the current folder position with $folder if it exists
+bind browser p goto-parent # go to parent directory
+bind compose & group-alternatives # group tagged attachments as multipart/alternative
+bind compose ^ group-multilingual # group tagged attachments as multipart/multilingual
+bind attach,index,pager r noop
+bind attach,index,pager ra group-reply # reply to all recipients
+bind pager,generic \Cd half-down # scroll down 1/2 page
+bind pager,generic \Cu half-up # scroll up 1/2 page
+bind generic,pager <F1> help # this screen
+bind compose i ispell # run ispell on the message
+bind generic,pager 0 jump # jump to an index number
+bind generic,pager 1 jump # jump to an index number
+bind generic,pager 2 jump # jump to an index number
+bind generic,pager 3 jump # jump to an index number
+bind generic,pager 4 jump # jump to an index number
+bind generic,pager 5 jump # jump to an index number
+bind generic,pager 6 jump # jump to an index number
+bind generic,pager 7 jump # jump to an index number
+bind generic,pager 8 jump # jump to an index number
+bind generic,pager 9 jump # jump to an index number
+bind editor \Ck kill-eol # delete chars from cursor to end of line
+bind editor \Cu kill-line # delete all chars on the line
+bind editor \Cw kill-word # delete the word in front of the cursor
+bind generic G last-entry # move to the last entry
+bind index l limit # show only messages matching a pattern
+bind index,pager & link-threads # link tagged message to the current one
+bind attach,index,pager rl list-reply # reply to specified mailing list
+bind index,pager,query m mail # compose a new mail message
+bind index,pager ym mail-key # mail a PGP public key
+bind pager i mark-as-new # toggle a message's 'new' flag
+bind index ~ mark-message # create a hotkey macro for the current message
+bind generic M middle-page # move to the middle of the page
+bind compose + move-down # move an attachment down in the attachment list
+bind compose - move-up # move an attachment up in the attachment list
+bind compose n new-mime # compose new attachment using mailcap entry
+bind pager,generic j next-entry # move to the next entry
+bind pager,generic j next-line # scroll down one line
+bind pager,generic L next-page # move to the next page
+bind index,pager J next-thread # jump to the next thread
+bind index,pager B next-unread-mailbox # open next mailbox with new mail
+bind index,pager p parent-message # jump to parent message in thread
+bind compose ym pgp-menu # show PGP options
+bind attach,compose | pipe-entry # pipe message/attachment to a shell command
+macro pager \Co "<pipe-entry>'urlscan'<Enter>" "call urlscan to extract URLs out of a message"
+bind index,pager | pipe-message # pipe message/attachment to a shell command
+bind compose p postpone-message # save this message to send later
+bind pager,generic k previous-entry # move to the previous entry
+bind pager,generic k previous-line # scroll up one line
+bind pager,generic H previous-page # move to the previous page
+bind index,pager K previous-thread # jump to previous thread
+bind compose,attach \Cp print-entry # print the current entry
+bind index,pager \Cp print-message # print the current entry
+bind query A query-append # append new query results to current results
+bind pager,index Q quit # save changes to mailbox and quit
+bind editor \Cv quote-char # quote the next typed key
+bind pager \Cl redraw-screen # clear and redraw the screen
+bind generic \Cl refresh # clear and redraw the screen
+bind compose en rename-file # rename/move an attached file
+bind browser r rename-mailbox # rename the current mailbox (IMAP only)
+bind attach,index,pager rr reply # reply to a message
+bind attach,index,pager rs resend-message # use the current message as a template for a new one
+bind attach c save-entry # save message/attachment to a mailbox/file
+bind index,pager s save-message # save message/attachment to a mailbox/file
+macro index,pager v "<save-message>?<toggle-mailboxes><search>" "save message/attachment to a mailbox/file (== 'move')"
+bind generic,pager n search-next # search for next match
+bind generic,pager N search-opposite # search for next match in opposite direction
+bind generic,pager ? search-reverse # search backwards for a regular expression
+bind generic,pager / search # search for a regular expression
+bind pager ^ search-toggle # toggle search pattern coloring
+bind generic <Return> select-entry # select the current entry
+bind browser f select-new # select a new file in this directory
+bind compose m send-message # send the message
+bind index,pager w set-flag # set a status flag on a message
+bind generic,pager ! shell-escape # invoke a command in a subshell
+macro index R "<shell-escape>sync-mail &> /dev/null &<Enter>" "download new mails"
+bind index M show-log-messages # show log (and debug) messages
+bind index,pager V show-version # show the NeoMutt version number and date
+bind pager S skip-quoted # skip beyond quoted text
+bind compose S smime-menu # show S/MIME options
+bind index,pager o sort-mailbox # sort messages
+bind browser,index,pager O sort-reverse # sort messages in reverse order
+bind browser o sort # sort messages
+bind browser s subscribe # subscribe to current mbox (IMAP/NNTP only)
+bind index,pager $ sync-mailbox # save changes to mailbox
+bind generic x tag-entry # tag the current entry
+bind pager t tag-message # tag the current entry
+macro index gr "<tag-pattern>~N<Enter><tag-prefix><clear-flag>N<untag-pattern>~T<Enter>" "mark messages in current folder as read"
+bind index T tag-pattern # tag messages matching a pattern
+bind generic \; tag-prefix # apply next function to tagged messages
+bind index \Cx tag-subthread # tag the current subthread
+bind index X tag-thread # tag the current thread
+bind browser <Tab> toggle-mailboxes # toggle whether to browse mailboxes or all files
+bind index i toggle-new # toggle a message's 'new' flag
+bind pager Q toggle-quoted # toggle display of quoted text
+bind browser T toggle-subscribed # toggle view all/subscribed mailboxes (IMAP only)
+bind compose d noop
+bind compose dt toggle-unlink # toggle whether to delete file after sending it
+bind index % toggle-write # toggle whether the mailbox will be rewritten
+bind pager ^ top # jump to the top of the message
+bind alias,attach,postpone u undelete-entry # undelete the current entry
+bind pager,index u undelete-message # undelete the current entry
+bind index U undelete-pattern # undelete messages matching a pattern
+bind index,pager \Cu undelete-subthread # undelete all messages in subthread
+bind index,pager U undelete-thread # undelete all messages in thread
+bind browser u unsubscribe # unsubscribe from current mbox (IMAP/NNTP only)
+bind index \Ct untag-pattern # untag messages matching a pattern
+bind compose U update-encoding # update an attachment's encoding info
+macro pager <Return> "<view-attachments><search>html<Enter><view-mailcap>" "view html attachment using mail-cap"
+# macro  index  <Return>  "<pipe-message>~/Bin/viewmailattachments\n" "View attachments in browser"
+# macro  pager  <Return>  "<pipe-message>~/Bin/viewmailattachments\n" "View attachments in browser"
+bind index,pager t view-attachments # show MIME attachments
+bind attach,compose <Return> view-attach # view attachment using mailcap entry if necessary
+bind attach v noop
+bind attach vm view-mailcap # force viewing of attachment using mailcap
+bind attach vt view-text # view attachment as text
+bind compose s write-fcc # write the message to a folder
