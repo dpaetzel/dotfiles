@@ -413,3 +413,14 @@ alias neu="neuron -d $HOME/Zettels"
 
 alias vpn="nmcli con up uni-vpn --ask"
 alias vpnd="nmcli con down uni-vpn"
+
+
+alias bd="bg ;and disown"
+
+
+# Naively check for mem leaks (if it does not sum to something close to 100%,
+# something is leaking).
+# python -c (ps -eo %mem --sort=-%mem | tail +2 | tr -s '\n' ',' | sed 's/^/print(sum([/;s/$/]))/')
+
+
+alias dr="direnv reload"
