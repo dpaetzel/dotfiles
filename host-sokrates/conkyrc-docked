@@ -106,6 +106,8 @@ ${texecpi 5 ~/.conky/scripts/info-spotify}  |\
   ${voffset 2}${cpugraph cpu3 10,33 000000 ffffff -t}${voffset -2}  |\
   ${voffset 2}${cpugraph cpu4 10,33 000000 ffffff -t}${voffset -2}  |\
   ${voffset 2}${memgraph 10,33 000000 ffffff -t}${voffset -2}  |\
+  / ${fs_free /}  |\
+  /home ${fs_free /home}  |\
   ${font Symbola:size=11}${exec ~/.conky/scripts/status-mute}$font${voffset -1} ${exec amixer get Master | awk -F "[%[]" '/%/ {print $2;exit}'} %  |\
   ${font Symbola:size=11}⚡$font${voffset -1} ${exec ~/.conky/scripts/battery-status}  |\
   ${time %F}  |\

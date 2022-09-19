@@ -99,10 +99,10 @@ conky.text = [[
 $alignr\
 ${texecpi 5 ~/Bin/pomodoro conky}\
  ${texecpi 5 ~/.conky/scripts/modifiers} |\
-  ${voffset -1}${font Symbola:size=10}${texecpi 2 ~/.conky/scripts/status-spotify}$font${voffset 1} ${texecpi 5 ~/.conky/scripts/info-spotify}  |\
   ${font Symbola:size=10}♈$font ${voffset 1}${membar 8,33}${voffset -1}  |\
   ${font Symbola:size=11}${exec ~/.conky/scripts/status-mute}$font${voffset -1} ${exec amixer get Master | awk -F "[%[]" '/%/ {print $2;exit}'} %  |\
   ${font Symbola:size=11}⚡$font${voffset -1} ${exec ~/.conky/scripts/battery-status}  |\
   ${time %F}  |\
   ${time %k:%M}  
 ]];
+-- ${voffset -1}${font Symbola:size=10}${texecpi 2 ~/.conky/scripts/status-spotify}$font${voffset 1} ${texecpi 5 ~/.conky/scripts/info-spotify}  |\
