@@ -35,6 +35,8 @@ set searchurls.gg https://google.com/?q=
 set searchurls.p https://duckduckgo.com/?q=%s&t=h_&ia=images&iax=images
 " shops (s)
 set searchurls.sa https://www.amazon.de/s/?field-keywords=
+set searchurls.sb https://buch7.de/suche?utf8=%E2%9C%93&search=%s&category=&commit=Suchen
+set searchurls.si https://www.idealo.de/preisvergleich/MainSearchProductCategory.html?q=%s
 set searchurls.sn https://www.alle-noten.de/index.php?stoken=6F775873&lang=0&listtype=search&actcontrol=search&categorysearch=&cl=search&tpl=&oxloadid=&fnc=executefilter&fname=&he_dynamicfacet=&he_dynamicvalue=&he_dynamiccode=&he_dynamicurl=&attrfilter%5Bhe_kategorie%5D=CHG&attrfilter%5Bhe_besetzgruppe%5D=ACAP&attrfilter%5Bhe_stil%5D=&attrfilter%5Berxgrad%5D=&attrfilter%5Bhe_person%5D=&attrfilter%5Bhe_verlag%5D=&attrfilter%5Bhe_serie%5D=&attrfilter%5Bhe_neu%5D=&attrfilter%5Bhe_lager%5D=&searchparam=
 " translate/language (t)
 set searchurls.td https://dict.cc/?s=
