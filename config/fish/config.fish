@@ -137,17 +137,47 @@ alias plotting='nix-shell -p "haskellPackages.ghcWithPackages (pkgs : [ pkgs.cas
 alias plottingNoEasy='nix-shell -p "haskellPackages.ghcWithPackages (pkgs : [ pkgs.cassava ])" gnuplot'
 
 
+set format "{calendar-color}{cancelled}{start-end-time-style} {title} [{location}]{repeat-symbol}{reset}"
+set format_long "{calendar-color}{cancelled}{start-end-time-style} ({calendar}) {title} [{location}]{repeat-symbol}{reset}"
+function c
+    khal \
+        --color \
+        list \
+        --format "$format" \
+        -a Arbeit \
+        -a OC \
+        -a Ich \
+        -a Beide \
+        -a Geburtstage \
+        $argv \
+        | sed "s/ \?\[\]//"
+end
 function cal
-    khal --color calendar -a Arbeit -a OC -a Ich -a Beide -a Geburtstage $argv | sed "s/ \?\[\]//"
+    khal \
+        --color \
+        list \
+        --format "$format_long" \
+        $argv \
+        | sed "s/ \?\[\]//"
 end
-function agenda
-    khal --color list -a Arbeit -a OC -a Ich -a Beide -a Geburtstage $argv | sed "s/ \?\[\]//"
+function calt
+    khal \
+        --color \
+        list \
+        --format "$format_long" \
+        today \
+        today \
+        | sed "s/ \?\[\]//"
 end
-alias call='khal calendar'
+function ical
+    ikhal
+end
 alias arbeit='khal new --calendar Arbeit --alarms 1d,2h,1h'
 alias ich='khal new --calendar Ich --alarms 1d,2h,1h'
 alias beide='khal new --calendar Beide --alarms 1d,2h,1h'
-alias urlaub='math 10 + 30 + 30 - (math (command ls /mnt/oc-m/Verwaltung/Urlaubsantraege/Pätzel/ | sed -E "s/.*_([[:digit:]]+)Tag.*/\1/" | paste -sd+))'
+alias urlaubocm='math 10 + 30 + 30 + 30 - 4 - (math (command ls /mnt/oc-m/Verwaltung/Urlaubsantraege/Pätzel/ | sed -E "s/.*_([[:digit:]]+)Tag.*/\1/" | paste -sd+))'
+# The “- 4” is a correction from an email from 2020-11-04.
+alias urlaub='math 10 + 30 + 30 + 30 - 4 - (math (command ls $HOME/Dokumente/arbeit/urlaubsanträge | sed -E "s/.*_([[:digit:]]+)Tag.*/\1/" | paste -sd+))'
 
 
 function mkrefs
