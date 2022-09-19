@@ -5,6 +5,7 @@
 # unavailable” being shown. We simply remove that entry first.
 acpi \
     | sed -E '/.*rate information unavailable/d' \
+    | sed -E 's/.*Not charging,/N/' \
     | sed -E 's/.*Charging,/C/' \
     | sed -E 's/.*Full,/F/' \
     | sed -E 's/.*Discharging,/D/' \
