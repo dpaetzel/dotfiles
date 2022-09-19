@@ -23,6 +23,9 @@ if ! test "$TERM" = "dumb"
 end
 
 
+direnv hook fish | source
+
+
 alias s='sudo'
 
 
