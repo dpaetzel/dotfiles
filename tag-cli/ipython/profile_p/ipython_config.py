@@ -36,7 +36,8 @@ c.InteractiveShellApp.exec_lines = [
     "import numpy as np",
     "import pandas as pd",
     "import matplotlib.pyplot as plt",
-    "print('Imported numpy (np), pandas (pd), matplotlib.pyplot (plt)')"
+    "import scipy.stats as st",
+    "print('Imported numpy (np), pandas (pd), matplotlib.pyplot (plt), scipy.stats (st)')"
 ]
 
 ## A list of dotted module names of IPython extensions to load.
