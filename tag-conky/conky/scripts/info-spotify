@@ -20,7 +20,7 @@ set album (getDbusMetadata |egrep -A 1 "album"|egrep -v "album"|cut -b 44-|cut -
 
 
 function output
-    printf '|  ${voffset -1}${font Symbola:size=10}'$argv[1]'$font${voffset 1} '$artist' – '$title' ('$album')'
+    printf '${voffset -1}$font2'$argv[1]'$font${voffset 1} '$artist' – '$title' ('$album')'
 end
 
 

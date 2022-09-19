@@ -33,7 +33,7 @@ string=$( ( for d in $active_devices; do
              sed -r 's/\// \/ /g')
 
 if test -n "$string"; then
-    printf "  |  %s" "$string"
+    printf '  $color2  %s' "$string"
 fi
 
 echo
