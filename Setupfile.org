@@ -1,11 +1,12 @@
 #+OPTIONS: toc:nil
 # #+LATEX_CLASS: scrartcl
 # #+LATEX_CLASS_OPTIONS: [DIV=12,parskip=half]
-#+LATEX_HEADER: \pagenumbering{gobble}
+# #+LATEX_HEADER: \pagenumbering{gobble}
 # #+LATEX_HEADER: \usepackage[top=1cm,bottom=1cm]{geometry}
 # #+LATEX_HEADER: \usepackage{polyglossia}
 # #+LATEX_HEADER: \setdefaultlanguage{german}
 
 #+LATEX_CLASS_OPTIONS: [a4paper]
 #+LATEX_HEADER: \usepackage[german]{babel}
+# #+LATEX_HEADER: \usepackage[utf8]{inputenc}
 #+AUTHOR: David Pätzel
