@@ -71,9 +71,9 @@ function rm --wraps=rm --description='Delete using trash directory'
         set -l file_name (basename $file)
         if test -e "$trash_dir/$file_name"
           set -l current_time (date "+%s")
-          command mv -f "$trash_dir/$file_name" "$trash_dir/$file_name $current_time"
+          command mv --verbose -f "$trash_dir/$file_name" "$trash_dir/$file_name $current_time"
         end
-        command mv -f "$file" "$trash_dir/"
+        command mv --verbose -f "$file" "$trash_dir/"
       else
         echo "No such file: $file"
       end
