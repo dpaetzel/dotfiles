@@ -153,6 +153,7 @@ end
 
 
 alias m='udiskie-mount -ar'
+alias mc='cd (udiskie-mount -ar | sed --regexp-extended "s/mounted .* on (.*)/\1/" | head -1)'
 alias um='udiskie-umount -a'
 alias umoc='sudo umount -l /mnt/oc-h ; sudo umount -l /mnt/oc-m'
 alias moc='sudo mount /mnt/oc-h ; sudo mount /mnt/oc-m'
@@ -220,6 +221,13 @@ end
 
 function texr
     if test "$argv" = "--fix"
+        entr fish -c "mkrefs > References.bib ; latexmk -f $argv | grep -v 'characters of junk seen' ; fixfonts out/*.pdf"
+    else
+        entr fish -c "mkrefs > References.bib ; latexmk -f $argv | grep -v 'characters of junk seen'"
+    end
+end
+function texrnon
+    if test "$argv" = "--fix"
         entr fish -c "mkrefs > References.bib ; latexmk -f -interaction=nonstopmode $argv | grep -v 'characters of junk seen' ; fixfonts out/*.pdf"
     else
         entr fish -c "mkrefs > References.bib ; latexmk -f -interaction=nonstopmode $argv | grep -v 'characters of junk seen'"
@@ -227,9 +235,9 @@ function texr
 end
 function texrl
     if test "$argv" = "--fix"
-        entr fish -c "mkrefs > References.bib ; latexmk -f -interaction=nonstopmode -r ./.latexmkrc $argv | grep -v 'characters of junk seen' ; fixfonts out/*.pdf"
+        entr fish -c "mkrefs > References.bib ; latexmk -f -interaction=nonstopmode -norc -r ./.latexmkrc $argv | grep -v 'characters of junk seen' ; fixfonts out/*.pdf"
     else
-        entr fish -c "mkrefs > References.bib ; latexmk -f -interaction=nonstopmode -r ./.latexmkrc $argv | grep -v 'characters of junk seen'"
+        entr fish -c "mkrefs > References.bib ; latexmk -f -interaction=nonstopmode -norc -r ./.latexmkrc $argv | grep -v 'characters of junk seen'"
     end
 end
 
@@ -453,3 +461,5 @@ alias bd="bg ;and disown"
 
 
 alias dr="direnv reload"
+alias nfu="nix flake update"
+alias bias="feh ~/.cognitive-bias-codex.png"
