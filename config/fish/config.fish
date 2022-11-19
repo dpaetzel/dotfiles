@@ -129,6 +129,26 @@ function sortimgs
 end
 
 
+function selimgs
+    set -l folder (mktemp -d -p .)
+    feh --action "cp '%f' $folder" --action1 "mkdir TRASH; mv '%f' TRASH" $argv
+    command ls $folder
+    read name
+    mv "$folder" "$name"
+end
+
+
+function sortzets
+    set -l folder (mktemp -d -p .)
+    for f in *.md
+        grep "^# " $f
+        read -P "Is it work? [y/N]" -l reply
+        if test "X$reply" = "Xy"
+            mv $f $folder
+        end
+    end
+    read name
+    mv "$folder" "$name"
 end
 
 
