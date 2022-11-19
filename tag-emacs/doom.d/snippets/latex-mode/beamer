@@ -23,9 +23,6 @@ block=fill,
 \usepackage[british]{babel}
 
 
-\usepackage{tabu}
-
-
 \usepackage[outputdir=out]{minted}
 \newminted{nix}{escapeinside=||}
 

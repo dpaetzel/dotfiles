@@ -160,7 +160,6 @@
        ;;plantuml          ; diagrams for confusing people more
        purescript        ; javascript, but functional
        (python            ; beautiful is better than ugly
-        :pyimport-pyflakes-path "/home/david/.nix-profile/bin/pyflakes"
         )
        ;;qt                ; the 'cutest' gui framework ever
        ;;racket            ; a DSL for DSLs
@@ -175,6 +174,7 @@
        ;;swift             ; who asked for emoji variables?
        ;;terra             ; Earth and Moon in alignment for performance.
        ;;web               ; the tubes
+       yaml              ; configuration files and more
 
        :email
        ;;(mu4e +gmail)

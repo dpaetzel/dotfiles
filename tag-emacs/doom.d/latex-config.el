@@ -8,7 +8,7 @@
         :localleader "e" #'LaTeX-environment
         :localleader "c" #'LaTeX-close-environment
         :localleader "ii" #'LaTeX-insert-item
-        :localleader "m" #'TeX-insert-macro :after latex)
+        :localleader "m" #'TeX-insert-macro)
 
   (setq reftex-default-bibliography "References.bib")
 

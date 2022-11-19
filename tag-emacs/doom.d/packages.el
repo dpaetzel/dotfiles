@@ -59,4 +59,29 @@
 (package! yapfify)
 
 
-(package! flycheck-mypy)
+;; (package! flycheck-mypy)
+
+(package! anaconda-mode :disable t)
+(package! conda :disable t)
+(package! poetry :disable t)
+(package! nose :disable t)
+(package! python-pytest :disable t)
+(package! pipenv :disable t)
+(package! pyvenv-mode :disable t)
+
+
+(package! stan-mode)
+(package! flycheck-stan)
+
+
+(package! gitmoji
+  :recipe (:host github
+           :repo "janusvm/emacs-gitmoji"
+           :files ("*.el" "data")))
+
+
+;; Seems to be required for gitmoji?
+(package! emojify
+  :recipe (:host github
+           :repo "iqbalansari/emacs-emojify"
+           :files ("*.el" "data")))

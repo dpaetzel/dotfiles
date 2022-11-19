@@ -17,7 +17,7 @@
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
 ;; (setq doom-font "Inconsolata-14")
-(setq doom-font (font-spec :family "Fira Code Nerd Font" :size 18 :style "Retina"))
+(setq doom-font (font-spec :family "Fira Code Nerd Font" :size 16 :style "Retina"))
 
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
@@ -133,18 +133,33 @@ current frame."
 
 
 ;; trying this out for Christoph, not sure whether it works
-(use-package! flycheck-mypy)
+;; (use-package! flycheck-mypy)
+
+
+(use-package! stan-mode)
+(use-package! flycheck-stan)
+(add-hook 'stan-mode-hook (lambda () (setq comment-start "//"
+                                           comment-end   ""
+                                           comment-continue "//")))
 
 
 ;; mode-specific settings
 
 
-(setq-hook! python-mode
-   pyimport-pyflakes-path "/home/david/.nix-profile/bin/pyflakes")
+;; (setq-hook! python-mode
+;;    pyimport-pyflakes-path "/home/david/.nix-profile/bin/pyflakes")
 
 
 (setq-default
-  flycheck-disabled-checkers '(haskell-stack-ghc haskell-ghc haskell-lint))
+ flycheck-disabled-checkers '(haskell-stack-ghc
+                              haskell-ghc
+                              haskell-lint
+                              python-flake8
+                              python-pylint
+                              python-pycompile
+                              python-pyright
+                              python-mypy
+                              ))
 (defun haskell-mode-ormolu-buffer ()
       (interactive)
       (save-buffer)
@@ -202,3 +217,19 @@ current frame."
   (let ((recentf-exclude (list (lambda (_file) t)))
         find-file-hook)
     (funcall orig-fn file)))
+
+
+(defun insert-screenshot ()
+  "Take a screenshot into a time stamped unique-named file in the same directory
+  as the current buffer and insert an embedding Obsidian link to this file.
+
+  Taken from https://orgmode.org/worg/org-hacks.html#org1eba0c6 ."
+  (interactive)
+  (setq filename
+        (concat
+         (make-temp-name
+          (concat (buffer-file-name)
+                  "_"
+                  (format-time-string "%Y%m%d_%H%M%S_")) ) ".png"))
+  (call-process "import" nil nil nil filename)
+  (insert (concat "![[" filename "]]")))
