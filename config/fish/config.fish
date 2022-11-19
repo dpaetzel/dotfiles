@@ -122,7 +122,7 @@ alias zz='z -l Temp | head -1 | awk \'{print $2}\''
 
 function sortimgs
     set -l folder (mktemp -d -p .)
-    feh --action "mv '%n' $folder" --action1 "mkdir TRASH; mv '%n' TRASH"
+    feh --action "mv '%f' $folder" --action1 "mkdir TRASH; mv '%f' TRASH" $argv
     command ls $folder
     read name
     mv "$folder" "$name"
