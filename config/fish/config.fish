@@ -26,6 +26,15 @@ end
 direnv hook fish | source
 
 
+# https://gist.github.com/josh-padnick/c90183be3d0e1feb89afd7573505cab3?permalink_comment_id=3806363#gistcomment-3806363
+# if test -z (pgrep ssh-agent | string collect)
+#     eval (ssh-agent -c)
+#     set -Ux SSH_AUTH_SOCK $SSH_AUTH_SOCK
+#     set -Ux SSH_AGENT_PID $SSH_AGENT_PID
+# end
+# We use gnupg agent instead (see NixOS configuration).
+
+
 alias s='sudo'
 
 
