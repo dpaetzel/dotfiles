@@ -462,3 +462,23 @@ alias bd="bg ;and disown"
 alias dr="direnv reload"
 alias nfu="nix flake update"
 alias bias="feh ~/.cognitive-bias-codex.png"
+
+
+function cix-shell
+    nix develop --profile .dev-profile --command date
+    cachix push $argv .dev-profile
+end
+
+
+function cix-in
+    nix flake archive --json \
+        | jq -r '.path,(.inputs|to_entries[].value.path)' \
+        | cachix push $argv
+end
+
+
+function cix-runtime
+    nix build --json \
+        | jq -r '.[].outputs | to_entries[].value' \
+        | cachix push $argv
+end
