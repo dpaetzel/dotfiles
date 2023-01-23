@@ -82,7 +82,7 @@ function rm --wraps=rm --description='Delete using trash directory'
   end
 end
 alias rmr='command rm -rv'
-alias cp='cp -v'
+alias cp='cp --verbose --interactive'
 alias mv='mv --verbose --interactive'
 function mvc --wraps=mv --description='Create the destination directory, then move the files there'
   if test (count $argv) -gt 1
