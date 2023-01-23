@@ -219,17 +219,24 @@ current frame."
     (funcall orig-fn file)))
 
 
+(require 'f)
 (defun insert-screenshot ()
   "Take a screenshot into a time stamped unique-named file in the same directory
   as the current buffer and insert an embedding Obsidian link to this file.
 
   Taken from https://orgmode.org/worg/org-hacks.html#org1eba0c6 ."
   (interactive)
-  (setq filename
-        (concat
-         (make-temp-name
-          (concat (buffer-file-name)
-                  "_"
-                  (format-time-string "%Y%m%d_%H%M%S_")) ) ".png"))
-  (call-process "import" nil nil nil filename)
-  (insert (concat "![[" filename "]]")))
+  (let* ((id
+        (make-temp-name
+         (concat
+          (f-base (f-no-ext (buffer-file-name)))
+          "_"
+          (format-time-string "%Y%m%d_%H%M%S_")))
+        )
+        (filename
+         (concat
+          "/home/david/Zettels/static/"
+          id
+          ".png")))
+      (call-process "import" nil nil nil filename)
+      (insert (concat "![[" id "]]"))))
