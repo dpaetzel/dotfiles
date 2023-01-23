@@ -321,7 +321,6 @@ function lit
             echo "Creating Literatur/$short$num"
             mkdir "$HOME/Literatur/$short$num"
             mv "$pdf" "$HOME/Literatur/$short$num/$long.pdf"
-            echo "* 1 $short$num" >> "$HOME/Literatur/$short$num/$short$num.org"
         end
     end
 end
