@@ -29,10 +29,13 @@ set modeindicator false
 
 
 " general (g)
+set searchurls.gs https://startpage.com/sp/search?query=%s
 set searchurls.gd https://duckduckgo.com/?q=
 set searchurls.gg https://google.com/?q=
 " pictures (p)
-set searchurls.p https://duckduckgo.com/?q=%s&t=h_&ia=images&iax=images
+set searchurls.p https://startpage.com/sp/search?cat=images&query=%s
+set searchurls.pd https://duckduckgo.com/?q=%s&t=h_&ia=images&iax=images
+set searchurls.pg https://giphy.com/search/%s
 " shops (s)
 set searchurls.sa https://www.amazon.de/s/?field-keywords=
 set searchurls.sb https://buch7.de/suche?utf8=%E2%9C%93&search=%s&category=&commit=Suchen
@@ -63,8 +66,10 @@ set searchurls.mgd https://www.google.com/maps/dir/%s1/%s2/
 set searchurls.rs https://scholar.google.de/scholar?q=
 " misc
 set searchurls.y https://www.youtube.com/results?search_query=
-" the default is duckduckgo
-set searchengine gd
+" Since 2023-03-13 the default is Startpage. Reason: DuckDuckGo (which i used
+" before) disabled the minus operator (and many more things it seems in the last
+" months).
+set searchengine gs
 
 
 " bind / fillcmdline find
