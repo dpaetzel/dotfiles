@@ -130,6 +130,52 @@ current frame."
   ;;                  (when (eq major-mode 'python-mode)
   ;;                    (yapfify-buffer))))
   )
+;; Broken as of 2024-03-14 (hangs in iterations)
+;;
+;; (require 'julia-formatter)
+;; (add-hook 'julia-mode-hook #'julia-formatter-mode)
+;;
+;; Custom.
+(defun run-formatter-on-file ()
+  "Run JuliaFormatter on the current file, handling TRAMP paths appropriately."
+  (let* ((file-name (buffer-file-name))
+         (formatter-path "~/5Code/JuliaFormatter.jl/compiled/bin/JuliaFormatter")
+         (command (format "%s %s" formatter-path (shell-quote-argument file-name))))
+    (if (file-remote-p file-name)
+        (let* ((vec (tramp-dissect-file-name file-name))
+               ;; (user (tramp-file-name-user vec))
+               ;; (host (tramp-file-name-host vec))
+               (localname (tramp-file-name-localname vec))
+               (remote-command (format "%s %s" formatter-path (shell-quote-argument localname))))
+          (message "Running remote command: %s" remote-command)
+          (shell-command remote-command)
+          (revert-buffer t t t)  ;; Revert buffer to reflect changes
+          (message "Remote command executed and buffer reverted."))
+      (progn
+        (message "Running local command: %s" command)
+        (shell-command command)
+        (revert-buffer t t t)  ;; Revert buffer to reflect changes
+        (message "Local command executed and buffer reverted.")))))
+
+(defun add-juliaformatter-on-save-hook ()
+  "Add a hook to run JuliaFormatter on save."
+  (add-hook 'after-save-hook
+            (lambda ()
+              (when (string-match "\\.jl\\'" (buffer-file-name))
+                (run-formatter-on-file)))
+            nil t))  ; 't' makes the hook buffer-local, so it's only added for this specific mode
+(add-hook 'julia-mode-hook 'add-juliaformatter-on-save-hook)
+;; Local-only version I used before doing TRAMP stuff.
+;; (defun add-juliaformatter-on-save-hook ()
+;;   "Add a hook to run JuliaFormatter on save"
+;;   (add-hook 'after-save-hook
+;;             (lambda ()
+;;               (when (string-match "\\.jl\\'" (buffer-file-name))
+;;                 (let ((command (format "~/5Code/JuliaFormatter.jl/compiled/bin/JuliaFormatter %s" (shell-quote-argument (buffer-file-name)))))
+;;                   (shell-command command))))
+;;             nil t)) ; 't' makes the hook buffer-local, so it's only added for this specific mode
+;; (add-hook 'julia-mode-hook 'add-juliaformatter-on-save-hook)
+
 
 
 ;; trying this out for Christoph, not sure whether it works
