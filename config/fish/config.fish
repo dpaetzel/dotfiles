@@ -385,8 +385,8 @@ end
 function cinit
     cabal init \
         --cabal-version=2.2 \
-        --dependency="base ^>=4.12.0.0" \
-        --dependency=protolude \
+        --dependency="base >=4.12.0.0 && < 4.14" \
+        --dependency=rio \
         --dependency=QuickCheck \
         --source-dir=src \
         --category="" \
