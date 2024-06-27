@@ -7,8 +7,6 @@ sanitise tridactyllocal tridactylsync
 
 
 guiset_quiet gui full
-" guiset tabs always
-" guiset navbar autohide
 
 
 " this has to be done after the guiset stuff?
@@ -23,6 +21,10 @@ bindurl www.google.com f hint -Jc .rc > div > a
 bindurl www.google.com F hint -Jbc .rc > div > a
 bindurl ^https://duckduckgo.com f hint -Jc [class=result__a]
 bindurl ^https://duckduckgo.com F hint -Jbc [class=result__a]
+
+
+" Wikiwand is great, but let's copy the original URLs.
+bindurl wikiwand.com yy composite js document.location.href.replace("wikiwand.com/en","wikipedia.org/wiki") | clipboard yank
 
 
 set modeindicator false
