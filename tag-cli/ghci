@@ -1,4 +1,10 @@
 :set prompt "λ > "
 
+-- :set -XNoImplicitPrelude
+-- :set -XOverloadedStrings
+-- import Protolude
+-- import Data.Random
+-- import Turtle
+
 :def hlint const . return $ ":! hlint \"src\""
 :def hoogle \s -> return $ ":! hoogle --count=15 \"" ++ s ++ "\""
