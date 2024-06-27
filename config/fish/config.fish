@@ -461,8 +461,8 @@ end
 alias neu="neuron -d $HOME/Zettels"
 
 
-alias vpn="nmcli con up uni-vpn --ask"
-alias vpnd="nmcli con down uni-vpn"
+alias vpn="nmcli con up uni-vpn-neu"
+alias vpnd="nmcli con down uni-vpn-neu"
 
 
 alias bd="bg ;and disown"
