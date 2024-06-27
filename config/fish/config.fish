@@ -46,12 +46,12 @@ alias lla='ll -a'
 alias tree='exa --tree'
 alias lld='du -h | grep \'\./[^/]\+$\' | sed -e "s/\(.*\)\.\/\(.*\)/\1\2/"'
 function n --description='Echo newly created files'
-  if test -z $argv; or test $argv = "t"
+  if test -z "$argv"; or test "$argv" = "t"
     echo $TEMPORARY/(command ls --sort time $TEMPORARY | head -1)
   else if test $argv[1] = "f"
-    command ls --sort time (find -maxdepth 1 -type f \! -path './.*') | head -1
+    command ls --sort time (find $argv[2] -maxdepth 1 -type f \! -path './.*') | head -1
   else if test $argv[1] = "d"
-    command ls --sort time (find -maxdepth 1 -type d \! -path './.*' \! -name '.') | head -1
+    command ls --directory --sort time (find -maxdepth 1 -type d \! -path './.*' \! -name '.') | head -1
   else if test -z $argv; or test $argv = "t"
     echo $INBOX/(command ls --sort time $TEMPORARY | head -1)
   end
