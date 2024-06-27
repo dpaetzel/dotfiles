@@ -178,6 +178,8 @@ function c
         --color \
         list \
         --format "$format" \
+        -a Pause \
+        -a Arbeit~ \
         -a Arbeit \
         -a OC \
         -a Ich \
@@ -207,11 +209,17 @@ function ical
     ikhal
 end
 alias arbeit='khal new --calendar Arbeit --alarms 1d,2h,1h'
+alias arbeit~='khal new --calendar Arbeit~ --alarms 10m,0m'
+alias pause='khal new --calendar Pause --alarms 0m'
 alias ich='khal new --calendar Ich --alarms 1d,2h,1h'
 alias beide='khal new --calendar Beide --alarms 1d,2h,1h'
+alias regine='khal new --calendar Regine --alarms 1d,2h,1h'
 alias urlaubocm='math 10 + 30 + 30 + 30 - 4 - (math (command ls /mnt/oc-m/Verwaltung/Urlaubsantraege/Pätzel/ | sed -E "s/.*_([[:digit:]]+)Tag.*/\1/" | paste -sd+))'
 # The “- 4” is a correction from an email from 2020-11-04.
 alias urlaub='math 10 + 30 + 30 + 30 - 4 - (math (command ls $HOME/Dokumente/arbeit/urlaubsanträge | sed -E "s/.*_([[:digit:]]+)Tag.*/\1/" | paste -sd+))'
+function cpull
+    khal list --include-calendar Arbeit~ now tomorrow --day-format ""
+end
 
 
 function mkrefs
