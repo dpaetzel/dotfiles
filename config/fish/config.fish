@@ -496,9 +496,16 @@ function cix-runtime
         | jq -r '.[].outputs | to_entries[].value' \
         | cachix push $argv
 end
+
+
+alias abduco="abduco -e ^q"
+
 alias julia="julia -O 0"
 alias jp="julia -O 0 --project=."
 alias killjulias='ps aux | rg \'julia[^*]*worker\' | awk \'{ print $2 }\' | xargs kill'
+alias ssh="kitten ssh"
+alias c3d='mosh --ssh="kitten ssh" c3d -- fish -C "cd /data/oc-compute03/hoffmada"'
+alias dt="date '+%F %T'"
 function zets -d "List Zettels by file path and title"
     set paths $argv
     set -l expanded_paths
