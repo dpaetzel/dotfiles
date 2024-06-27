@@ -56,6 +56,12 @@ function n --description='Echo newly created files'
     echo $INBOX/(command ls --sort time $TEMPORARY | head -1)
   end
 end
+# Analyse the size of directories.
+function lsd
+    for d in (find . -maxdepth 2 -mindepth 2 -type d)
+        du -h --dereference "$d" | tail -1
+    end
+end
 
 
 # Short for Python here (e.g. if I'm in a dev shell).
