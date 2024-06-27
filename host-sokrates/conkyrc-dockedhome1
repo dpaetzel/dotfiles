@@ -98,7 +98,10 @@ conky.config = {
 --xftfont                        Arial:size=14:antialias=true
 	-- font = 'Inconsolata for Powerline:size=11:antialias=true'
 	font = 'FiraCode Nerd Font:size=11:style=Retina:antialias=true',
-    font2 = 'Noto Color Emoji:size=10'
+    -- I liked it but it's dead since 2023-01-16.
+    -- font2 = 'Noto Color Emoji:size=10'
+    -- font2 = 'Symbol Neu for Powerline:size=10'
+    font2 = 'Twitter Color Emoji:size=10'
 };
 
 
@@ -110,7 +113,8 @@ $alignr\
 $color2\
 ${texecpi 5 ~/.conky/scripts/info-spotify}  \
 
-${alignr -113}\
+  >> BREATH. <<\
+${alignr 30}\
 $color\
 ${texecpi 5 ~/Bin/pomodoro conky}    \
 $color2\
@@ -120,7 +124,7 @@ $font2🤖$font ${voffset 2}${cpugraph cpu1 10,100 ffffff ffffff -t} \
 ${cpugraph cpu2 10,100 ffffff ffffff -t} \
 ${cpugraph cpu3 10,100 ffffff ffffff -t} \
 ${cpugraph cpu4 10,100 ffffff ffffff -t}    \
-${voffset -1}$font2💾$font${voffset -1} ${memgraph 10,100 729fcf 729fcf -t}${voffset -2}    \
+${voffset -1}$font2💾$font${voffset -1} ${memgraph 10,100 729fcf 729fcf -t}${voffset -2}    ezfree ${memeasyfree} free $memfree swap $swap/$swapmax    \
 $color\
 / ${fs_free /}    \
 $color2\
