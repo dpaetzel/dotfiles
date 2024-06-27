@@ -15,46 +15,45 @@
   :config
   (map! :leader
         (:prefix ("z" . "zettel")
-          "z" #'neuron-new-zettel
-          "e" #'neuron-edit-zettel
-          ;; "s" #'neuron-select-zettelkasten
-          "w" #'neuron-rib-watch
-          "g" #'neuron-rib-generate
-          "o" #'neuron-open-zettel
-          "O" #'neuron-open-index
-          "r" #'neuron-refresh
+                 "z" #'neuron-new-zettel
+                 "e" #'neuron-edit-zettel
+                 ;; "s" #'neuron-select-zettelkasten
+                 "w" #'neuron-rib-watch
+                 "g" #'neuron-rib-generate
+                 "o" #'neuron-open-zettel
+                 "O" #'neuron-open-index
+                 "r" #'neuron-refresh
                  
           ;;; Alternatively, bind all rib commands in a separate prefix
-          ;; (:prefix ("r" . "rib")
-          ;;   "w" #'neuron-rib-watch
-          ;;   "g" #'neuron-rib-generate
-          ;;   "s" #'neuron-rib-serve
-          ;;   "o" #'neuron-rib-open-zettel
-          ;;   "z" #'neuron-rib-open-z-index
-          ;;   "k" #'neuron-rib-kill
-          ;;   )
-          )
+                 ;; (:prefix ("r" . "rib")
+                 ;;   "w" #'neuron-rib-watch
+                 ;;   "g" #'neuron-rib-generate
+                 ;;   "s" #'neuron-rib-serve
+                 ;;   "o" #'neuron-rib-open-zettel
+                 ;;   "z" #'neuron-rib-open-z-index
+                 ;;   "k" #'neuron-rib-kill
+                 ;;   )
+                 )
         )
 
   (map! :map neuron-mode-map
         :localleader
         ;; Override markdown-mode's default behavior
-        "o" #'neuron-follow-thing-at-point
-
+        :desc "Follow thing at point" "o" #'neuron-follow-thing-at-point
         ;; You can also remove the "z" prefix but
         ;; be careful not to override default
         ;; markdown-mode bindings.
-        (:prefix ("z" . "zettel")
-          "z" #'neuron-new-zettel
-          "e" #'neuron-edit-zettel
-          "t" #'neuron-insert-tag
-          "T" #'neuron-query-tags
-          "o" #'neuron-open-current-zettel
-          "l" #'neuron-insert-zettel-link
-          "L" #'neuron-insert-new-zettel
-          "s" #'neuron-insert-static-link
-          )
+        ;; (:prefix ("z" . "zettel")
+        :desc "New Zettel" "z" #'neuron-new-zettel
+        :desc "Edit Zettel" "e" #'neuron-edit-zettel
+        :desc "Insert tag" "t" #'neuron-insert-tag
+        :desc "Query tags" "T" #'neuron-query-tags
+        :desc "Open current zettel" "o" #'neuron-open-current-zettel
+        :desc "Link Zettel" "l" #'neuron-insert-zettel-link
+        :desc "Link and create new Zettel" "L" #'neuron-insert-new-zettel
+        :desc "Insert static link" "s" #'neuron-insert-static-link
+                 ;; )
         )
-              
-       (map! :leader "sz" #'search-zettelkasten)
+
+  ;; (map! :leader :desc "Search Zettelkasten" "sz" #'search-zettelkasten)
   )

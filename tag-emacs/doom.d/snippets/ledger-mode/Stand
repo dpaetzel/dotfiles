@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: Stand
+# key: stand
+# --
+`(format-time-string "%Y-%m-%d")` Stand Bar
+    Bar:David                                                0 EUR = $1 EUR
+    Bar:Regine                                               0 EUR = $2 EUR
+    Bar:Kasse                                                0 EUR = $3 EUR
+    Bar                                                      0 EUR = 0 EUR

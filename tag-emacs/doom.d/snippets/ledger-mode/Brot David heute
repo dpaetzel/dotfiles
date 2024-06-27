@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: Brot David heute
+# key: brotdh
+# --
+`(format-time-string "%Y-%m-%d")` Brot
+    EssenD                                                  $1 EUR
+    Bar:David

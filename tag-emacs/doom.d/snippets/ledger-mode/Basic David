@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: Basic David
+# key: basd
+# --
+`(format-time-string "%Y-%m-")`$1 Basic
+    Bar:David   -$2 EUR
+    EssenD

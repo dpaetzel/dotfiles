@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: spar
+# key: spar
+# --
+2019-08-$1 Spar Luz
+    Bar:David   -$2 EUR
+    EssenD

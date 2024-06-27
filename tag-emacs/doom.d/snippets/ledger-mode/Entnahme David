@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: entd
+# key: entd
+# --
+`(format-time-string "%Y-%m-")`$1 Entnahme David
+    Bar:David   $2 EUR
+    Bar:Kasse
+

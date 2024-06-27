@@ -3,8 +3,8 @@
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
-(setq user-full-name "David Pätzel"
-      user-mail-address "david.paetzel@posteo.de")
+;; (setq user-full-name "David Pätzel"
+;;       user-mail-address "david.paetzel@posteo.de")
 
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
@@ -48,11 +48,23 @@
 ;; they are implemented.
 
 
+;; Fish (and possibly other non-POSIX shells) is known to inject garbage
+;;   output into some of the child processes that Emacs spawns. Many Emacs
+;;   packages/utilities will choke on this output, causing unpredictable
+;;   issues. To get around this, either:
+;;
+;;     - Add the following to $DOOMDIR/config.el:
+(setq shell-file-name (executable-find "bash"))
+
+
 (load "server")
 (unless (server-running-p) (server-start))
 
 
 (setq doom-localleader-key ",")
+
+
+(setq shell-file-name "/bin/sh")
 
 
 (defun alternate-buffer ()
@@ -130,6 +142,18 @@ current frame."
   ;;                  (when (eq major-mode 'python-mode)
   ;;                    (yapfify-buffer))))
   )
+(use-package! python-black
+  :demand t
+  :after python
+  :config
+  (add-hook! 'python-mode-hook #'python-black-on-save-mode)
+  ;; Feel free to throw your own personal keybindings here
+  (map! :leader :desc "Blacken Buffer" "m b b" #'python-black-buffer)
+  (map! :leader :desc "Blacken Region" "m b r" #'python-black-region)
+  (map! :leader :desc "Blacken Statement" "m b s" #'python-black-statement)
+)
+
+
 ;; Broken as of 2024-03-14 (hangs in iterations)
 ;;
 ;; (require 'julia-formatter)
@@ -264,10 +288,20 @@ current frame."
         find-file-hook)
     (funcall orig-fn file)))
 
-
 (require 'f)
+(defun open-file-with-timestamp-and-insert-filename ()
+  "Open a file in the specified directory with a timestamp and insert its filename in double brackets [[ ]]."
+  (interactive)
+  (let* ((file-name (f-base (f-no-ext (buffer-file-name))))
+         (timestamp (format-time-string "%Y%m%d_%H%M%S"))
+         (new-file-name (concat "/home/david/Zettels/static/" timestamp "_" file-name)))
+    (insert (concat "[[" (f-base new-file-name) "]] "))
+    (find-file new-file-name)))
+
+
+
 (defun insert-screenshot ()
-  "Take a screenshot into a time stamped unique-named file in the same directory
+  "Take a screenshot into a time-stamped unique-named file in the same directory
   as the current buffer and insert an embedding Obsidian link to this file.
 
   Taken from https://orgmode.org/worg/org-hacks.html#org1eba0c6 ."
@@ -285,4 +319,146 @@ current frame."
           id
           ".png")))
       (call-process "import" nil nil nil filename)
-      (insert (concat "![[" id "]]"))))
+      (insert (concat "![[" id ".png]]"))))
+
+
+(defun insert-file ()
+  "Copy a file to a time-stamped unique-named file in the same directory as
+  the current buffer and insert an embedding Obsidian link to this file."
+  (interactive)
+  (let* ((file-name (f-base (f-no-ext (buffer-file-name))))
+         (timestamp (format-time-string "%Y%m%d_%H%M%S"))
+         (source-file-path (read-file-name "Select file to copy: "))
+         (source-base-name (file-name-nondirectory source-file-path))
+         (new-file-name (concat "/home/david/Zettels/static/" file-name "_" timestamp "_" source-base-name)))
+    (copy-file source-file-path new-file-name t)
+    (insert (concat "![[" (file-name-nondirectory new-file-name) "]] "))))
+
+
+(defun archive-zettel ()
+  "Archive the current Zettel.
+  Maintains the subdirectory structure from the original path but replaces
+  the root."
+  (interactive)
+  (let*
+      ((file-name (buffer-file-name))
+       (new-file-name
+        (replace-regexp-in-string
+         "Zettels/[^/]*/" "Zettels/4Archive/" file-name)))
+    (make-directory (file-name-directory new-file-name) t)
+    (rename-file file-name new-file-name)
+    ;; Update buffer to point to the new file location.
+    (set-visited-file-name new-file-name)
+    (set-buffer-modified-p nil)
+    (message (concat "Moved " file-name " to " new-file-name))))
+
+
+(defun scrum-daily ()
+  (interactive)
+  (let ((file-path (concat "~/.todo/dailies/" (format-time-string "%Y-%m-%d") ".txt")))
+    (find-file file-path)
+    (unless (file-exists-p file-path)
+      (insert "\n\nConcentration:\nProductivity:\nFun:\nStress:\nMood:\nHappiness:\n\nTime:\n")
+      (save-buffer))))
+
+
+(require 'org)
+(defun scrum-tomorrow ()
+  (interactive)
+(let* ((current-date (current-time))
+       (next-weekday (org-read-date nil nil nil "Next weekday"))
+       (next-weekday-date (org-time-string-to-time next-weekday))
+       (next-weekday-string (format-time-string "%Y-%m-%d" next-weekday-date)))
+        (find-file (concat "~/.todo/CURRENTSPRINT/" next-weekday-string ".org"))))
+
+
+(defun scrum-today ()
+  (interactive)
+  (let ((date (format-time-string "%Y-%m-%d")))
+    (find-file (concat "~/.todo/CURRENTSPRINT/" date ".org"))))
+
+
+(defun scrum-sprint ()
+  (interactive)
+  (find-file (concat "~/.todo/CURRENTSPRINT/Sprint.org")))
+
+
+(defun scrum-retro ()
+  (interactive)
+  (find-file (concat "~/.todo/CURRENTSPRINT/Retrospective.md")))
+
+
+;; (defun open-kanban ()
+;;   "Open multiple files in side-by-side windows."
+;;   (interactive)
+;;   (delete-other-windows)  ;; Optional: Clear other windows if any
+;;   (find-file "a.txt")  ;; Open a.txt in the first window
+;;   (split-window-horizontally)  ;; Split the window into two
+;;   (find-file "b.txt")  ;; Open b.txt in the new window
+;;   (other-window 1)  ;; Switch to the first window
+;;   (split-window-horizontally)  ;; Split the window into three
+;;   (find-file "c.txt")  ;; Open c.txt in the new window
+;;   (balance-windows))  ;; Optional: Balance the window sizes
+
+
+
+;; Does not work yet.
+;; (setq hs-special-modes-alist
+;;       (append
+;;        '((neuron-mode "{{{" "}}}"))
+;;       hs-special-modes-alist)
+;;  )
+
+
+;; https://github.com/doomemacs/doomemacs/issues/581#issuecomment-895462086
+(defun dlukes/ediff-doom-config (file)
+  "ediff the current config with the examples in doom-emacs-dir
+
+There are multiple config files, so FILE specifies which one to
+diff.
+"
+  (interactive
+    (list (read-file-name "Config file to diff: " doom-private-dir)))
+  (let* ((stem (file-name-base file))
+          (customized-file (format "%s.el" stem))
+          (template-file-regex (format "^%s.example.el$" stem)))
+    (ediff-files
+      (concat doom-private-dir customized-file)
+      (car (directory-files-recursively
+             doom-emacs-dir
+             template-file-regex
+             nil
+             (lambda (d) (not (string-prefix-p "." (file-name-nondirectory d)))))))))
+
+
+(defun open-pdf-from-markdown-heading ()
+  "Open the PDF file corresponding to the ID in the first markdown heading."
+  (interactive)
+  (save-excursion
+    ;; Go to the beginning of the buffer
+    (goto-char (point-min))
+    ;; Search for the first heading
+    (if (re-search-forward "^# \\([^:]+\\):" nil t)
+        (let ((id (match-string 1)))
+          ;; Construct the shell command
+          (let ((command (concat "zathura ~/Literatur/" id "/*.pdf")))
+            ;; Execute the shell command in the background
+            (start-process "open-pdf" nil "sh" "-c" command)))
+      (message "No valid heading found in the current buffer"))))
+
+
+(map! :map neuron-mode-map :localleader :desc "Open associated literature" "b" #'open-pdf-from-markdown-heading)
+
+
+(defun open-pdf-from-word ()
+  "Open the PDF file corresponding to the word under the cursor."
+  (interactive)
+  (let* ((word (thing-at-point 'word t))
+         (pdf-path (concat "~/Literatur/" word "/*.pdf")))
+    (if (and word (file-expand-wildcards pdf-path))
+          (let ((command (concat "zathura " pdf-path)))
+            ;; Execute the shell command in the background
+            (start-process "open-pdf" nil "sh" "-c" command))
+      (message "No PDF found for the word under the cursor"))))
+
+(map! :map neuron-mode-map :localleader :desc "Open literature under cursor" "B" #'open-pdf-from-word)

@@ -52,11 +52,28 @@
 ;(package! builtin-package :recipe (:branch "develop"))
 
 
+(package! transient :pin "c2bdf7e12c530eb85476d3aef317eb2941ab9440")
+(package! with-editor :pin "391e76a256aeec6b9e4cbd733088f30c677d965b")
+
+
 (package! helm-nixos-options
   :recipe (:host github :repo "travisbhartwell/nix-emacs"))
 
 
 (package! yapfify)
+
+
+(package! python-black)
+
+
+;; (package! julia-mode) ;; you probably already have this line
+(package! julia-formatter
+  :recipe (:host codeberg :repo "FelipeLema/julia-formatter.el"
+           :files ( "julia-formatter.el" ;; main script executed by Emacs
+                    "formatter_service.jl" ;; script executed by Julia
+                    "Manifest.toml" "Project.toml" ;; project files
+                    )))
+
 
 
 ;; (package! flycheck-mypy)

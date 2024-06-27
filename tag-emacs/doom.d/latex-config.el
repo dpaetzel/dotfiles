@@ -2,19 +2,17 @@
 
 
 (after! latex
-
-  (map! :map LaTeX-mode-map
-        :localleader "s" #'LaTeX-section
-        :localleader "e" #'LaTeX-environment
-        :localleader "c" #'LaTeX-close-environment
-        :localleader "ii" #'LaTeX-insert-item
-        :localleader "m" #'TeX-insert-macro)
-
   (setq reftex-default-bibliography "References.bib")
 
   (add-hook! 'LaTeX-mode-hook
     (defun disable-auto-fill ()
-      (auto-fill-mode 0)))
+      (auto-fill-mode 0))
+    (map! :map LaTeX-mode-map
+          :localleader "s" #'LaTeX-section
+          :localleader "e" #'LaTeX-environment
+          :localleader "c" #'LaTeX-close-environment
+          :localleader "ii" #'LaTeX-insert-item
+          :localleader "m" #'TeX-insert-macro) )
 
   ;; LaTeX font bindings from Spacemacs
   (defun latex/font-bold () (interactive) (TeX-font nil ?\C-b))

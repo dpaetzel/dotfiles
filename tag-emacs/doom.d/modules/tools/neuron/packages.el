@@ -3,7 +3,7 @@
 
 ;; (package! neuron-mode)
 (package! neuron-mode
-  :recipe (:local-repo "/home/david/Code/neuron-mode"
+  :recipe (:local-repo "/home/david/3Ressourcen/Code/neuron-mode"
 
            ;; With this you can avoid having to run 'doom sync' every time you
            ;; change the package.

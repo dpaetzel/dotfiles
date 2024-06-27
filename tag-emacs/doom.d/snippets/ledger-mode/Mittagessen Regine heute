@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: Mittagessen Regine heute
+# key: mitrh
+# --
+`(format-time-string "%Y-%m-%d")` Mittagessen Regine
+    EssenA:Regine                                           $1 EUR
+    Bar:Regine
