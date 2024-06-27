@@ -157,8 +157,10 @@ end
 alias m='udiskie-mount -ar'
 alias mc='cd (udiskie-mount -ar | sed --regexp-extended "s/mounted .* on (.*)/\1/" | head -1)'
 alias um='udiskie-umount -a'
-alias umoc='sudo umount -l /mnt/oc-h ; sudo umount -l /mnt/oc-m'
-alias moc='sudo mount /mnt/oc-h ; sudo mount /mnt/oc-m'
+# alias umoc='sudo umount -l /mnt/oc-h ; sudo umount -l /mnt/oc-m'
+# alias moc='sudo mount /mnt/oc-h ; sudo mount /mnt/oc-m'
+alias moc="mkdir -p ~/ocm ; sudo moc mount --types cifs --options vers=3.0,credentials=/home/david/.credentials,uid=1000 '//cfs-informatik.informatik.uni-augsburg.de/oc-m' ~/ocm"
+alias umoc='sudo umount -l ~/ocm'
 
 
 alias tnat='nix-shell -p python3 --command "curl -fsSl https://raw.githubusercontent.com/tridactyl/tridactyl/master/native/install.sh | bash"'
