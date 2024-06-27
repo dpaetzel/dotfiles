@@ -499,3 +499,24 @@ end
 alias julia="julia -O 0"
 alias jp="julia -O 0 --project=."
 alias killjulias='ps aux | rg \'julia[^*]*worker\' | awk \'{ print $2 }\' | xargs kill'
+function zets -d "List Zettels by file path and title"
+    set paths $argv
+    set -l expanded_paths
+    if test (count $paths) -eq 0
+        set expanded_paths **.md
+    else
+        # Expand any directories provided recursively.
+        for path in $paths
+            if test -d $path
+                set expanded_paths $expanded_paths $path/**.md
+            else
+                set expanded_paths $expanded_paths $path
+            end
+        end
+    end
+
+    for fpath in $expanded_paths
+        # Print the first toplevel heading.
+        command awk '/^# /{print FILENAME " : " $0; exit}' $fpath
+    end
+end
