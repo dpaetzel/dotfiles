@@ -57,6 +57,7 @@ set searchurls.tu https://www.duden.de/suchen/dudenonline/
 set searchurls.tr https://www.urbandictionary.com/define.php?term=
 set searchurls.to https://en.oxforddictionaries.com/definition/
 set searchurls.tl https://www.linguee.de/deutsch-englisch/search?source=auto&query=
+set searchurls.ts https://signdict.org/search?q=%s
 " wikipedia (w)
 set searchurls.we https://en.wikipedia.org/wiki/Special:Search/
 set searchurls.wd https://de.wikipedia.org/wiki/Spezial:Suche/
