@@ -258,10 +258,12 @@ function sources
     if test -z "$argv"
         echo *.tex
         cat *.tex | grep -E '\\\\input{' | sed -E 's/.*\\\\input\{(.*)\}.*/\1.tex/'
+        cat *.tex | grep -E '\\\\include{' | sed -E 's/.*\\\\include\{(.*)\}.*/\1.tex/'
         cat *.tex | grep -E '\\\\bibliography{' | sed -E 's/.*\\\\bibliography\{(.*)\}.*/\1.bib/'
     else
         echo $argv
         cat $argv | grep -E '\\\\input{' | sed -E 's/.*\\\\input\{(.*)\}.*/\1.tex/'
+        cat *.tex | grep -E '\\\\include{' | sed -E 's/.*\\\\include\{(.*)\}.*/\1.tex/'
         cat $argv | grep -E '\\\\bibliography{' | sed -E 's/.*\\\\bibliography\{(.*)\}.*/\1.bib/'
     end
 end
