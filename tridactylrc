@@ -134,6 +134,10 @@ command translate js let googleTranslateCallback = document.createElement('scrip
 " New reddit is bad
 autocmd DocStart ^http(s?)://www.reddit.com js tri.excmds.urlmodify("-t", "www", "old")
 
+" Let's give Wikiwand a try.
+autocmd DocStart ^http(s?)://.*.wikipedia.org js tri.excmds.urlmodify("-r", "^.*//([^.]*).wikipedia.org/wiki/(.*)", "https://www.wikiwand.com/$1/$2")
+
+
 " " mappings {{{
 " " general
 " nmap -builtin -javascript <C-R> plugins.tabgroups.tabGroup.appTabs.map (function (tab) config.tabbrowser.reloadTab (tab))
