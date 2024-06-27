@@ -17,10 +17,14 @@ set editorcmd emacsclient -a emacs
 
 
 " Only hint search results on Google and DDG (from https://github.com/tridactyl/tridactyl/blob/master/doc/newsletters/tips-and-tricks/1-hint-css-selectors.md)
+
+" Only hint search results on Google and DDG (from
+" https://github.com/tridactyl/tridactyl/blob/master/doc/newsletters/tips-and-tricks/1-hint-css-selectors.md
 bindurl www.google.com f hint -Jc .rc > div > a
 bindurl www.google.com F hint -Jbc .rc > div > a
 bindurl ^https://duckduckgo.com f hint -Jc [class=result__a]
 bindurl ^https://duckduckgo.com F hint -Jbc [class=result__a]
+bindurl ^https://www.startpage.com f hint -Jc a>h2
 
 
 " Wikiwand is great, but let's copy the original URLs.
