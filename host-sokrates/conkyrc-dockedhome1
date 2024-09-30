@@ -108,7 +108,7 @@ conky.config = {
 conky.text = [[
   ${texecpi 10 ~/.conky/scripts/networkmanager-profiles}    \
 $color\
-${texeci 60 ~/Bin/global-ip} ${font Symbola:size=11}${texeci 10 ~/.conky/scripts/ping-status-inet}${font}${voffset -1}    \
+${texeci 60 global-ip} ${font Symbola:size=11}${texeci 10 ~/.conky/scripts/ping-status-inet}${font}${voffset -1}    \
 $alignr\
 $color2\
 ${texecpi 5 ~/.conky/scripts/info-spotify}  \
@@ -116,7 +116,7 @@ ${texecpi 5 ~/.conky/scripts/info-spotify}  \
   >> BREATH. <<\
 ${alignr 30}\
 $color\
-${texecpi 5 ~/Bin/pomodoro conky}    \
+${texecpi 5 pomodoro conky}    \
 $color2\
 ${texecpi 5 ~/.conky/scripts/modifiers}\
 $color\
