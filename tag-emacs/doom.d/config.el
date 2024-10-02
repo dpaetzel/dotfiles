@@ -318,7 +318,7 @@ current frame."
           "/home/david/Zettels/static/"
           id
           ".png")))
-      (call-process "import" nil nil nil filename)
+      (call-process "/home/david/5Code/utility/shot" nil nil nil "save-as" filename)
       (insert (concat "![[" id ".png]]"))))
 
 
