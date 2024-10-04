@@ -14,9 +14,9 @@ function getDbusMetadata
 end
 
 
-set title (getDbusMetadata |egrep -A 1 "title"|egrep -v "title"|cut -b 44-|cut -d '"' -f 1|egrep -v '^$')
-set artist (getDbusMetadata | egrep -A 2 "artist"|egrep -v "artist"|egrep -v "array"|cut -b 27-|cut -d '"' -f 1|egrep -v '^$')
-set album (getDbusMetadata |egrep -A 1 "album"|egrep -v "album"|cut -b 44-|cut -d '"' -f 1|egrep -v '^$')
+set title (getDbusMetadata |egrep -A 1 "title"|egrep -v "title"|cut -b 44-|sed 's/.$//'|egrep -v '^$')
+set artist (getDbusMetadata | egrep -A 2 "artist"|egrep -v "artist"|egrep -v "array"|cut -b 27-|sed 's/.$//'|egrep -v '^$')
+set album (getDbusMetadata |egrep -A 1 "album"|egrep -v "album"|cut -b 44-|sed 's/.$//'|egrep -v '^$')
 
 
 function output
