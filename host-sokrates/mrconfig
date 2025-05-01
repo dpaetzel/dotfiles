@@ -1,7 +1,0 @@
-# -*- mode: conf; -*-
-
-
-include = cat $HOME/.git.mrconfig
-
-
-include = cat $HOME/.gitlab.mrconfig

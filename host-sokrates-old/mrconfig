@@ -1,0 +1,10 @@
+# -*- mode: conf; -*-
+
+
+include = cat $HOME/.git.mrconfig
+
+
+include = cat $HOME/.gitlab.mrconfig
+
+[Zettels2/Zettels2]
+checkout = git clone '/mnt/HoefflCloud/HoefflCloud/David/Zettels2' 'Zettels2'
